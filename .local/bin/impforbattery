@@ -10,3 +10,11 @@ ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}==
 crontab -e
    */5  * * * * ~/.local/bin/batterynotify
 yay -S udev cronie xidlehook betterlockscreen acpi cronie
+
+##########THumbnailer for thunar #################
+ffmpegthumbnailer
+poppler
+
+###Nvim as default launcher for alacritty  #####
+change /usr/share/applications/nvim.desktop 
+    TryExec=alacritty Exec=alacritty -e nvim
