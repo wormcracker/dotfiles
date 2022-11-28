@@ -1,0 +1,30 @@
+#!/bin/env bash
+
+# Kill if already running
+killall -9 xsettingsd sxhkd dunst xfce4-power-manager bspc
+killall redshift nitrogen copyq xidlehook mpd musinify-mpd
+
+# Autostart
+#picom &
+sxhkd -c &
+nitrogen --restore &
+xsetroot -cursor_name left_ptr &
+#xfce4-power-manager &
+$HOME/.config/polybar/launch.sh &
+xmodmap -e "add mod3 = Scroll_Lock"
+redshift &
+copyq &
+#clipmenud &
+numlockx on &
+dunst &
+exec mpd &
+musnify-mpd &
+xset b off &
+conky &
+dex -a -s ~/.config/autostart/ &
+/usr/lib/xfce-polkit/xfce-polkit &
+xidlehook --not-when-audio --timer 160 'betterlockscreen -l' '' &
+
+# Start bspwm scripts
+bspwinmask &
+
