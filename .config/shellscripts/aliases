@@ -1,6 +1,5 @@
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias vpn='sh ~/.config/shellscripts/vpn/vpn.sh'
-alias c='clear'
 alias js='systemctl start jellyfin.service'
 alias je='systemctl stop jellyfin.service'
 alias jstatus='systemctl status jellyfin.service'
