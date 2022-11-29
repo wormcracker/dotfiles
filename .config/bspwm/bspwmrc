@@ -25,7 +25,8 @@ bspc rule -a Steam         desktop='^6' state=tiled follow=off
 bspc rule -a thunderbird   desktop='^5' state=tiled follow=on
 bspc rule -a Virt-manager  desktop='^4' state=tiled follow=on
 bspc rule -a copyq  	   desktop='^4' state=tiled follow=on
-bspc rule -a qBittorrent     desktop='^5' state=tiled follow=on
+bspc rule -a qBittorrent   desktop='^5' state=tiled follow=on
+bspc rule -a VSCodium      desktop='^3' state=tiled follow=on
 bspc rule -a mpv --player-operation-mode=pseudo-gui state=floating
 bspc rule -a xdman-Main    state=floating
 bspc rule -a scrcpy        state=floating
