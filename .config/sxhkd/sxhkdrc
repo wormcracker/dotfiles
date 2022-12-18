@@ -195,7 +195,9 @@ ctrl + alt + Escape
 #websearch
 alt + z 
 	dsearch
-
+#backlight
+super + shift + z
+	.local/bin/keyboard-backlight.sh
 
  
 
