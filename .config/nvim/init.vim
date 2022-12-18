@@ -14,7 +14,10 @@ Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/preservim/tagbar' " Sidebar
 Plug 'https://github.com/glepnir/dashboard-nvim' "Dashboard
 Plug 'https://github.com/junegunn/fzf.vim' "Finder
+Plug 'https://github.com/Raimondi/delimitMate' "To start and end with same symbol automatically
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
+Plug 'https://github.com/farmergreg/vim-lastplace' "last leftover position
+Plug 'https://github.com/preservim/vim-markdown' "Colors
 
 call plug#end()
 
