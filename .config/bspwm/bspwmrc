@@ -17,7 +17,8 @@ bspc config focused_border_color "#00FFFF"
 
 bspc rule -a Brave-browser desktop='^2' state=tiled follow=on
 bspc rule -a Thunar		   desktop='^1' follow=on   focus=on
-bspc rule -a Alacritty	   state=floating center=true rectangle=1376x625+0+0
+# bspc rule -a Alacritty	   state=floating center=true rectangle=1376x625+0+0
+bspc rule -a Alacritty	   desktop='^3'  state=tiled follow=on focus=on 
 bspc rule -a Geany  	   desktop='^3' state=tiled follow=on
 bspc rule -a Zathura       desktop='^3' state=tiled follow=on
 bspc rule -a discord       desktop='^7' state=tiled follow=on
