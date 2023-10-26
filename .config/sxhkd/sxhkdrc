@@ -1,0 +1,227 @@
+#
+# wm independent hotkeys
+#
+
+# Terminal (kitty)
+super + Return
+	kitty
+
+##---------- Rofi Launcher & Menus ----------##
+
+# Rofi Network Menu
+super + space 
+	sh ~/.config/rofi/launcher/launcher
+
+# Rofi Menus/Applets
+super + x
+	sh ~/.config/rofi/powermenu/powermenu
+
+alt + l 
+  betterlockscreen -l dimblur
+
+#mpd player
+super + b 
+	sh ~/.config/rofi/bin/mpd
+
+#opened windows
+super + Tab   	
+	sh ~/.config/rofi/bin/windows
+
+#networkmanager menu
+# super +n 
+# networkmanager_dmenu
+	
+##---------- Applications ----------##
+
+# Launch Apps
+super + {z,a}
+	{networkmanager_dmenu,mpv --player-operation-mode=pseudo-gui}
+
+super + shift + Return
+	thunar 
+
+super + v 
+  viber
+alt + w
+  feh --bg-fill --randomize ~/Pictures/Wallpaper/*
+
+# Terminal Apps
+ctrl + alt + {r,h}
+	kitty -e {ranger,btop}
+
+ctrl + alt + v
+  alacritty -e nvim
+# Lockscreen
+super + ctrl + x 
+    systemctl suspend  
+
+##---------- System Keys ----------##
+
+# Take a screenshot
+Print
+	 flameshot gui
+	
+# Take screenshot in 5 second
+alt + Print	
+	flameshot full -c -p /mnt/Files/0Linux/Pictures/Screenshots/
+
+# Take screenshot in 10 second
+shift + Print	
+	flameshot gui -d 2000
+
+# Take screenshot of active window
+ctrl + Print
+	flameshot full -c -p /mnt/Files/0Linux/Pictures/Screenshots/
+	
+# Brighness control
+XF86MonBrightness{Up,Down}
+  {sh ~/.local/bin/switch-output/brightness-up,sh ~/.local/bin/switch-output/brightness-down}
+	
+# Volume control
+XF86Audio{RaiseVolume,LowerVolume}
+  {sh ~/.local/bin/switch-output/increase-volume,sh ~/.local/bin/switch-output/decrease-volume}
+
+XF86AudioMute
+  sh ~/.local/bin/switch-output/volume-mute
+
+XF86AudioMicMute
+  amixer sset Capture nocap
+	
+# Music control
+XF86Audio{Next,Prev,Play,Stop}
+	mpc {next,prev,toggle,stop}
+	
+# bspwm hotkeys                    ##---------- Bspwm ----------##
+#
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}
+	
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+	
+# close and kill
+super + {_,shift + }w
+	bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+	
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {m,x,c,z}
+	bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+super + grave
+	bspc node -f last
+alt + Tab
+	bspc desktop -f last
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+#
+# preselect
+#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+	
+# Hide/Unhide Window
+super + i
+	bspwinmask		
+
+alt + Return
+  bspterm --float
+		
+# kill window
+ctrl + alt + x
+    xkill
+
+# Quicklink
+alt + c
+	~/.config/rofi/bin/rofi-quicklink
+alt + f
+ ~/.config/rofi/bin/rofi-finder
+
+# switch between output devices
+super + shift + o
+  sh ~/.local/bin/switch-output/switched-speaker
+
+super + o
+  sh ~/.local/bin/switch-output/switched-headphone
+
+super + shift + m
+  sh ~/.local/bin/switch-output/volume-mute
+
+alt + {equal,minus}
+  {sh ~/.local/bin/switch-output/increase-volume,sh ~/.local/bin/switch-output/decrease-volume}
+
+alt + shift + {equal,minus}
+  {sh ~/.local/bin/switch-output/brightness-up,sh ~/.local/bin/switch-output/brightness-down}
