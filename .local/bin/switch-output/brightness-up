@@ -1,4 +1,5 @@
 #!/bin/sh
   brightnessctl set 5%+
+  dunstctl close &
   brightnessctl | grep "brightness" | awk '{print $4}' | tr -d '()' | xargs -I{} notify-send "󰃠  Brightness: {}" -t 1500
   exit 0
