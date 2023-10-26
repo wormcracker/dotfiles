@@ -1,0 +1,6 @@
+#!/bin/bash
+    amixer set Capture cap
+    notify-send "  Microphone: unmuted" -t 1500
+  exit 0
+
+

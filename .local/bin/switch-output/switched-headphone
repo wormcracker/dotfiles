@@ -1,0 +1,4 @@
+#!/bin/sh
+  bluetoothctl power off
+  notify-send "Audio switched" "Headphone" -t 1500
+  pactl set-sink-port 0 analog-output-headphones

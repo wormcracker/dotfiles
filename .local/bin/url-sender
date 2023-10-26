@@ -1,0 +1,13 @@
+#!/bin/sh
+file=$(rofi -dmenu -i -fn Monospace-14 -l 5 -p "  File Full Path to upload : " )
+links=$(curl -F "file=@$file" 0x0.st)
+echo "$links" | printf %s "$(< /dev/stdin)"| xclip -sel c 
+
+if [[ -z "$links" ]]; then
+    # Return null if no input is provided
+	notify-send "Error" "Enter correct file path" -t 2200
+    exit 0
+  else    
+    echo "File name : $file   Link : $links" >> /mnt/Files/0Linux/Documents/Server_link.txt 
+    notify-send "📁Your file  in 📋" -t 1800
+fi

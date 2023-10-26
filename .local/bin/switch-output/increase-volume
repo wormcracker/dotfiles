@@ -1,0 +1,10 @@
+#!/bin/sh
+	amixer -D pulse sset Master 5%+
+  amixer get Master | grep -oE '[0-9]{1,3}?%' | head -1 | xargs -I{} notify-send "󰝝  Volume: {}" -t 1500
+  exit 0
+
+
+
+
+
+

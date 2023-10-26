@@ -1,0 +1,4 @@
+#!/bin/sh
+  bluetoothctl power off
+  notify-send "Audio switched" "Speaker" -t 1500
+  pactl set-sink-port 0 analog-output-speaker

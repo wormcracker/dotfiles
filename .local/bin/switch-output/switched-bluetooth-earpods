@@ -1,0 +1,6 @@
+#!/bin/sh
+  bluetoothctl power on
+  bluetoothctl connect "8C:6D:B9:15:DC:CD"
+  pactl set-default-sink "bluez_sink.8C_6D_B9_15_DC_CD.a2dp_sink"
+  notify-send "Audio switched" "Bluetooth Earpod" -t 1500
+  exit 0
