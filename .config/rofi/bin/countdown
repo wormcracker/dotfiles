@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Function to display the Rofi menu and ask for countdown time
+ask_time() {
+    local time_format=$(echo -e "Minutes\nSeconds" | rofi -dmenu -i -p "Countdown Time:")
+    if [[ $time_format == "Seconds" ]]; then
+      local time_input=$(rofi -dmenu -i -p "Enter countdown time (in seconds):")
+      local  check=$(if [[ -z "$time_input" ]]; then
+      sh ~/.config/rofi/bin/countdown
+      exit 0 
+    else
+      countdown "$time_input"
+      fi)
+    elif 
+      [[ $time_format == "Minutes" ]]; then
+      local time_input=$(rofi -dmenu -i -p "Enter countdown time (in minutes):")
+      local check=$(if [[ -z "$time_input" ]]; then
+      sh ~/.config/rofi/bin/countdown
+      exit 0
+    else
+      time_input1=$((time_input * 60))  # Convert minutes to seconds
+      countdown "$time_input1"
+      fi
+    )
+    fi
+}
+# Function to play the ending audio
+play_audio() {
+    local audio_file="/mnt/Files/0Linux/Music/Effects/mixkit-retro-game-emergency-alarm-1000.wav"   
+    mpv --speed=2.0 --volume=175 --no-save-position-on-quit --no-keep-open "$audio_file"
+}
+
+# Function to perform the countdown
+countdown() {
+    local seconds=$1
+notify-send "Countdown" "Set for \n$time_input $time_format" -t 1500
+    while [ $seconds -gt 0 ]; do
+        sleep 1
+        ((seconds--))
+    done
+    notify-send -u critical "Countdown" "$time_input $time_format\nfinished...."
+    play_audio 
+  }
+ask_time

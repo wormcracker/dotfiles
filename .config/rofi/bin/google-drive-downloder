@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Function to display a notification
+function show_notification() {
+    notify-send "Google Drive Download" "$1"
+}
+
+# Function to download the file with max speed
+function download_file() {
+    # Start notification
+    show_notification "Downloading file from Google Drive..." -t 1500
+
+    # Download the file with maximum speed
+    gdown -O /mnt/Downloads/1windows/Downloads/ -c --fuzzy --folder $url
+
+    # End notification
+    show_notification "Download completed." 
+}
+
+# Rofi menu to enter the Google Drive URL
+url=$(rofi -dmenu -p "Enter Google Drive URL:")
+
+# Check if the URL is not empty
+if [[ -z "$url" || $url != https://drive.google.com/* ]]; then
+  # Show an error notification if the URL is empty
+    show_notification "Error: URL entered."
+else
+  # Start downloading the file
+    download_file "$url"
+exit 0
+fi
+
+exit 0
