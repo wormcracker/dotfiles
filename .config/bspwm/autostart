@@ -20,7 +20,7 @@ exec mpd &
 musnify-mpd &
 xset b off 
 /usr/lib/xfce-polkit/xfce-polkit &
-xdman &
+"/opt/xdman/xdm-app" --background &
 copyq &
 $HOME/.local/bin/auto_lock &
 # Start bspwm scripts
