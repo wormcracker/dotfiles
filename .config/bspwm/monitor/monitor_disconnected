@@ -1,0 +1,14 @@
+#!/bin/env bash
+bspc monitor eDP-1 -d 1
+bspc desktop 2 --to-monitor eDP-1
+bspc desktop 3 --to-monitor eDP-1
+bspc desktop 4 --to-monitor eDP-1
+bspc desktop 5 --to-monitor eDP-1
+bspc desktop 6 --to-monitor eDP-1
+bspc desktop 7 --to-monitor eDP-1
+bspc desktop 8 --to-monitor eDP-1
+bspc desktop 9 --to-monitor eDP-1
+sh ~/.fehbg  &
+##To run conky on main monitor 
+killall -q conky
+conky -c ~/.config/conky/conky_disconnected.conf &

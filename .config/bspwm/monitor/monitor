@@ -1,0 +1,11 @@
+#!/bin/env bash
+if [[ $(xrandr -q | grep 'HDMI-1-0 connected') ]];then
+  ~/.config/bspwm/monitor/monitor_connected
+else
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9
+sh ~/.fehbg  &
+##To run conky on main monitor 
+$HOME/.config/polybar/launch.sh &
+killall -q conky
+conky -c ~/.config/conky/conky_disconnected.conf &
+fi
