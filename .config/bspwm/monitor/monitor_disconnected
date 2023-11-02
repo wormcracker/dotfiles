@@ -1,4 +1,5 @@
 #!/bin/env bash
+xrandr --output eDP-1 --primary --mode 1920x1080 -r 60.02 --rotate normal 
 bspc monitor eDP-1 -d 1
 bspc desktop 2 --to-monitor eDP-1
 bspc desktop 3 --to-monitor eDP-1

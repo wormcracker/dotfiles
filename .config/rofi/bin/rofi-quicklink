@@ -75,7 +75,7 @@ elif [ "$search_engine" = "  Lofi" ]; then
 	mpv --fs Videos/lofi
 elif [ "$search_engine" = "󰌠  Web" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
-	mpv  /home/vein-pc/Study/computer/python/Python_FullCourse/
+	mpv ~/Study/computer/python/Python_FullCourse/
 elif [ "$search_engine" = "  BIT" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	brave "https://bitnepal.blogspot.com/"
