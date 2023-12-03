@@ -32,7 +32,7 @@ window {
     y-offset:                    0px;
 
     padding:                     0px;
-    border:                      4px;
+    border:                      0px;
     border-radius:               6px;
     border-color:                @selected;
     cursor:                      "default";

@@ -72,6 +72,7 @@ case $chosen in
         # notify-send "$(mpc current | cut -d- -f2)" "$(mpc current | cut -d- -f1)" -t 2000
         ;;
     $button_stop)
+        killall ncmpcpp
         kitty -e ncmpcpp
         ;;
     $button_next)

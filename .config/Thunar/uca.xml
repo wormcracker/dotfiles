@@ -5,7 +5,7 @@
 	<name>Open Terminal Here</name>
 	<submenu></submenu>
 	<unique-id>1686455025191048-1</unique-id>
-	<command>alacritty</command>
+	<command>kitty</command>
 	<description>Open terminal in Current file</description>
 	<range></range>
 	<patterns>*</patterns>

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the search engine
-search_engine=$(echo -e "󰵀  Subscription\n  Recent\n󰊫  Gmail\n󰛜  Keep\n  Drive\n  Telegram\n  Recorder\n󰎕  News\n  Sharing\n󰎟  Notice\n  Type\n  Chatgpt\n󰻞  Bard\n  Github\n  Server\n  Fonts\n  Calender\n  History\n󱛾  Movie\n󰊻  Teams\n󰋀  Classroom\n󰼁  Jellyfin\n  Lofi\n󰌠  Web\n  BIT\n  Routine\n󰖂  VPN\n󰷶  Workout\n  Todo\n󱑤  Downloads\n󱑤  ytdownloader\n󱑤  gdrivedownloader\n󰥔  Clock\n  Config\n  Study\n󰷉  Documents\n  Pictures\n󰝱  Guitar\n󰲑  Ipo\n  Mic-Mute\n  Mic-UnMute\n  Blue-Earpod\n  Blue-Speaker\n󰓃  Speaker\n󰋌  Headphone\n Ref-Battery\n Ref-Power\n󰶐  Mon-Dis\n󰍹  Mon-Connect\n󰃉  Colorpicker\n󱎫  Timer\n   RGB enable\n   RGB Off\n󰌁  RGB Voilet\n󰌁  RGB Bluish\n󰌁  RGB Yellowish\n󰌁  RGB White\n  Google\n  YouTube\n  Dictionary\n  Shopping\n󰈌  Facebook\n  Instagram\n󱜂  MovieSearch\n󰦠  Show\n󱐡  Private\n󱐡  gpt\n  Link\n  Add" | rofi -dmenu -i -fn 32 -p " Choose your search engine:")
+search_engine=$(echo -e "󰵀  Subscription\n  Recent\n󰊫  Gmail\n󰛜  Keep\n  Drive\n  Telegram\n  Recorder\n󰎕  News\n  Sharing\n󰎟  Notice\n  Type\n  Chatgpt\n󰻞  Bard\n  Github\n  Server\n  Fonts\n  Calender\n  History\n󱛾  Movie\n󱛾  Moviee\n󰊻  Teams\n󰋀  Classroom\n󰼁  Jellyfin\n  Lofi\n󰌠  Web\n  BIT\n  Routine\n󰖂  VPN\n󰷶  Workout\n  Todo\n󱑤  Downloads\n󱑤  ytdownloader\n󱑤  gdrivedownloader\n󰟚  Metronome\n󰥔  Clock\n  Config\n  Study\n󰷉  Documents\n  Pictures\n󰝱  Guitar\n󰲑  Ipo\n  Mic-Mute\n  Mic-UnMute\n  Blue-Earpod\n  Blue-Speaker\n󰓃  Speaker\n󰋌  Headphone\n Ref-Battery\n Ref-Power\n󰶐  Mon-Dis\n󰍹  Mon-Connect\n󰃉  Colorpicker\n󱎫  Timer\n   RGB enable\n   RGB Off\n󰌁  RGB Voilet\n󰌁  RGB Bluish\n󰌁  RGB Yellowish\n󰌁  RGB White\n  Google\n  YouTube\n  Dictionary\n  Shopping\n󰈌  Facebook\n  Instagram\n󱜂  MovieSearch\n󰦠  Show\n󱐡  Private\n󱐡  gpt\n  Link\n  Add" | rofi -dmenu -i -fn 32 -p "  Choose your search engine:")
 
 # Determine which search engine was chosen and build the URL
 if [ "$search_engine" = "󰵀  Subscription" ]; then
@@ -15,7 +15,7 @@ elif [ "$search_engine" = "󰊫  Gmail" ]; then
 	brave "https://mail.google.com/mail/u/1/#inbox"
 elif [ "$search_engine" = "  Drive" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
-	brave "https://drive.google.com/drive/u/1/my-drive"
+	brave "https://drive.google.com/drive/u/1/recent"
 elif [ "$search_engine" = "󰛜  Keep" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	brave "https://keep.google.com/u/1/"
@@ -60,7 +60,11 @@ elif [ "$search_engine" = "  History" ]; then
 	brave "https://www.youtube.com/feed/history"
 elif [ "$search_engine" = "󱛾  Movie" ]; then
 	notify-send "Opening $search_engine" "Ready to watch" -t 1500
-	brave "https://mkvcinemas.blog/" "https://moviesmod.net/korean-series/" "https://hdhub4u.team/" "https://katmoviehd.cat/" "https://allmovieshub.photos/" "https://thekhatrimaza.baby/" "https://filmyzillalol.net/" "https://bollyflix.hair/" "https://olamovies.homes/"
+	brave "https://mkvcinemas.blog/" "https://moviesmod.net/korean-series/" "https://hdhub4u.team/" "https://katmoviehd.cat/" "https://allmovieshub.photos/" "https://thekhatrimaza.baby/" "https://filmyzillalol.net/" "https://bollyflix.hair/" "https://olamovies.homes/" "https://1xbetmovies.one/"
+elif [ "$search_engine" = "󱛾  Moviee" ]; then
+	notify-send "Opening $search_engine" "Ready to watch" -t 1500
+  brave
+	brave "https://mkvcinemas.blog/" "https://moviesmod.net/korean-series/" "https://hdhub4u.team/" "https://katmoviehd.cat/" "https://allmovieshub.photos/" "https://thekhatrimaza.baby/" "https://filmyzillalol.net/" "https://bollyflix.hair/" "https://olamovies.homes/" "https://1xbetmovies.one/"
 elif [ "$search_engine" = "󰊻  Teams" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	brave "https://teams.microsoft.com/_#/school/teams-grid/General?ctx=teamsGrid"
@@ -69,7 +73,7 @@ elif [ "$search_engine" = "󰋀  Classroom" ]; then
 	brave "https://classroom.google.com/u/1/h"
 elif [ "$search_engine" = "󰼁  Jellyfin" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
-	brave "http://192.168.16.103:8096/web/index.html#!/home.html"
+	brave "http://192.168.16.105:8096/web/index.html#!/home.html"
 elif [ "$search_engine" = "  Lofi" ]; then
 	notify-send "Playing $search_engine" "Relax" -t 1500
 	mpv --fs Videos/lofi
@@ -79,6 +83,9 @@ elif [ "$search_engine" = "󰌠  Web" ]; then
 elif [ "$search_engine" = "  BIT" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	brave "https://bitnepal.blogspot.com/"
+elif [ "$search_engine" = "󰟚  Metronome" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+	brave "https://stonekick.com/metronomebeats/"
 elif [ "$search_engine" = "󱎫  Timer" ]; then
   ~/.config/rofi/bin/countdown
 elif [ "$search_engine" = "  Mic-Mute" ]; then
@@ -264,7 +271,7 @@ elif [ "$search_engine" = "󱜂  MovieSearch" ]; then
   else
     notify-send "Searching $query" "$search_engine" -t 2200
     echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave "https://www.mkvcinemas.blog/?s=$query" "https://olamovies.homes/?s=$query" "https://moviesmod.net/?s=$query" "https://hdhub4u.team/?s=$query" "https://bollyflix.hair/?s=$query" "https://katmoviehd.ma/?s=$query" "https://cineb.rs/search/$query" "https://allmovieshub.photos/?s=$query"
+    brave "https://www.mkvcinemas.blog/?s=$query" "https://olamovies.homes/?s=$query" "https://moviesmod.net/?s=$query" "https://hdhub4u.team/?s=$query" "https://bollyflix.hair/?s=$query" "https://katmoviehd.ma/?s=$query" "https://cineb.rs/search/$query" "https://allmovieshub.photos/?s=$query" "https://1xbetmovies.one/?s=$query"
 fi
 )
 elif [ "$search_engine" = "  Link" ]; then

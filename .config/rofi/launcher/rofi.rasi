@@ -42,7 +42,7 @@ window {
 
     /* properties for all widgets */
     enabled:                     true;
-    border:                      4px;
+    border:                      0px;
     border-color:                @selected;
     border-radius:               6px;
     cursor:                      "default";

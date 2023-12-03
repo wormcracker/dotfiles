@@ -7,5 +7,6 @@ sh ~/.fehbg  &
 ##To run conky on main monitor 
 $HOME/.config/polybar/launch.sh &
 killall -q conky
-conky -c ~/.config/conky/conky_disconnected.conf &
+# conky -c ~/.config/conky/conky_disconnected.conf &
+conky &
 fi

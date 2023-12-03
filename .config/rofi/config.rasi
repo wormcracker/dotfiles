@@ -1,6 +1,6 @@
 configuration {
     show-icons: true;
-    terminal: "wezterm start";
+    terminal: "kitty -e ";
 	drun-display-format:        "{name}";
     disable-history: false;
     hide-scrollbar: true;

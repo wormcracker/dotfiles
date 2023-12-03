@@ -2,10 +2,9 @@
 
 # Kill if already running
 killall -9 xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar redshift nitrogen copyq xidlehook mpd musinify-mpd nm-applet 
-# picom -b --experimental-backends &
 # nm-applet &
 # nitrogen --restore &
-#xsetroot -cursor_name left_ptr &
+xsetroot -cursor_name left_ptr &
 # $HOME/.config/polybar/launch.sh &
 #xsettingsd --config="~/.config/bspwm/xsettingsd" &
 # --recursive /mnt/Files/0Linux/Pictures/Wallpaper/ --randomize --image-bg --interval 3600 &
@@ -16,6 +15,7 @@ sxhkd -c &
 redshift &
 $HOME/.config/bspwm/monitor/monitor 
 numlockx on &
+picom -b &
 exec mpd &
 dunst &
 musnify-mpd &
