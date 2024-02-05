@@ -9,6 +9,7 @@ bspc desktop 6 --to-monitor eDP-1
 bspc desktop 7 --to-monitor eDP-1
 bspc desktop 8 --to-monitor eDP-1
 bspc desktop 9 --to-monitor eDP-1
+bspc rule -a mpv --player-operation-mode=pseudo-gui focus=on follow=on state=floating sticky=on
 sh ~/.fehbg  &
 ##To run conky on main monitor 
 killall -q conky

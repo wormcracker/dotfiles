@@ -4,9 +4,9 @@ if [[ $(xrandr -q | grep 'HDMI-1-0 connected') ]];then
 else
 bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9
 sh ~/.fehbg  &
+bspc rule -a mpv --player-operation-mode=pseudo-gui focus=on follow=on state=floating sticky=on
 ##To run conky on main monitor 
 $HOME/.config/polybar/launch.sh &
 killall -q conky
-# conky -c ~/.config/conky/conky_disconnected.conf &
 conky &
 fi

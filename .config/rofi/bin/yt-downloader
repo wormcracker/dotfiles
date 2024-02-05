@@ -5,7 +5,8 @@ url=$(rofi -dmenu -p "Enter YouTube URL or playlist URL:")
 
 if [[ -z "$url" || $url != https://www.youtube.com/* ]]; then
     # Return null if no input is provided
-	notify-send "Youtube Download" "Error: URL entered." -t 1500
+	notify-send "󰗃  Youtube Download" "Error: URL entered." -t 1500
+  sh ~/.config/rofi/bin/rofi-quicklink
     exit 0
 fi
 # Set the download directory
@@ -15,7 +16,7 @@ download_dir="/mnt/Downloads/1windows/Downloads"
 if [[ $url == *list=* ]]; then
   # Playlist URL
   echo "Downloading playlist..."
-  notify-send "Youtube Download" "Downloading playlist..." -t 1500
+  notify-send "󰗃  Youtube Download" "Downloading playlist..." -t 1500
   output=$(yt-dlp -o "$download_dir/%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" \
          --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
          --merge-output-format mkv  \
@@ -23,7 +24,7 @@ if [[ $url == *list=* ]]; then
 else
   # Single video URL
   echo "Downloading video..."
-  notify-send "Youtube Download" "Downloading video..." -t 1500
+  notify-send "󰗃  Youtube Download" "Downloading video..." -t 1500
  output=$(yt-dlp -o "$download_dir/%(title)s.%(ext)s" \
          --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
          --merge-output-format mkv  \
@@ -40,7 +41,7 @@ if [[ $output == *ERROR* ]]; then
     notify-send -u critical "Youtube Download" "Download failed"
 else
     # Show success notification
-    notify-send "Youtube Download" "Download completed....\n$video_name " 
+    notify-send "󰗃  Youtube Download" "Download completed....\n$video_name " 
 fi
 
 exit 0

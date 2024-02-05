@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 /* DIR="~/.config/bspwm/" */
-CONFIG="$HOME/.config/alacritty/alacritty.yml"
+CONFIG="$HOME/.config/alacritty/alacritty.toml"
 
 if [ "$1" == "--float" ]; then
   alacritty --class 'alacritty-float,alacritty-float' --config-file "$CONFIG"
