@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 # Kill if already running
-killall -9 xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar redshift nitrogen copyq xidlehook mpd musinify-mpd nm-applet 
+killall -q xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar redshift nitrogen copyq xidlehook mpd musinify-mpd nm-applet 
 # nm-applet &
 # nitrogen --restore &
 xsetroot -cursor_name left_ptr &
@@ -12,7 +12,6 @@ xsetroot -cursor_name left_ptr &
 # xset led 3 &
 xset b off 
 sxhkd -c &
-redshift &
 $HOME/.config/bspwm/monitor/monitor 
 numlockx on &
 picom -b &

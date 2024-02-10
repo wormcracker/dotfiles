@@ -16,21 +16,22 @@ bspc config focus_follows_pointer true
 #bspc config focused_border_color "#3A2E3A"
 bspc config normal_border_color "#1E222A"
 ##Desktop 1
-bspc rule -a Xdm-app       desktop='^1' state=floating follow=on focus=on 
-bspc rule -a Qalculate-gtk desktop='^1' state=floating follow=on focus=on 
-bspc rule -a kitty	       desktop='^1' state=floating follow=on focus=on 
-bspc rule -a Lxappearance  desktop='^1' state=floating follow=on focus=on
-bspc rule -a openrgb       desktop='^1' state=floating follow=on focus=on
-bspc rule -a Piper         desktop='^1' state=floating follow=on focus=on
-bspc rule -a Pavucontrol   desktop='^1' state=floating follow=on focus=on
-bspc rule -a Gpick         desktop='^1' state=floating follow=on focus=on
-bspc rule -a scrcpy        desktop='^1' state=floating follow=on focus=on
-bspc rule -a ViberPC       desktop='^1' state=floating follow=on focus=on
+bspc rule -a Xdm-app       desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a Qalculate-gtk desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a kitty	       desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a Lxappearance  desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a openrgb       desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a Piper         desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a Pavucontrol   desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a Gpick         desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a scrcpy        desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a ViberPC       desktop='^1' state=floating follow=on focus=on sticky=off
+bspc rule -a mpv --player-operation-mode=pseudo-gui focus=on follow=on state=floating sticky=on
 ##Desktop 2
-bspc rule -a Brave-browser desktop='^2' state=tiled follow=on
-bspc rule -a firefox desktop='^2' state=tiled follow=on
+bspc rule -a Thunar		   desktop='^2' follow=on   focus=on
 ##Desktop 3
-bspc rule -a Thunar		   desktop='^3' follow=on   focus=on
+bspc rule -a Brave-browser desktop='^3' state=tiled follow=on
+bspc rule -a firefox desktop='^3' state=tiled follow=on
 ##Desktop 4
 bspc rule -a Alacritty	   desktop='^4'  state=tiled follow=on focus=on 
 bspc rule -a VSCodium      desktop='^4' state=tiled follow=on

@@ -50,7 +50,7 @@ local user_opts = {
 	seekbarhandlesize = 0.6, -- size ratio of the knob handle
 	seekrangealpha = 64, -- transparency of seekranges
 	seekbarkeyframes = true, -- use keyframes when dragging the seekbar
-	title = "${media-title}", -- string compatible with property-expansion
+	title = "${filename}", -- string compatible with property-expansion
 	-- to be shown as OSC title
 	tooltipborder = 1, -- border of tooltip in bottom/topbar
 	timetotal = false, -- display total time instead of remaining time?
@@ -2102,7 +2102,7 @@ function osc_init()
 	ne = new_element("title", "button")
 
 	ne.visible = user_opts.showtitle
-	ne.hoverable = false
+	ne.hoverable = true
 	ne.content = function()
 		local title = state.forced_title or mp.command_native({ "expand-text", user_opts.title })
 		-- escape ASS, and strip newlines and trailing slashes
@@ -2110,16 +2110,20 @@ function osc_init()
 		return not (title == "") and title or "mpv"
 	end
 
-	ne.eventresponder["mbtn_left_up"] = function()
+	ne.eventresponder["mbtn_right_up"] = function()
 		local title = mp.get_property_osd("media-title")
 		if have_pl then
 			title = string.format("[%d/%d] %s", countone(pl_pos - 1), pl_count, title)
 		end
-		show_message(title)
+		mp.osd_message(title)
 	end
 
-	ne.eventresponder["mbtn_right_up"] = function()
-		show_message(mp.get_property_osd("filename"))
+	ne.eventresponder["mbtn_left_up"] = function()
+		local currentTime = os.date("%I:%M:%S", os.time())
+		local remainingTime = mp.get_property("playtime-remaining")
+		local endTime = os.date("%I:%M:%S", os.time() + remainingTime)
+		local space = string.rep(" ", 140)
+		mp.osd_message(string.format("🕛 Current time: %s %s 🕛 Ends at: %s", currentTime, space, endTime), 10)
 	end
 
 	--
@@ -2178,6 +2182,10 @@ function osc_init()
 			return osc_icons.pause
 		end
 	end
+	ne.eventresponder["mbtn_right_up"] = function()
+		mp.set_property("speed", 2.0)
+		mp.osd_message(string.format("Speed : 2.0"), 10)
+	end
 	ne.eventresponder["mbtn_left_up"] = function()
 		mp.commandv("cycle", "pause")
 	end
@@ -2188,7 +2196,9 @@ function osc_init()
 	ne.softrepeat = true
 	ne.content = osc_icons.skipback
 	ne.eventresponder["mbtn_left_down"] = function()
-		mp.commandv("seek", -5, "relative", "keyframes")
+		mp.commandv("add", "speed", -0.25)
+		local decSpeed = mp.get_property_number("speed")
+		mp.osd_message(string.format("Speed : %s ", decSpeed), 10)
 	end
 	ne.eventresponder["shift+mbtn_left_down"] = function()
 		mp.commandv("frame-back-step")
@@ -2203,13 +2213,15 @@ function osc_init()
 	ne.softrepeat = true
 	ne.content = osc_icons.skipforward
 	ne.eventresponder["mbtn_left_down"] = function()
-		mp.commandv("seek", 5, "relative", "keyframes")
+		mp.commandv("add", "speed", 0.25)
+		local incSpeed = mp.get_property_number("speed")
+		mp.osd_message(string.format("Speed : %s ", incSpeed), 10)
 	end
 	ne.eventresponder["shift+mbtn_left_down"] = function()
 		mp.commandv("frame-step")
 	end
 	ne.eventresponder["mbtn_right_down"] = function()
-		mp.commandv("seek", 60, "relative", "keyframes")
+		mp.commandv("seek", 30, "relative", "keyframes")
 	end
 
 	-- ch_prev

@@ -1,6 +1,7 @@
 #!/bin/env bash
 xrandr --output eDP-1 --primary --mode 1920x1080 -r 60.02 --rotate normal 
-bspc monitor eDP-1 -d 1
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9
+bspc desktop 1 --to-monitor eDP-1
 bspc desktop 2 --to-monitor eDP-1
 bspc desktop 3 --to-monitor eDP-1
 bspc desktop 4 --to-monitor eDP-1
@@ -9,8 +10,10 @@ bspc desktop 6 --to-monitor eDP-1
 bspc desktop 7 --to-monitor eDP-1
 bspc desktop 8 --to-monitor eDP-1
 bspc desktop 9 --to-monitor eDP-1
-bspc rule -a mpv --player-operation-mode=pseudo-gui focus=on follow=on state=floating sticky=on
-sh ~/.fehbg  &
-##To run conky on main monitor 
-killall -q conky
-conky -c ~/.config/conky/conky_disconnected.conf &
+sh ~/.fehbg
+sh ~/.local/bin/switch-output/switched-analog
+/opt/urserver/urserver-stop
+killall -q conky redshift polybar
+polybar bspwm-top-main &
+redshift &
+conky &

@@ -42,7 +42,8 @@ super + shift + Return
 
 super + v 
   viber
-alt + w
+
+shift + alt + w
   feh --bg-fill --randomize ~/Pictures/Wallpaper/*
 
 # Terminal Apps

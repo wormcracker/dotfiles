@@ -11,10 +11,9 @@ bspc desktop 7 --to-monitor HDMI-1-0
 bspc desktop 8 --to-monitor HDMI-1-0
 bspc desktop 9 --to-monitor HDMI-1-0
 bspc desktop Desktop --remove
-bspc rule -a mpv --player-operation-mode=pseudo-gui follow=on focus=on state=floating 
-bspc rule -a Rofi desktop='^1'
-sh ~/.fehbg  &
+sh ~/.fehbg 
+sh ~/.local/bin/switch-output/switched-analog
+killall redshift
+redshift &
 $HOME/.config/polybar/launch.sh &
-##To run conky on external monitor 
-killall -q conky
-conky &
+/opt/urserver/urserver-stop
