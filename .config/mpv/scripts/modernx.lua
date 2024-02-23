@@ -69,7 +69,7 @@ local user_opts = {
 	showonstart = true, -- show OSC on startup or when the next file in
 	-- playlist starts playing
 	showonseek = false, -- show OSC when seeking
-	movesub = true, -- move subtitles when the OSC is visible
+	movesub = false, -- move subtitles when the OSC is visible
 	titlefont = "", -- font used for the title above OSC and
 	-- in the window controls bar
 	blur_intensity = 150, -- adjust the strength of the OSC blur
@@ -2183,8 +2183,8 @@ function osc_init()
 		end
 	end
 	ne.eventresponder["mbtn_right_up"] = function()
-		mp.set_property("speed", 2.0)
-		mp.osd_message(string.format("Speed : 2.0"), 10)
+		mp.set_property("speed", 1.0)
+		mp.osd_message(string.format("Speed : 1.0"), 10)
 	end
 	ne.eventresponder["mbtn_left_up"] = function()
 		mp.commandv("cycle", "pause")
@@ -2196,15 +2196,17 @@ function osc_init()
 	ne.softrepeat = true
 	ne.content = osc_icons.skipback
 	ne.eventresponder["mbtn_left_down"] = function()
-		mp.commandv("add", "speed", -0.25)
-		local decSpeed = mp.get_property_number("speed")
-		mp.osd_message(string.format("Speed : %s ", decSpeed), 10)
+		mp.commandv("add", "sub-pos", 1)
+		local subPos = mp.get_property_number("sub-pos")
+		mp.osd_message(string.format("Sub Position : %s ", subPos), 10)
 	end
 	ne.eventresponder["shift+mbtn_left_down"] = function()
-		mp.commandv("frame-back-step")
+		mp.commandv("frame-step")
 	end
 	ne.eventresponder["mbtn_right_down"] = function()
-		mp.commandv("seek", -30, "relative", "keyframes")
+		mp.commandv("add", "sub-pos", -1)
+		local subPos = mp.get_property_number("sub-pos")
+		mp.osd_message(string.format("Sub Position : %s ", subPos), 10)
 	end
 
 	-- skipfrwd
@@ -2218,10 +2220,12 @@ function osc_init()
 		mp.osd_message(string.format("Speed : %s ", incSpeed), 10)
 	end
 	ne.eventresponder["shift+mbtn_left_down"] = function()
-		mp.commandv("frame-step")
+		mp.commandv("frame-back-step")
 	end
 	ne.eventresponder["mbtn_right_down"] = function()
-		mp.commandv("seek", 30, "relative", "keyframes")
+		mp.commandv("add", "speed", -0.25)
+		local decSpeed = mp.get_property_number("speed")
+		mp.osd_message(string.format("Speed : %s ", decSpeed), 10)
 	end
 
 	-- ch_prev
@@ -3078,7 +3082,7 @@ mp.observe_property("chapter-list", "native", function(_, list)
 	update_duration_watch()
 	request_init()
 end)
-mp.observe_property("sub-pos", "number", observe_subpos)
+-- mp.observe_property("sub-pos", "number", observe_subpos)
 
 mp.register_script_message("osc-message", show_message)
 mp.register_script_message("osc-chapterlist", function(dur)

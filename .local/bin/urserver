@@ -1,0 +1,3 @@
+#!/bin/sh
+  ~/Temp/urserver/urserver --daemon
+  exit 0

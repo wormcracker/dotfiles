@@ -11,4 +11,3 @@ else
   notify-send "󰕾  Volume unmuted" -t 1500
 fi
   exit 0
-

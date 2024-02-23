@@ -20,6 +20,7 @@ configuration {
     modi: "run,drun,window";
     me-select-entry: "MousePrimary";
     me-accept-entry: "!MousePrimary";
+    history-enabled: true;
 }
 
 @theme "~/.config/rofi/launchers.rasi"

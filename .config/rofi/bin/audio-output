@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Define options for audio output
+options="Headphone\nHDMI\nLaptop-Speaker\nUSB\nMicrophone-Mute\nMicrophone-UnMute\nVolume-Mute"
+
+# Use rofi to display the options and get user selection
+chosen=$(echo -e "$options" | rofi -dmenu -i -p "Select Audio Output:" -theme $HOME/.config/rofi/small_launcher.rasi)
+
+# Check the user's selection and set the audio output accordingly
+case $chosen in
+  "HDMI")
+    sh ~/.local/bin/switch-output/switched-hdmi
+    ;;
+  "Headphone")
+    sh ~/.local/bin/switch-output/switched-headphone
+    ;;
+  "USB")
+    sh ~/.local/bin/switch-output/switched-usb
+    ;;
+  "Laptop-Speaker")
+    sh ~/.local/bin/switch-output/switched-speaker
+    ;;
+  "Microphone-Mute")
+    sh ~/.local/bin/switch-output/microphone-mute
+    ;;
+  "Microphone-UnMute")
+    sh ~/.local/bin/switch-output/microphone-unmute
+    ;;
+  "Volume-Mute")
+    sh ~/.local/bin/switch-output/volume-mute
+    ;;
+  *)
+    echo "Invalid option"
+    ;;
+esac
+exit 0

@@ -1,7 +1,7 @@
 #!/bin/env bash
-
 # Kill if already running
-killall -q xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar redshift nitrogen copyq xidlehook mpd musinify-mpd nm-applet 
+killall -q redshift pipewire xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar nitrogen copyq xidlehook mpd musinify-mpd nm-applet xfce-polkit xdm-app urserver 
+sh ~/.local/bin/redshift
 # nm-applet &
 # nitrogen --restore &
 xsetroot -cursor_name left_ptr &
@@ -12,7 +12,7 @@ xsetroot -cursor_name left_ptr &
 # xset led 3 &
 xset b off 
 sxhkd -c &
-$HOME/.config/bspwm/monitor/monitor 
+$HOME/.config/bspwm/monitor/monitor &&
 numlockx on &
 picom -b &
 exec mpd &
@@ -20,8 +20,8 @@ dunst &
 musnify-mpd &
 /usr/lib/xfce-polkit/xfce-polkit &
 "/opt/xdman/xdm-app" --background &
-copyq &
 $HOME/.local/bin/auto_lock &
+redshift &
+copyq &
 # Start bspwm scripts
-bspwinmask &
-
+# bspwinmask &

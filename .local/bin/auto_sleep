@@ -1,4 +1,4 @@
 #!/bin/env bash
 # xautolock -detectsleep -time 3 -locker "betterlockscreen -l" -notify 30 -notifier "notify-send  'locking...' -t 1600"
 # xidlehook --not-when-audio --timer 150 'notify-send "Closing" "in 10 seconds ...." -t 2000' '' &
-xidlehook --not-when-audio --timer 165 'betterlockscreen -l dimblur' '' &
+xidlehook --not-when-audio --timer 180 'systemctl suspend' '' &

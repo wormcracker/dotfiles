@@ -2,8 +2,5 @@
 if [[ $(xrandr -q | grep 'HDMI-1-0 connected') ]];then
   ~/.config/bspwm/monitor/monitor_connected
 else
-bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9
-sh ~/.fehbg
-sh ~/.local/bin/switch-output/switched-analog
-$HOME/.config/polybar/launch.sh &
+  ~/.config/bspwm/monitor/monitor_disconnected
 fi

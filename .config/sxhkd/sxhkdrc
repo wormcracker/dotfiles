@@ -212,11 +212,8 @@ alt + f
  ~/.config/rofi/bin/rofi-finder
 
 # switch between output devices
-super + shift + o
-  sh ~/.local/bin/switch-output/switched-speaker
-
 super + o
-  sh ~/.local/bin/switch-output/switched-headphone
+  sh ~/.config/rofi/bin/audio-output
 
 super + shift + m
   sh ~/.local/bin/switch-output/volume-mute

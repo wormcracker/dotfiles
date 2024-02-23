@@ -3,5 +3,3 @@
   echo "$color" | printf %s "$(< /dev/stdin)"| xclip -sel c 
   notify-send "Color picked " "Sucessfully\n$color" -t 1800
   killall colorpicker
-
-
