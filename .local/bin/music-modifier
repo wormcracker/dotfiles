@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Function to get file extension
+get_extension() {
+    filename="$1"
+    echo "${filename##*.}"
+}
+
+while true; do
+    # Prompt the user to enter the input file path
+    read -p "Enter the input file path (or type 'exit' to quit): " input_file
+
+    if [ "$input_file" = "exit" ]; then
+        echo "Exiting..."
+        exit 0
+    fi
+
+    # Check if input file exists
+    if [ ! -f "$input_file" ]; then
+        echo "Input file does not exist. Please provide a valid file path."
+        continue
+    fi
+
+    # Prompt the user to enter metadata
+    read -p "Enter the track title: " title
+    echo "$title song full detail artist name, album name" | printf %s "$(< /dev/stdin)"| xclip -sel c 
+    read -p "Enter the artist name: " artist
+    read -p "Enter the album name: " album
+
+    # Extract the filename and extension
+    filename=$(basename "$input_file")
+    extension=$(get_extension "$input_file")
+
+    # Use FFmpeg to update metadata
+    ffmpeg -i "$input_file" -metadata title="$title" -metadata artist="$artist" -metadata album="$album" "${input_file}_temp.$extension" >/dev/null 2>&1
+
+    # Check if FFmpeg command succeeded
+    if [ $? -eq 0 ]; then
+        echo "Metadata updated successfully."
+
+        # Remove original file
+        rm "$input_file"
+        echo "Original file removed."
+
+        # Rename updated file to original filename
+        mv "${input_file}_temp.$extension" "$input_file"
+        echo "Updated file renamed to original filename."
+
+        # Notify user
+        echo "Metadata updated and original file removed."
+        echo -e "------------------------------------------"
+    else
+        echo "Failed to update metadata."
+    fi
+done
