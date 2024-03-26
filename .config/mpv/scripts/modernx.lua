@@ -2111,7 +2111,7 @@ function osc_init()
 	end
 
 	ne.eventresponder["mbtn_right_up"] = function()
-		local title = mp.get_property_osd("media-title")
+		local title = mp.get_property_osd("filename")
 		if have_pl then
 			title = string.format("[%d/%d] %s", countone(pl_pos - 1), pl_count, title)
 		end
@@ -2119,11 +2119,23 @@ function osc_init()
 	end
 
 	ne.eventresponder["mbtn_left_up"] = function()
-		local currentTime = os.date("%I:%M:%S", os.time())
-		local remainingTime = mp.get_property("playtime-remaining")
-		local endTime = os.date("%I:%M:%S", os.time() + remainingTime)
-		local space = string.rep(" ", 140)
-		mp.osd_message(string.format("🕛 Current time: %s %s 🕛 Ends at: %s", currentTime, space, endTime), 10)
+		local currentTime = os.date("%I : %M", os.time())
+		local remainingTime = mp.get_property_number("playtime-remaining")
+		local endTime = os.date("%I : %M", os.time() + remainingTime)
+		local space = string.rep(" ", 170)
+		local speed = mp.get_property("speed")
+		mp.osd_message("")
+		mp.osd_message(
+			string.format(
+				"Current time: %s %s Ends at: %s\nPlayback Speed: %.2fx\nRemaining Time: %s",
+				currentTime,
+				space,
+				endTime,
+				speed,
+				os.date("!%H hour : %M minute", remainingTime)
+			),
+			25
+		)
 	end
 
 	--
@@ -2139,14 +2151,14 @@ function osc_init()
 	ne.eventresponder["mbtn_left_up"] = function()
 		mp.commandv("playlist-prev", "weak")
 		if user_opts.playlist_osd then
-			show_message(get_playlist(), 3)
+			mp.osd_message(get_playlist(), 3)
 		end
 	end
 	ne.eventresponder["shift+mbtn_left_up"] = function()
-		show_message(get_playlist(), 3)
+		mp.osd_message(get_playlist(), 3)
 	end
 	ne.eventresponder["mbtn_right_up"] = function()
-		show_message(get_playlist(), 3)
+		mp.osd_message(get_playlist(), 3)
 	end
 
 	-- next
@@ -2158,14 +2170,14 @@ function osc_init()
 	ne.eventresponder["mbtn_left_up"] = function()
 		mp.commandv("playlist-next", "weak")
 		if user_opts.playlist_osd then
-			show_message(get_playlist(), 3)
+			mp.osd_message(get_playlist(), 3)
 		end
 	end
 	ne.eventresponder["shift+mbtn_left_up"] = function()
-		show_message(get_playlist(), 3)
+		mp.osd_message(get_playlist(), 3)
 	end
 	ne.eventresponder["mbtn_right_up"] = function()
-		show_message(get_playlist(), 3)
+		mp.osd_message(get_playlist(), 3)
 	end
 
 	--
@@ -2237,14 +2249,14 @@ function osc_init()
 	ne.eventresponder["mbtn_left_up"] = function()
 		mp.commandv("add", "chapter", -1)
 		if user_opts.chapters_osd then
-			show_message(get_chapterlist(), 3)
+			mp.osd_message(get_chapterlist(), 3)
 		end
 	end
 	ne.eventresponder["shift+mbtn_left_up"] = function()
-		show_message(get_chapterlist(), 3)
+		mp.osd_message(get_chapterlist(), 3)
 	end
 	ne.eventresponder["mbtn_right_up"] = function()
-		show_message(get_chapterlist(), 3)
+		mp.osd_message(get_chapterlist(), 3)
 	end
 
 	-- ch_next
@@ -2256,14 +2268,14 @@ function osc_init()
 	ne.eventresponder["mbtn_left_up"] = function()
 		mp.commandv("add", "chapter", 1)
 		if user_opts.chapters_osd then
-			show_message(get_chapterlist(), 3)
+			mp.osd_message(get_chapterlist(), 3)
 		end
 	end
 	ne.eventresponder["shift+mbtn_left_up"] = function()
-		show_message(get_chapterlist(), 3)
+		mp.osd_message(get_chapterlist(), 3)
 	end
 	ne.eventresponder["mbtn_right_up"] = function()
-		show_message(get_chapterlist(), 3)
+		mp.osd_message(get_chapterlist(), 3)
 	end
 
 	update_tracklist()

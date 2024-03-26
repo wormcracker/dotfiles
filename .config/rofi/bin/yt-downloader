@@ -1,34 +1,34 @@
 #!/bin/bash
 
-# Prompt for the YouTube URL or playlist URL
-url=$(rofi -dmenu -p "Enter YouTube URL or playlist URL:")
-
-if [[ -z "$url" || $url != https://www.youtube.com/* ]]; then
-    # Return null if no input is provided
-	notify-send "󰗃  Youtube Download" "Error: URL entered." -t 1500
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-fi
 # Set the download directory
 download_dir="/mnt/Downloads/1windows/Downloads"
 
+# Check if there's content in the clipboard
+url=$(xclip -selection clipboard -o)
+
+# If clipboard is empty, prompt for YouTube URL
+if [[ -z "$url" || $url != https://www.youtube.com/* ]]; then
+    notify-send "󰗃  Youtube Download" "Error: No YouTube URL found in clipboard." -t 1500
+    exit 1
+fi
+
 # Download the video or playlist
 if [[ $url == *list=* ]]; then
-  # Playlist URL
-  echo "Downloading playlist..."
-  notify-send "󰗃  Youtube Download" "Downloading playlist..." -t 1500
-  output=$(yt-dlp -o "$download_dir/%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" \
-         --add-metadata --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
-         --merge-output-format mkv  \
-         "$url")
+    # Playlist URL
+    echo "Downloading playlist..."
+    notify-send "󰗃  Youtube Download" "Downloading playlist..." -t 1500
+    output=$(yt-dlp -o "$download_dir/%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" \
+             --add-metadata --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
+             --merge-output-format mkv  \
+             "$url")
 else
-  # Single video URL
-  echo "Downloading video..."
-  notify-send "󰗃  Youtube Download" "Downloading video..." -t 1500
- output=$(yt-dlp -o "$download_dir/%(title)s.%(ext)s" \
-         --add-metadata --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
-         --merge-output-format mkv  \
-         "$url")
+    # Single video URL
+    echo "Downloading video..."
+    notify-send "󰗃  Youtube Download" "Downloading video..." -t 1500
+    output=$(yt-dlp -o "$download_dir/%(title)s.%(ext)s" \
+             --add-metadata --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
+             --merge-output-format mkv  \
+             "$url")
 fi
 
 # Get the video name 

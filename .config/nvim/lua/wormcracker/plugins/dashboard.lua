@@ -1,67 +1,32 @@
 local db = require("dashboard")
 db.setup({
-	theme = "doom",
+	theme = "hyper",
 	config = {
-		header = {
-			[[                        ]],
-			[[                        ]],
-			[[          READING TIME  ]],
-			[[                        ]],
-			[[__________H||___________]],
-			[[.......................|]],
-			[[||.........## --.#.......|]],
-			[[||.........   #  # ......|            @@@@]],
-			[[||.........     *  ......|          @@@@@@@]],
-			[[||........     -^........|   ,      - @@@@]],
-			[[||.....##\        .......|   |     '_ @@@]],
-			[[||....#####     /###.....|   |     __\@ \@]],
-			[[||....########\ \((#.....|  _\\  (/ ) @\_/)____]],
-			[[||..####,   ))/ ##.......|   |(__/ /     /|% #/]],
-			[[||..#####      '####.....|    \___/ ----/_|-*/]],
-			[[||..#####\____/#####.....|       ,:   '(]],
-			[[||...######..######......|       |:     \]],
-			[[||.....""""  """"...b'ger|       |:      )]],
-			[[_______________________|       |:      |]],
-			[[|_______H||             |_____,_|]],
-			[[|________\|              |   / (]],
-			[[|       H||              |  /\  )]],
-			[[|       H||              (  \| /]],
-			[[_H||_______H||__            |  /'=.]],
-			[[________________|           '=>/  \]],
-			[[/  \ /|/]],
-		}, --your header
-
-		center = {
+		week_header = {
+			enable = true,
+		},
+		shortcut = {
+			{ desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
 			{
-				icon = " ",
-				icon_hl = "Title",
-				desc = "Find File           ",
-				desc_hl = "String",
-				key = "b",
-				keymap = "SPC f f",
-				key_hl = "Number",
-				action = "lua print(2)",
+				icon = " ",
+				icon_hl = "@variable",
+				desc = "Files",
+				group = "Label",
+				action = "Telescope find_files",
+				key = "f",
 			},
 			{
-				icon = "󰔎 ",
-				desc = "Change theme",
-				desc_hl = "String",
+				desc = "Recent Files",
+				group = "DiagnosticHint",
+				action = "Telescope oldfiles",
+				key = "r",
+			},
+			{
+				desc = " Themes",
+				group = "Number",
+				action = "Telescope colorscheme",
 				key = "t",
-				keymap = "SPC f t",
-				action = "lua print(4)",
-			},
-			{
-				icon = " ",
-				desc = "Find Recent",
-				desc_hl = "String",
-				key = "a",
-				keymap = "SPC f r",
-				action = "lua print(3)",
 			},
 		},
-		footer = {
-			[[                        ]],
-			"Do one thing, do it well - Unix Philosophy",
-		}, --your footer
 	},
 })

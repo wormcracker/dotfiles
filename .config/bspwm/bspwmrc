@@ -27,7 +27,9 @@ bspc rule -a Gpick         desktop='^1' state=floating focus=on sticky=off follo
 bspc rule -a scrcpy        desktop='^1' state=floating focus=on sticky=off follow=on
 bspc rule -a Nvidia-settings desktop='^1' state=floating focus=on sticky=off follow=on
 bspc rule -a Blueman-manager desktop='^1' state=floating focus=on sticky=off follow=on
+bspc rule -a Xarchiver desktop='^1' state=floating focus=on sticky=off follow=on
 bspc rule -a mpv --player-operation-mode=pseudo-gui focus=on follow=on state=floating sticky=on
+bspc rule -a Onboard focus=on follow=on state=floating sticky=on
 ##Desktop 2
 bspc rule -a Thunar		   desktop='^2' follow=on   focus=on
 ##Desktop 3
@@ -37,6 +39,7 @@ bspc rule -a firefox desktop='^3' state=tiled follow=on
 bspc rule -a Alacritty	   desktop='^4'  state=tiled follow=on focus=on 
 bspc rule -a VSCodium      desktop='^4' state=tiled follow=on
 bspc rule -a Geany  	   desktop='^4' state=tiled follow=on
+bspc rule -a neovide	   desktop='^4'  state=tiled follow=on focus=on 
 ##Desktop 6
 bspc rule -a Zathura       desktop='^5' state=tiled follow=on
 bspc rule -a copyq  	   desktop='^5' state=tiled follow=on

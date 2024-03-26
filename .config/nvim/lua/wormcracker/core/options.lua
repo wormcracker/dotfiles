@@ -1,5 +1,8 @@
 local opt = vim.opt -- for conciseness
 
+-- Prefer opening new splits to the right
+opt.splitright = true
+
 -- line numbers
 opt.relativenumber = true
 opt.number = true

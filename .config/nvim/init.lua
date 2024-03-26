@@ -19,7 +19,7 @@ require("wormcracker.plugins.bufferline")
 require("wormcracker.plugins.colorizer")
 require("wormcracker.plugins.blankline")
 require("nvim-tree").setup({
-  	hijack_directories = {
+	hijack_directories = {
 		enable = true,
 		auto_open = true,
 	},
@@ -145,3 +145,4 @@ require("nvim-tree").setup({
 		relativenumber = false,
 	},
 })
+vim.o.guifont = "JetBrainsMono NF:h10" -- text below applies for VimScript

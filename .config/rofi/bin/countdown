@@ -27,7 +27,7 @@ ask_time() {
 # Function to play the ending audio
 play_audio() {
     local audio_file="/mnt/Files/0Linux/Music/Effects/mixkit-retro-game-emergency-alarm-1000.wav"   
-    mpv --speed=2.0 --volume=175 --no-save-position-on-quit --no-keep-open "$audio_file"
+    mpv --no-config --speed=2.0 --volume=175 --no-save-position-on-quit --no-keep-open "$audio_file"
 }
 
 # Function to perform the countdown

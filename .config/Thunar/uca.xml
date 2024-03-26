@@ -13,6 +13,50 @@
 	<directories/>
 </action>
 <action>
+	<icon>mpv</icon>
+	<name>Play With Mpv</name>
+	<submenu></submenu>
+	<unique-id>1711204494995861-1</unique-id>
+	<command>mpv %f</command>
+	<description>Playing Folder using mpv player</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<video-files/>
+</action>
+<action>
+	<icon>emblem-symbolic-link</icon>
+	<name>Create link targeted here</name>
+	<submenu></submenu>
+	<unique-id>1686455025191119-11</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;        TARGET=&quot;$(/usr/bin/zenity --file-selection --title=&quot;$(eval_gettext &apos;Select link location&apos;)&quot; --save --filename %f)&quot; || exit;        if test &quot;$TARGET&quot; = %f;then         /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;The link name has to differ from the target name.&apos;))&quot;;exit;        fi;        fileinput=&quot;$(echo             %f)&quot;;filefinalout=&quot;$(echo             $TARGET)&quot;;fileout=&quot;$filefinalout&quot;;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (ln -sf &quot;$fileinput&quot; &quot;$fileout&quot; || /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;Could not create link&apos;))&quot;);fi;         )</command>
+	<description>Create a symbolic link targeted here.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>btsync-gui-0</icon>
+	<name>Sync</name>
+	<submenu></submenu>
+	<unique-id>1710926942905618-1</unique-id>
+	<command>cp %F ~/Sync</command>
+	<description>Sync across devices</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
 	<icon>application-pdf</icon>
 	<name>Convert to a single PDF</name>
 	<submenu></submenu>
@@ -44,22 +88,6 @@
 	<range></range>
 	<patterns>*</patterns>
 	<image-files/>
-</action>
-<action>
-	<icon>emblem-symbolic-link</icon>
-	<name>Create link targeted here</name>
-	<submenu></submenu>
-	<unique-id>1686455025191119-11</unique-id>
-	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;        TARGET=&quot;$(/usr/bin/zenity --file-selection --title=&quot;$(eval_gettext &apos;Select link location&apos;)&quot; --save --filename %f)&quot; || exit;        if test &quot;$TARGET&quot; = %f;then         /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;The link name has to differ from the target name.&apos;))&quot;;exit;        fi;        fileinput=&quot;$(echo             %f)&quot;;filefinalout=&quot;$(echo             $TARGET)&quot;;fileout=&quot;$filefinalout&quot;;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (ln -sf &quot;$fileinput&quot; &quot;$fileout&quot; || /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;Could not create link&apos;))&quot;);fi;         )</command>
-	<description>Create a symbolic link targeted here.</description>
-	<range></range>
-	<patterns>*</patterns>
-	<directories/>
-	<audio-files/>
-	<image-files/>
-	<other-files/>
-	<text-files/>
-	<video-files/>
 </action>
 <action>
 	<icon>application-pdf</icon>

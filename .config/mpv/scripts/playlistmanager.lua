@@ -65,17 +65,17 @@ local settings = {
   ]],
 
 	--loadfiles at startup if 1 or more items in playlist
-	loadfiles_on_start = false,
+	loadfiles_on_start = true,
 	-- loadfiles from working directory on idle startup
-	loadfiles_on_idle_start = false,
+	loadfiles_on_idle_start = true,
 	--always put loaded files after currently playing file
 	loadfiles_always_append = false,
 
 	--sort playlist on mpv start
-	sortplaylist_on_start = false,
+	sortplaylist_on_start = true,
 
 	--sort playlist when files are added to playlist
-	sortplaylist_on_file_add = false,
+	sortplaylist_on_file_add = true,
 
 	--use alphanumerical sort
 	alphanumsort = true,
@@ -107,7 +107,7 @@ local settings = {
 	loop_cursor = true,
 
 	--youtube-dl executable for title resolving if enabled, probably "youtube-dl" or "yt-dlp", can be absolute path
-	youtube_dl_executable = "youtube-dl",
+	youtube_dl_executable = "yt-dlp",
 
 	--####  VISUAL SETTINGS
 
@@ -464,6 +464,9 @@ function draw_playlist()
 	ass:new_event()
 	ass:append(settings.style_ass_tags)
 
+	-- Clear existing OSD messages
+	mp.osd_message("")
+
 	if settings.playlist_header ~= "" then
 		ass:append(parse_header(settings.playlist_header) .. "\\N")
 	end
@@ -501,6 +504,10 @@ function draw_playlist()
 	mp.set_osd_ass(w, h, ass.text)
 end
 
+-- Remove current message if any new message arrives
+mp.register_event("osd-message", function()
+	mp.osd_message("")
+end)
 function toggle_playlist()
 	if settings.open_toggles then
 		if playlist_visible then
@@ -810,11 +817,11 @@ function playlist(force_dir)
 				c = c + 1
 			end
 		end
-		if c2 > 0 or c > 0 then
-			mp.osd_message("Added " .. c + c2 .. " files to playlist")
-		else
-			mp.osd_message("No additional files found")
-		end
+		-- if c2 > 0 or c > 0 then
+		-- 	mp.osd_message("Added " .. c + c2 .. " files to playlist")
+		-- else
+		-- 	mp.osd_message("No additional files found")
+		-- end
 		cursor = mp.get_property_number("playlist-pos", 1)
 	else
 		msg.error("Could not scan for files: " .. (error or ""))
@@ -1249,8 +1256,8 @@ mp.register_script_message("playlistmanager", handlemessage)
 mp.add_key_binding("CTRL+p", "sortplaylist", sortplaylist)
 mp.add_key_binding("CTRL+P", "shuffleplaylist", shuffleplaylist)
 mp.add_key_binding("CTRL+R", "reverseplaylist", reverseplaylist)
-mp.add_key_binding("P", "loadfiles", playlist)
-mp.add_key_binding("p", "saveplaylist", activate_playlist_save)
+mp.add_key_binding("p", "loadfiles", playlist)
+mp.add_key_binding("P", "saveplaylist", activate_playlist_save)
 mp.add_key_binding("SHIFT+ENTER", "showplaylist", toggle_playlist)
 
 mp.register_event("file-loaded", on_loaded)

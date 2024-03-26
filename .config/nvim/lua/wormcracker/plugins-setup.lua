@@ -46,6 +46,9 @@ return packer.startup(function(use)
 
 	use("akinsho/toggleterm.nvim") -- toggleterm terminal emulator
 
+	-- tagbar for swithing between function
+	use("preservim/tagbar")
+
 	-- essential plugins
 	use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
 	use("inkarkat/vim-ReplaceWithRegister") -- replace with register contents using motion (gr + motion)
@@ -67,9 +70,9 @@ return packer.startup(function(use)
 
 	-- vs-code like icons
 	use("nvim-tree/nvim-web-devicons")
-	
+
 	-- indent lines
-	use ("lukas-reineke/indent-blankline.nvim")
+	use("lukas-reineke/indent-blankline.nvim")
 
 	-- statusline
 	use("nvim-lualine/lualine.nvim")

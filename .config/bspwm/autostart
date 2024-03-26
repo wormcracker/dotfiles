@@ -1,27 +1,29 @@
 #!/bin/env bash
+
 # Kill if already running
-killall -q redshift pipewire xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar nitrogen copyq xidlehook mpd musinify-mpd nm-applet xfce-polkit xdm-app urserver 
-sh ~/.local/bin/redshift
-# nm-applet &
-# nitrogen --restore &
-xsetroot -cursor_name left_ptr &
-# $HOME/.config/polybar/launch.sh &
-#xsettingsd --config="~/.config/bspwm/xsettingsd" &
-# --recursive /mnt/Files/0Linux/Pictures/Wallpaper/ --randomize --image-bg --interval 3600 &
-#xhost + &
-# xset led 3 &
-xset b off 
-sxhkd -c &
-$HOME/.config/bspwm/monitor/monitor &&
-numlockx on &
-picom -b &
+killall -q redshift copyq xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar nitrogen xidlehook mpd musinify-mpd nm-applet xfce-polkit xdm-app urserver 
+
+# Start applications and services
+sh ~/.local/bin/redshift &  # Start Redshift
+# nm-applet &  # Uncomment if you need NetworkManager Applet
+# nitrogen --restore &  # Uncomment if you need Nitrogen for wallpaper management
+xsetroot -cursor_name left_ptr &  # Set cursor
+# $HOME/.config/polybar/launch.sh &  # Uncomment if you need Polybar
+# xsettingsd --config="~/.config/bspwm/xsettingsd" &  # Uncomment if you need xsettingsd
+# nitrogen --recursive /mnt/Files/0Linux/Pictures/Wallpaper/ --randomize --image-bg --interval 3600 &  # Uncomment if you need Nitrogen for wallpaper management
+# xhost + &  # Uncomment if you need to allow connections to your X server
+# xset led 3 &  # Set keyboard LED (not sure what this is for)
+xset b off  # Turn off terminal bell
+sxhkd -c &  # Start Simple X Hotkey Daemon
+$HOME/.config/bspwm/monitor/monitor &  # Monitor configuration script
+numlockx on &  # Turn on NumLock
+picom -b &  # Start Picom compositor
 exec mpd &
-dunst &
-musnify-mpd &
-/usr/lib/xfce-polkit/xfce-polkit &
-"/opt/xdman/xdm-app" --background &
-$HOME/.local/bin/auto_lock &
-redshift &
-copyq &
-# Start bspwm scripts
-# bspwinmask &
+dunst &  # Start Dunst notification daemon
+musnify-mpd &  # Start Music player daemon client
+/usr/lib/xfce-polkit/xfce-polkit &  # Start XFCE Polkit
+"/opt/xdman/xdm-app" --background &  # Start XDM download manager
+$HOME/.local/bin/auto_lock &  # Start auto-lock script
+redshift &  # Start Redshift
+python ~/Documents/Calender/calender.py &  # Start Nepali calendar script
+copyq &  # Start CopyQ clipboard manager

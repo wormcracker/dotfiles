@@ -40,9 +40,6 @@ super + {z,a}
 super + shift + Return
 	thunar 
 
-super + v 
-  viber
-
 shift + alt + w
   feh --bg-fill --randomize ~/Pictures/Wallpaper/*
 
@@ -51,7 +48,7 @@ ctrl + alt + {r,h}
 	kitty -e {ranger,btop}
 
 ctrl + alt + v
-  alacritty -e nvim
+  neovide --size 1366x768
 # Lockscreen
 super + ctrl + x 
     systemctl suspend  
@@ -73,24 +70,6 @@ shift + Print
 # Take screenshot of active window
 ctrl + Print
 	flameshot full -c -p /mnt/Files/0Linux/Pictures/Screenshots/
-	
-# Brighness control
-XF86MonBrightness{Up,Down}
-  {sh ~/.local/bin/switch-output/brightness-up,sh ~/.local/bin/switch-output/brightness-down}
-	
-# Volume control
-XF86Audio{RaiseVolume,LowerVolume}
-  {sh ~/.local/bin/switch-output/increase-volume,sh ~/.local/bin/switch-output/decrease-volume}
-
-XF86AudioMute
-  sh ~/.local/bin/switch-output/volume-mute
-
-XF86AudioMicMute
-  amixer sset Capture nocap
-	
-# Music control
-XF86Audio{Next,Prev,Play,Stop}
-	mpc {next,prev,toggle,stop}
 	
 # bspwm hotkeys                    ##---------- Bspwm ----------##
 #
@@ -223,3 +202,57 @@ alt + {equal,minus}
 
 alt + shift + {equal,minus}
   {sh ~/.local/bin/switch-output/brightness-up,sh ~/.local/bin/switch-output/brightness-down}
+
+#Function and XF86 Keys
+XF86Tools
+  sh ~/.config/rofi/powermenu/powermenu
+
+XF86Mail
+  kitty
+
+XF86WWW
+  sh ~/.config/rofi/bin/rofi-quicklink
+
+XF86Search
+  bspc node -c
+
+XF86HomePage
+  thunar
+
+# Brighness control
+XF86MonBrightness{Up,Down}
+  {sh ~/.local/bin/switch-output/brightness-up,sh ~/.local/bin/switch-output/brightness-down}
+	
+# Volume control
+XF86Audio{RaiseVolume,LowerVolume}
+  {sh ~/.local/bin/switch-output/increase-volume,sh ~/.local/bin/switch-output/decrease-volume}
+
+XF86AudioMute
+  sh ~/.local/bin/switch-output/volume-mute
+
+XF86AudioMicMute
+  amixer sset Capture nocap
+	
+# Music control
+XF86Audio{Next,Prev,Play,Stop}
+	mpc {next,prev,toggle,stop}
+
+#Function keys
+
+#Music F9 F10 F11 F12
+{F12,F11,F10}
+	mpc {next,toggle,prev}
+F9
+  kitty -e ncmpcpp
+
+#App Own function F1 F2 F3 F4
+F4
+  sh ~/.config/rofi/bin/yt-downloader
+
+#Auto-run Scripts
+F5
+  sh ~/.config/rofi/bin/auto_google_search
+F6
+ sh  ~/.config/rofi/bin/auto_youtube_search
+F7
+ sh ~/.config/rofi/bin/auto_movie_search

@@ -12,8 +12,11 @@ alias za='zathura'
 alias pc='sudo protonvpn c --fastest -p tcp'
 alias pe='sudo protonvpn disconnect'
 alias pstatus='sudo protonvpn status'
+alias pstatus='sudo protonvpn status'
 
-alias js='mv ~/Downloads/*.mkv ~/Movies/
-systemctl start jellyfin.service'
+alias guitar='~/Documents/RoutineScripts/Guitar/guitar'
+alias night='~/Documents/RoutineScripts/Night/night'
+
+alias js='systemctl start jellyfin.service'
 alias je='systemctl stop jellyfin.service'
 alias jstatus='systemctl status jellyfin.service'

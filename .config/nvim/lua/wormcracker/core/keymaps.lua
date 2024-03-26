@@ -53,6 +53,9 @@ keymap.set("n", "<leader>le", "<cmd>LiveServer stop<CR>") -- Stop the live serve
 keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>") -- toggle file explorer
 -- keymap.set("n", "<leader>w", "<cmd>NvimTreeFindFileToggle<CR>") -- toggle file explorer
 
+--Tagbar for swithing functions
+keymap.set("n", "<leader>w", "<cmd>:TagbarToggle<CR>")
+
 -- telescope
 keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
 keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
