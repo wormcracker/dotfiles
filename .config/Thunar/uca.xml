@@ -13,18 +13,6 @@
 	<directories/>
 </action>
 <action>
-	<icon>mpv</icon>
-	<name>Play With Mpv</name>
-	<submenu></submenu>
-	<unique-id>1711204494995861-1</unique-id>
-	<command>mpv %f</command>
-	<description>Playing Folder using mpv player</description>
-	<range>*</range>
-	<patterns>*</patterns>
-	<directories/>
-	<video-files/>
-</action>
-<action>
 	<icon>emblem-symbolic-link</icon>
 	<name>Create link targeted here</name>
 	<submenu></submenu>
@@ -200,5 +188,16 @@
 	<range></range>
 	<patterns>*.asc;*.pgp;*.gpg</patterns>
 	<other-files/>
+</action>
+<action>
+	<icon>mpv</icon>
+	<name>Play With Mpv</name>
+	<submenu></submenu>
+	<unique-id>1711204494995861-1</unique-id>
+	<command>mpv %f</command>
+	<description>Playing Folder using mpv player</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
 </action>
 </actions>

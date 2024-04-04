@@ -1,10 +1,8 @@
 #!/bin/env bash
 
 # Kill if already running
-killall -q redshift copyq xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar nitrogen xidlehook mpd musinify-mpd nm-applet xfce-polkit xdm-app urserver 
-
+killall -q xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar nitrogen xidlehook mpd musinify-mpd nm-applet xfce-polkit copyq redshift  
 # Start applications and services
-sh ~/.local/bin/redshift &  # Start Redshift
 # nm-applet &  # Uncomment if you need NetworkManager Applet
 # nitrogen --restore &  # Uncomment if you need Nitrogen for wallpaper management
 xsetroot -cursor_name left_ptr &  # Set cursor
@@ -24,6 +22,8 @@ musnify-mpd &  # Start Music player daemon client
 /usr/lib/xfce-polkit/xfce-polkit &  # Start XFCE Polkit
 "/opt/xdman/xdm-app" --background &  # Start XDM download manager
 $HOME/.local/bin/auto_lock &  # Start auto-lock script
-redshift &  # Start Redshift
 python ~/Documents/Calender/calender.py &  # Start Nepali calendar script
+sh ~/.local/bin/reset_redshift &  # Start Redshift
+sleep 5 
+redshift &  # Start Redshift
 copyq &  # Start CopyQ clipboard manager

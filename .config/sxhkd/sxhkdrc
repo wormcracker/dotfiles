@@ -27,6 +27,8 @@ super + b
 super + Tab   	
 	sh ~/.config/rofi/bin/windows
 
+alt + v
+	sh ~/.config/rofi/bin/windows
 #networkmanager menu
 # super +n 
 # networkmanager_dmenu

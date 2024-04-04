@@ -2110,7 +2110,7 @@ function osc_init()
 		return not (title == "") and title or "mpv"
 	end
 
-	ne.eventresponder["mbtn_right_up"] = function()
+	ne.eventresponder["mbtn_left_up"] = function()
 		local title = mp.get_property_osd("filename")
 		if have_pl then
 			title = string.format("[%d/%d] %s", countone(pl_pos - 1), pl_count, title)
@@ -2118,7 +2118,7 @@ function osc_init()
 		mp.osd_message(title)
 	end
 
-	ne.eventresponder["mbtn_left_up"] = function()
+	ne.eventresponder["mbtn_right_up"] = function()
 		local currentTime = os.date("%I : %M", os.time())
 		local remainingTime = mp.get_property_number("playtime-remaining")
 		local endTime = os.date("%I : %M", os.time() + remainingTime)
@@ -2208,17 +2208,13 @@ function osc_init()
 	ne.softrepeat = true
 	ne.content = osc_icons.skipback
 	ne.eventresponder["mbtn_left_down"] = function()
-		mp.commandv("add", "sub-pos", 1)
-		local subPos = mp.get_property_number("sub-pos")
-		mp.osd_message(string.format("Sub Position : %s ", subPos), 10)
+		mp.commandv("seek", -5, "relative", "keyframes")
 	end
 	ne.eventresponder["shift+mbtn_left_down"] = function()
-		mp.commandv("frame-step")
+		mp.commandv("frame-back-step")
 	end
 	ne.eventresponder["mbtn_right_down"] = function()
-		mp.commandv("add", "sub-pos", -1)
-		local subPos = mp.get_property_number("sub-pos")
-		mp.osd_message(string.format("Sub Position : %s ", subPos), 10)
+		mp.commandv("add", "speed", -0.25)
 	end
 
 	-- skipfrwd
@@ -2227,17 +2223,14 @@ function osc_init()
 	ne.softrepeat = true
 	ne.content = osc_icons.skipforward
 	ne.eventresponder["mbtn_left_down"] = function()
-		mp.commandv("add", "speed", 0.25)
-		local incSpeed = mp.get_property_number("speed")
-		mp.osd_message(string.format("Speed : %s ", incSpeed), 10)
+		mp.commandv("seek", 5, "relative", "keyframes")
 	end
 	ne.eventresponder["shift+mbtn_left_down"] = function()
-		mp.commandv("frame-back-step")
+		mp.commandv("frame-step")
 	end
 	ne.eventresponder["mbtn_right_down"] = function()
-		mp.commandv("add", "speed", -0.25)
-		local decSpeed = mp.get_property_number("speed")
-		mp.osd_message(string.format("Speed : %s ", decSpeed), 10)
+		mp.commandv("add", "speed", 0.25)
+		local incSpeed = mp.get_property_number("speed")
 	end
 
 	-- ch_prev
