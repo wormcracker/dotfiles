@@ -1,10 +1,47 @@
-#!/bin/sh -x
+#!/bin/bash
 
+# Function to start recording
+start_recording() {
+    ffmpeg -f x11grab -s "$INRES" -r "$FPS" -i :0.0 $AUDIO -vcodec libx264 -s "$OUTRES" -acodec aac -threads 0 "$OUTPUT_FILE" >/dev/null 2>&1
+}
+
+# Prompt user to enable microphone
+read -p "Do you want to enable microphone? (y/n): " enable_mic
+
+if [ "$enable_mic" == "y" ]; then
+    AUDIO="-f alsa -ac 2 -i default"
+else
+    AUDIO=""
+fi
+
+# Prompt user for output file path
+read -p "Enter the output file path (or leave empty for default): " OUTPUT_FILE
+
+# Set default output path if user input is empty
+if [ -z "$OUTPUT_FILE" ]; then
+    CURRENT_TIME=$(date +"%Y%m%d_%H%M%S")
+    OUTPUT_FILE="output_${CURRENT_TIME}.mkv"
+fi
+
+# Set input resolution (change this to match your screen resolution)
 INRES="1920x1080"
-OUTRES="1920x1080"
-FPS="30"
 
-ffmpeg -f x11grab -s "$INRES" -r "$FPS" -i :0.0 -f alsa -ac 2 \
--i default -vcodec libx264 -s "$OUTRES" \
--acodec libmp3lame -ab 128k -ar 44100 \
--threads 0 -f flv $1
+# Set output resolution (can be the same as input if you want)
+OUTRES="1920x1080"
+
+# Set frames per second (FPS) for recording
+FPS="60"
+
+# Start recording
+echo "Recording started. Details about video:"
+echo "- Input resolution: $INRES"
+echo "- Output resolution: $OUTRES"
+echo "- Frames per second: $FPS"
+echo "- Microphone enabled: $([ "$enable_mic" == "y" ] && echo "Yes" || echo "No")"
+echo "- Output file path: $OUTPUT_FILE"
+echo "- Recording........"
+
+start_recording
+
+# Inform user that recording has ended
+echo "Recording ended."

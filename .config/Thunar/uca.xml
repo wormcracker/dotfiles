@@ -5,12 +5,25 @@
 	<name>Open Terminal Here</name>
 	<submenu></submenu>
 	<unique-id>1686455025191048-1</unique-id>
-	<command>kitty</command>
+	<command>bspterm --float %n</command>
 	<description>Open terminal in Current file</description>
 	<range></range>
 	<patterns>*</patterns>
 	<startup-notify/>
 	<directories/>
+</action>
+<action>
+	<icon>neovide</icon>
+	<name>Neovide Launcher</name>
+	<submenu></submenu>
+	<unique-id>1713100257780810-1</unique-id>
+	<command>~/.local/bin/neovide-launcher %f</command>
+	<description>Open all new files in same instances</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<other-files/>
+	<text-files/>
 </action>
 <action>
 	<icon>emblem-symbolic-link</icon>

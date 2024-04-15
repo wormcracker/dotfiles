@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the search engine
-search_engine=$(echo -e "󰵀  Subscription\n  Recent\n󰊫  Gmail\n󰛜  Keep\n  Drive\n  Telegram\n  Recorder\n󰎕  News\n  Sharing\n󰎟  Notice\n  Type\n  Chatgpt\n󰻞  Bard\n  Github\n  Server\n  Fonts\n  Calender\n  History\n󱛾  Movie\n󱛾  Moviee\n󰊻  Teams\n󰋀  Classroom\n󰼁  Jellyfin\n  Lofi\n󰌠  Web\n  BIT\n  Routine\n󰖂  VPN\n󰷶  Workout\n󱑤  Downloads\n󱪙  Docs\n  Todo\n  Todo_Monthly\n󱎑  Nepse\n󰝚  Music-Lyrics\n󱎑  Share\n󰒋  Urserver\n󱑤  ytdownloader\n󱑤  ytautomatic\n󱑤  gdrivedownloader\n󰌌  keyboard\n󰟚  Metronome\n󰥔  Clock\n  Config\n  Study\n󰷉  Documents\n  Pictures\n󰝱  Guitar\n󰲑  IpoResult\n  Syncthing\n  Mic-Mute\n  Mic-UnMute\n󰓃  HDMI\n󰓃  Speaker\n󰋌  Usb\n󰋌  Headphone\n  Blue-Earpod\n  Blue-Speaker\n Ref-Battery\n Ref-Power\n󰶐  Mon-Dis\n󰍹  Mon-Connect\n󰐮  Mon-Projector\n󰃉  Colorpicker\n󰩟  IPcheck\n󱎫  Timer\n   RGB enable\n   RGB Off\n󰌁  RGB Voilet\n󰌁  RGB Bluish\n󰌁  RGB Yellowish\n󰌁  RGB White\n  Google\n  YouTube\n  Dictionary\n  Shopping\n󰈌  Facebook\n  Instagram\n󱜂  MovieSearch\n󰦠  Show\n󱐡  Private\n󱐡  gpt\n  Link\n  Add" | rofi -dmenu -i -fn 32 -p "  Choose your search engine:")
+search_engine=$(echo -e "󰵀  Subscription\n  Recent\n󰊫  Gmail\n󰛜  Keep\n  Drive\n  Telegram\n  Recorder\n󰎕  News\n  Sharing\n󰎟  Notice\n  Type\n  Chatgpt\n󰻞  Bard\n  Github\n  Server\n  Fonts\n  Calender\n  History\n󱛾  Movie\n󱛾  Moviee\n󰊻  Teams\n󰋀  Classroom\n󰼁  Jellyfin\n  Lofi\n󰌠  Web\n  BIT\n  Routine\n󰖂  VPN\n󰷶  Workout\n󱑤  Downloads\n󱪙  Docs\n  Todo\n  Todo_Monthly\n󱎑  Nepse\n󰝚  Music-Lyrics\n󱎑  Share\n󰒋  Urserver\n󱑤  ytdownloader\n󱑤  ytautomatic\n󱑤  gdrivedownloader\n󰌌  keyboard\n󰟚  Metronome\n󰥔  Clock\n  Config\n  Study\n󰷉  Documents\n  Pictures\n󰝱  Guitar\n󰲑  IpoResult\n  Syncthing\n  Mic-Mute\n  Mic-UnMute\n󰓃  HDMI\n󰓃  Speaker\n󰋌  Usb\n󰋌  Headphone\n  Blue-Earpod\n  Blue-Speaker\n Ref-Battery\n Ref-Power\n󰶐  Mon-Dis\n󰍹  Mon-Connect\n󰍹  Mon-External\n󰃉  Colorpicker\n󰩟  IPcheck\n󱎫  Timer\n   RGB enable\n   RGB Off\n󰌁  RGB Voilet\n󰌁  RGB Bluish\n󰌁  RGB Yellowish\n󰌁  RGB White\n  Google\n  YouTube\n  Dictionary\n  Shopping\n󰈌  Facebook\n  Instagram\n󱜂  MovieSearch\n󰦠  Show\n󱐡  Private\n󱐡  gpt\n  Link\n  Add" | rofi -dmenu -i -fn 32 -p "  Choose your search engine:")
 
 # Determine which search engine was chosen and build the URL
 if [ "$search_engine" = "󰵀  Subscription" ]; then
@@ -131,8 +131,8 @@ elif [ "$search_engine" = "󰶐  Mon-Dis" ]; then
   ~/.config/bspwm/monitor/monitor_disconnected
 elif [ "$search_engine" = "󰍹  Mon-Connect" ]; then
   bspc wm -r
-elif [ "$search_engine" = "󰐮  Mon-Projector" ]; then
-  ~/.config/bspwm/monitor/monitor_projector
+elif [ "$search_engine" = "󰍹  Mon-External" ]; then
+  ~/.config/bspwm/monitor/monitor-external
 elif [ "$search_engine" = "  Blue-Earpod" ]; then
   ~/.local/bin/switch-output/switched-bluetooth-earpods
 elif [ "$search_engine" = "  Blue-Speaker" ]; then
@@ -184,10 +184,10 @@ elif [ "$search_engine" = "  Routine" ]; then
 	zathura /mnt/Files/0Linux/Study/BIT/Second-Semester/Routine/IISEM-2079Batch.pdf
 elif [ "$search_engine" = "  Todo" ]; then
 	notify-send "lets do it" -t 500
-	neovide --size 1366x768 /mnt/Files/0Linux/Documents/todo.txt
+	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/todo.txt"
 elif [ "$search_engine" = "  Todo_Monthly" ]; then
 	notify-send "lets do it" -t 500
-	neovide --size 1366x768 /mnt/Files/0Linux/Documents/monthly_todo.txt
+	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/monthly_todo.txt"
 elif [ "$search_engine" = "󱎑  Share" ]; then
   brave "https://meroshare.cdsc.com.np" "https://tms58.nepsetms.com.np" "https://naasasecurities.com.np/stock-calculation" "https://www.nepsealpha.com/trading/chart"
 elif [ "$search_engine" = "  Add" ]; then
@@ -280,7 +280,7 @@ elif [ "$search_engine" = "  Shopping" ]; then
   else
     notify-send "Searching $query" "$search_engine" -t 2200
     echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave "https://www.daraz.com.np/catalog/?q=$query" 
+    brave "https://www.google.com/search?q=$query daraz" 
 fi
 )
 elif [ "$search_engine" = "󰈌  Facebook" ]; then

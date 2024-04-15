@@ -130,7 +130,7 @@ require("nvim-tree").setup({
 		timeout = 500,
 	},
 	view = {
-		width = 27,
+		width = 28,
 		side = "left",
 		-- auto_resize = true,
 		-- on_attach = {
@@ -146,3 +146,10 @@ require("nvim-tree").setup({
 	},
 })
 vim.o.guifont = "JetBrainsMono NF:h10" -- text below applies for VimScript
+vim.g.neovide_cursor_trail_size = 0.8
+vim.g.neovide_cursor_antialiasing = true
+vim.g.neovide_cursor_animate_in_insert_mode = true
+vim.g.neovide_cursor_animate_command_line = true
+vim.g.neovide_cursor_unfocused_outline_width = 0.125
+vim.g.neovide_cursor_smooth_blink = true
+vim.g.neovide_cursor_vfx_mode = "sonicboom"

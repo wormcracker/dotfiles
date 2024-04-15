@@ -6,6 +6,7 @@ opt.splitright = true
 -- line numbers
 opt.relativenumber = true
 opt.number = true
+opt.autochdir = true
 
 -- tabs & indentation
 opt.tabstop = 2

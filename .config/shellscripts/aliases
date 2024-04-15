@@ -16,6 +16,7 @@ alias pstatus='sudo protonvpn status'
 
 alias guitar='~/Documents/RoutineScripts/Guitar/guitar'
 alias night='~/Documents/RoutineScripts/Night/night'
+alias nep='python ~/Documents/Calender/calender.py'
 
 alias js='systemctl start jellyfin.service'
 alias je='systemctl stop jellyfin.service'

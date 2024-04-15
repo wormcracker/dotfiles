@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 # Kill if already running
-killall -q xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar nitrogen xidlehook mpd musinify-mpd nm-applet xfce-polkit copyq redshift  
+killall -q xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar nitrogen xidlehook mpd musinify-mpd nm-applet xfce-polkit copyq redshift conky   
 # Start applications and services
 # nm-applet &  # Uncomment if you need NetworkManager Applet
 # nitrogen --restore &  # Uncomment if you need Nitrogen for wallpaper management
@@ -12,6 +12,7 @@ xsetroot -cursor_name left_ptr &  # Set cursor
 # xhost + &  # Uncomment if you need to allow connections to your X server
 # xset led 3 &  # Set keyboard LED (not sure what this is for)
 xset b off  # Turn off terminal bell
+~/.config/rgb/facer_rgb.py -b 0 #disable the keyboard rgb light
 sxhkd -c &  # Start Simple X Hotkey Daemon
 $HOME/.config/bspwm/monitor/monitor &  # Monitor configuration script
 numlockx on &  # Turn on NumLock
@@ -22,6 +23,7 @@ musnify-mpd &  # Start Music player daemon client
 /usr/lib/xfce-polkit/xfce-polkit &  # Start XFCE Polkit
 "/opt/xdman/xdm-app" --background &  # Start XDM download manager
 $HOME/.local/bin/auto_lock &  # Start auto-lock script
+conky &
 python ~/Documents/Calender/calender.py &  # Start Nepali calendar script
 sh ~/.local/bin/reset_redshift &  # Start Redshift
 sleep 5 

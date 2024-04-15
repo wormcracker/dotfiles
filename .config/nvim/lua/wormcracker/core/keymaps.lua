@@ -15,6 +15,8 @@ keymap.set("n", "<leader>nh", "<cmd>nohl<CR>")
 
 -- delete single character without copying into register
 keymap.set("n", "x", '"_x')
+-- yanked the complete path location of current file
+keymap.set("n", "<leader>y", "<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<cr>")
 
 -- move the line using visual mode too
 keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- usecase highlight using visual mode and move using {J.k.l.h}

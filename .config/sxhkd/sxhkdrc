@@ -1,10 +1,5 @@
 #
 # wm independent hotkeys
-#
-
-# Terminal (kitty)
-super + Return
-	kitty
 
 ##---------- Rofi Launcher & Menus ----------##
 
@@ -50,7 +45,8 @@ ctrl + alt + {r,h}
 	kitty -e {ranger,btop}
 
 ctrl + alt + v
-  neovide --size 1366x768
+  sh ~/.local/bin/neovide-launcher
+
 # Lockscreen
 super + ctrl + x 
     systemctl suspend  
@@ -179,9 +175,13 @@ super + {Left,Down,Up,Right}
 super + i
 	bspwinmask		
 
-alt + Return
+super + Return
   bspterm --float
-		
+
+# Terminal 
+alt + Return
+	alacritty
+
 # kill window
 ctrl + alt + x
     xkill
@@ -258,3 +258,5 @@ F6
  sh  ~/.config/rofi/bin/auto_youtube_search
 F7
  sh ~/.config/rofi/bin/auto_movie_search
+F8
+ sh ~/.config/rofi/bin/movies

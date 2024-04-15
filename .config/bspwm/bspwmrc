@@ -2,9 +2,6 @@
 bspc config border_width         0
 bspc config window_gap           12
 
-# bspc monitor HDMI-1-0 -d 5 6 7 8 
-# bspc monitor eDP-1 -d 1 2 3 4 
-
 bspc config split_ratio          0.5
 bspc config borderless_monocle   true
 bspc config gapless_monocle      false
@@ -15,59 +12,59 @@ bspc config focus_follows_pointer true
 # bspc config focused_border_color "#c099ff"
 #bspc config focused_border_color "#3A2E3A"
 bspc config normal_border_color "#1E222A"
-##Desktop 1
-bspc rule -a Xdm-app       desktop='^1' state=floating focus=on sticky=off follow=on 
-bspc rule -a Qalculate-gtk desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a kitty	       desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a Lxappearance  desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a openrgb       desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a Piper         desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a Pavucontrol   desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a Gpick         desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a scrcpy        desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a Nvidia-settings desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a Blueman-manager desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a Xarchiver desktop='^1' state=floating focus=on sticky=off follow=on
-bspc rule -a mpv --player-operation-mode=pseudo-gui focus=on follow=on state=floating sticky=on
-bspc rule -a Onboard focus=on follow=on state=floating sticky=on
-##Desktop 2
-bspc rule -a Thunar		   desktop='^2' follow=on   focus=on
-##Desktop 3
-bspc rule -a Brave-browser desktop='^3' state=tiled follow=on
-bspc rule -a firefox desktop='^3' state=tiled follow=on
-##Desktop 4
-bspc rule -a Alacritty	   desktop='^4'  state=tiled follow=on focus=on 
-bspc rule -a VSCodium      desktop='^4' state=tiled follow=on
-bspc rule -a Geany  	   desktop='^4' state=tiled follow=on
-bspc rule -a neovide	   desktop='^4'  state=tiled follow=on focus=on 
-##Desktop 6
-bspc rule -a Zathura       desktop='^5' state=tiled follow=on
-bspc rule -a copyq  	   desktop='^5' state=tiled follow=on
-declare -a office=(Gucharmap Atril Evince \
-libreoffice-writer libreoffice-calc libreoffice-impress \
-libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice)
-for i in ${office[@]}; do
-   bspc rule -a $i desktop='^5' follow=on focus=on; done
-##Desktop 7
-bspc rule -a 'Microsoft Teams - Preview' desktop='^6' state=tiled follow=on
-bspc rule -a ViberPC       desktop='^6' follow=on 
-bspc rule -a discord       desktop='^6' state=tiled follow=on
-bspc rule -a Steam         desktop='^6' state=tiled follow=off
-##Desktop 8
-bspc rule -a 'Jellyfin Media Player'  desktop='^7' state=tiled follow=on
-bspc rule -a thunderbird   desktop='^7' follow=on
-bspc rule -a Virt-manager  desktop='^7' follow=on
-bspc rule -a VirtualBox    desktop='^7' state=tiled follow=on
-bspc rule -a qBittorrent   desktop='^7' state=tiled follow=on
-##Desktop 9
-bspc rule -a Audacity   desktop='^8' state=tiled follow=on
-bspc rule -a Ardour   desktop='^8' state=tiled follow=on
-bspc rule -a kdenlive desktop='^8' state=tiled follow=on
-bspc rule -a Gimp   desktop='^8' state=tiled follow=on
 ##Floating Windows
 bspc rule -a Sxiv 		     state=floating
 bspc rule -a Ulauncher     state=floating follow=on
 bspc rule -a alacritty-float state=floating follow=on
+bspc rule -a Xdm-app        state=floating focus=on sticky=off follow=on 
+bspc rule -a Qalculate-gtk  state=floating focus=on sticky=off follow=on
+bspc rule -a Lxappearance   state=floating focus=on sticky=off follow=on
+bspc rule -a openrgb        state=floating focus=on sticky=off follow=on
+bspc rule -a Piper          state=floating focus=on sticky=off follow=on
+bspc rule -a Pavucontrol    state=floating focus=on sticky=off follow=on
+bspc rule -a Gpick          state=floating focus=on sticky=off follow=on
+bspc rule -a scrcpy         state=floating focus=on sticky=off follow=on
+bspc rule -a Nvidia-settings  state=floating focus=on sticky=off follow=on
+bspc rule -a Blueman-manager  state=floating focus=on sticky=off follow=on
+bspc rule -a Xarchiver  state=floating focus=on sticky=off follow=on
+bspc rule -a mpv --player-operation-mode=pseudo-gui focus=on follow=on state=floating sticky=on
+bspc rule -a Onboard focus=on follow=on state=floating sticky=on
+##Desktop 1
+bspc rule -a Thunar		   desktop='^1' follow=on   focus=on
+##Desktop 2
+bspc rule -a Brave-browser desktop='^2' state=tiled follow=on
+bspc rule -a firefox desktop='^2' state=tiled follow=on
+##Desktop 3
+bspc rule -a Alacritty	   desktop='^3'  state=tiled follow=on focus=on 
+bspc rule -a VSCodium      desktop='^3' state=tiled follow=on
+bspc rule -a Geany  	   desktop='^3' state=tiled follow=on
+bspc rule -a neovide	   desktop='^3'  state=tiled follow=on focus=on 
+##Desktop 4
+bspc rule -a Zathura       desktop='^4' state=tiled follow=on
+bspc rule -a copyq  	   desktop='^4' state=tiled follow=on
+declare -a office=(Gucharmap Atril Evince \
+libreoffice-writer libreoffice-calc libreoffice-impress \
+libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice)
+for i in ${office[@]}; do
+   bspc rule -a $i desktop='^4' follow=on focus=on; done
+##Desktop 5
+bspc rule -a 'Microsoft Teams - Preview' desktop='^5' state=tiled follow=on
+bspc rule -a ViberPC       desktop='^5' follow=on 
+bspc rule -a discord       desktop='^5' state=tiled follow=on
+bspc rule -a Steam         desktop='^5' state=tiled follow=off
+##Desktop 6
+bspc rule -a 'Jellyfin Media Player'  desktop='^6' state=tiled follow=on
+bspc rule -a thunderbird   desktop='^6' follow=on
+bspc rule -a Virt-manager  desktop='^6' follow=on
+bspc rule -a VirtualBox    desktop='^6' state=tiled follow=on
+bspc rule -a qBittorrent   desktop='^6' state=tiled follow=on
+##Desktop 7
+bspc rule -a Audacity   desktop='^7' state=tiled follow=on
+bspc rule -a Ardour   desktop='^7' state=tiled follow=on
+bspc rule -a kdenlive desktop='^7' state=tiled follow=on
+bspc rule -a Gimp   desktop='^7' state=tiled follow=on
+##Desktop 8
+bspc rule -a kitty desktop='^8' state=floating focus=on sticky=off follow=on
 ## Export bspwm/bin dir to PATH
 export PATH="${PATH}:$HOME/.config/bspwm/bin"
 $HOME/.config/bspwm/autostart

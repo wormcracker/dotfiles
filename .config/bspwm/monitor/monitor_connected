@@ -1,9 +1,9 @@
 #!/bin/bash
 
-xrandr --output eDP-1 --primary --mode 1920x1080 --rotate normal \
-       --output HDMI-1-0 --mode 1366x768 --rotate normal --right-of eDP-1
-
-bspc desktop 1 --to-monitor eDP-1
+xrandr --output eDP-1 --off \
+       --output HDMI-1-0 --auto --primary --rotate normal
+bspc monitor eDP-1 -r
+bspc desktop 1 --to-monitor HDMI-1-0
 bspc desktop 2 --to-monitor HDMI-1-0
 bspc desktop 3 --to-monitor HDMI-1-0
 bspc desktop 4 --to-monitor HDMI-1-0
@@ -11,10 +11,7 @@ bspc desktop 5 --to-monitor HDMI-1-0
 bspc desktop 6 --to-monitor HDMI-1-0
 bspc desktop 7 --to-monitor HDMI-1-0
 bspc desktop 8 --to-monitor HDMI-1-0
-bspc desktop 9 --to-monitor HDMI-1-0
-
-bspc monitor eDP-1 -d 1
-bspc monitor HDMI-1-0 -d 2 3 4 5 6 7 8 9 
-
-~/.fehbg &
-$HOME/.config/polybar/launch.sh &
+bspc monitor HDMI-1-0 -d 1 2 3 4 5 6 7 8
+killall polybar
+sh ~/.fehbg &
+polybar bspwm-external &

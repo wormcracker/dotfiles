@@ -7,13 +7,8 @@ bspc desktop 5 --to-monitor eDP-1
 bspc desktop 6 --to-monitor eDP-1
 bspc desktop 7 --to-monitor eDP-1
 bspc desktop 8 --to-monitor eDP-1
-bspc desktop 9 --to-monitor eDP-1
-xrandr --output eDP-1 --primary --mode 1920x1080 -r 60.02 --rotate normal 
-bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9
+xrandr --output eDP-1 --primary --mode 1920x1080 -r 60.01 --rotate normal 
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8
 bspc monitor HDMI-1-0 -r
-bspc desktop Desktop --remove
 sh ~/.fehbg &
-killall conky polybar 
-polybar bspwm-top-main &
-conky &
 sh ~/.local/bin/auto_sleep &
