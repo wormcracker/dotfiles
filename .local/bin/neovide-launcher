@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Check if Neovide is already running
+if pgrep -x "neovide" > /dev/null; then
+    # Neovide is running, switch to the desktop containing it
+    bspc desktop -f 3
+else
+    # Neovide is not running, start it with the specified environment variable
+    NVIM_LISTEN_ADDRESS=/tmp/nvimsocket neovide "$@"
+fi
+
+# Open file(s) with Neovide
+~/.local/bin/nvr --remote "$@"
