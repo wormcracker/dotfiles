@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Configure display outputs
+xrandr --output eDP-1 --auto --rotate normal --primary \
+       --output HDMI-1-0 --auto --rotate normal --right-of eDP-1
+
+# Assign workspaces to monitors
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7
+bspc monitor HDMI-1-0 -d 8
+
+# Set wallpaper
+~/.fehbg &
+
+# Restart Polybar
+killall polybar
+polybar bspwm-top-main &
+polybar bspwm-external &

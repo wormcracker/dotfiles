@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Get content from clipboard
+clipboard_content=$(xclip -o -selection clipboard)
+
+# Encode clipboard content for URL
+encoded_content=$(echo "$clipboard_content" | sed 's/ /+/g')
+
+# Open Brave browser and search YouTube
+brave "https://www.google.com/search?q=$encoded_content"

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Get content from clipboard
+clipboard_content=$(xclip -o -selection clipboard)
+
+# Encode clipboard content for URL
+query=$(echo "$clipboard_content" | sed 's/ /+/g')
+
+# Open Brave browser and search YouTube
+brave "https://www.mkvcinemas.blog/?s=$query" "https://olamovies.homes/?s=$query" "https://moviesmod.zip/?s=$query" "https://hdhub4u.mov/?s=$query" "https://bollyflix.fans/?s=$query" "https://katmoviehd.ma/?s=$query" "https://cineb.rs/search/$query" "https://allmovieshub.photos/?s=$query" "https://1xbetmovies.online/?s=$query" "https://www.youtube.com/results?search_query=$query official trailer" "https://www.youtube.com/results?search_query=$query Review hindi"
