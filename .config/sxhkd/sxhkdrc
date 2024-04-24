@@ -80,6 +80,10 @@ super + alt + {q,r}
 super + Escape
 	pkill -USR1 -x sxhkd
 	
+# make sxhkd reload its configuration files:
+shift + Escape	
+	xkill
+
 # close and kill
 super + {_,shift + }w
 	bspc node -{c,k}

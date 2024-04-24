@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Define options for audio output
-options="Headphone\nHDMI\nLaptop-Speaker\nUSB\nMicrophone-Mute\nMicrophone-UnMute\nVolume-Mute"
+options="Headphone\nHDMI\nLaptop-Speaker\nUSB\nMicrophone-Mute\nMicrophone-UnMute\nVolume-(Un)Mute"
 
 # Use rofi to display the options and get user selection
-chosen=$(echo -e "$options" | rofi -dmenu -i -p "Select Audio Output:" -theme $HOME/.config/rofi/small_launcher.rasi)
+chosen=$(echo -e "$options" | rofi -dmenu -i -p "Select Audio Output:" -theme $HOME/.config/rofi/launchers.rasi)
 
 # Check the user's selection and set the audio output accordingly
 case $chosen in
@@ -26,7 +26,7 @@ case $chosen in
   "Microphone-UnMute")
     sh ~/.local/bin/switch-output/microphone-unmute
     ;;
-  "Volume-Mute")
+  "Volume-(Un)Mute")
     sh ~/.local/bin/switch-output/volume-mute
     ;;
   *)
