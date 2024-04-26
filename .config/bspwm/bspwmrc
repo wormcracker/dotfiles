@@ -42,6 +42,7 @@ bspc rule -a Alacritty	   desktop='^3'  state=tiled follow=on focus=on
 bspc rule -a VSCodium      desktop='^3' state=tiled follow=on
 bspc rule -a Geany  	   desktop='^3' state=tiled follow=on
 bspc rule -a neovide	   desktop='^3'  state=tiled follow=on focus=on 
+bspc rule -a obsidian	   desktop='^4'  state=tiled follow=on focus=on 
 ##Desktop 4
 bspc rule -a Zathura       desktop='^4' state=tiled follow=on
 bspc rule -a copyq  	   desktop='^4' state=tiled follow=on

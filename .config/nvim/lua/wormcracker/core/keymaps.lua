@@ -54,13 +54,24 @@ keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file ex
 --keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" }) -- collapse file explorer
 --keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" }) -- refresh file explorer
 
---Telescope
-keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
+-- Telescope
+keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files" })
 keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
 keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
 keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find buffer under cursor in cwd" }) -- list open buffers in current neovim instance
 keymap.set("n", "<leader>ft", "<cmd>Telescope colorscheme<cr>", { desc = "Find colorscheme under cursor in cwd" }) -- list available help tags
+keymap.set("n", "<leader>fn", "<cmd>Telescope noice<cr>", { desc = "Find all recent noice config" }) -- list available help tags
+
+-- Obsidian
+keymap.set("n", "<leader>oo", "<cmd>ObsidianOpen<cr>", { desc = "Open Obsidian from current file" }) -- list available help tags
+keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Open Obsidian from current file" }) -- list available help tags
+
+-- Tagbar
+keymap.set("n", "<leader>b", "<cmd>TagbarToggle<cr>", { desc = "Get the tagbar of current file" }) -- list available help tags
+
+-- Noice
+keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<cr>", { desc = "Find all recent noice config" }) -- list available help tags
 
 -- previous/next buffer
 keymap.set("n", "<TAB>", "<cmd>BufferLineCycleNext<CR>") -- previous buffer
@@ -68,3 +79,7 @@ keymap.set("n", "<S-TAB>", "<cmd>BufferLineCyclePrev<CR>") -- next buffer
 keymap.set("n", "<leader>c", "<cmd>:bp|bd#<CR>") -- delete buffer
 keymap.set("n", "<C-TAB>", "<cmd>BufferLineMoveNext<CR>") -- next buffer
 keymap.set("n", "<A-TAB>", "<cmd>BufferLineMovePrev<CR>") -- next buffer
+
+--Markdown Preview/toggle
+keymap.set("n", "<leader>ms", "<cmd>MarkdownPreview<CR>") -- Preview Markdown
+keymap.set("n", "<leader>me", "<cmd>MarkdownPreviewStop<CR>") -- Preview Markdown

@@ -16,6 +16,9 @@ opt.autochdir = true -- Auto changes the directory to current directory
 -- line wrapping
 opt.wrap = true -- enable line wrapping
 
+--conceallevel for  NOTE: Obsidian
+opt.conceallevel = 1
+
 -- search settings
 opt.ignorecase = true -- donot ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
