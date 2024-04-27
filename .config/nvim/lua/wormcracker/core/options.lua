@@ -54,6 +54,8 @@ vim.g.neovide_cursor_animate_command_line = true
 vim.g.neovide_cursor_unfocused_outline_width = 0.125
 vim.g.neovide_cursor_smooth_blink = true
 vim.g.neovide_cursor_vfx_mode = "sonicboom"
-
+vim.g.neovide_window_blurred = true
+vim.g.neovide_floating_blur_amount_x = 4.0
+vim.g.neovide_floating_blur_amount_y = 4.0
 -- turn off swapfile
 -- opt.swapfile = false

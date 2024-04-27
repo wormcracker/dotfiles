@@ -29,17 +29,21 @@ if vim.g.neovide then
 	vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
 	vim.keymap.set("v", "<D-c>", '"+y') -- Copy
 	vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
+	vim.keymap.set("t", "jk", [[<C-\><C-n>]])
 	vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
 	vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
 	vim.keymap.set("i", "<D-v>", "<C-R>+") -- Paste insert mode
 end
 
 -- window management
+
+-- Split windows
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 
+-- Tab windows
 keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
 keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
 keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
@@ -50,9 +54,6 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 
 --File explorer "~/.config/nvim/lua/wormcracker/plugins/nvim-tree.lua"
 keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
---keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
---keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" }) -- collapse file explorer
---keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" }) -- refresh file explorer
 
 -- Telescope
 keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files" })
@@ -77,8 +78,13 @@ keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<cr>", { desc = "Find all recent
 keymap.set("n", "<TAB>", "<cmd>BufferLineCycleNext<CR>") -- previous buffer
 keymap.set("n", "<S-TAB>", "<cmd>BufferLineCyclePrev<CR>") -- next buffer
 keymap.set("n", "<leader>c", "<cmd>:bp|bd#<CR>") -- delete buffer
-keymap.set("n", "<C-TAB>", "<cmd>BufferLineMoveNext<CR>") -- next buffer
-keymap.set("n", "<A-TAB>", "<cmd>BufferLineMovePrev<CR>") -- next buffer
+keymap.set("i", "<C-TAB>", "<cmd>BufferLineCycleNext<CR>") -- next buffer
+keymap.set("i", "<S-TAB>", "<cmd>BufferLineCyclePrev<CR>") -- next buffer
+keymap.set("n", "<C-1>", "<cmd>BufferLineGoToBuffer 1<CR>")
+keymap.set("n", "<C-2>", "<cmd>BufferLineGoToBuffer 2<CR>")
+keymap.set("n", "<C-3>", "<cmd>BufferLineGoToBuffer 3<CR>")
+keymap.set("n", "<C-4>", "<cmd>BufferLineGoToBuffer 4<CR>")
+keymap.set("n", "<C-5>", "<cmd>BufferLineGoToBuffer 5<CR>")
 
 --Markdown Preview/toggle
 keymap.set("n", "<leader>ms", "<cmd>MarkdownPreview<CR>") -- Preview Markdown

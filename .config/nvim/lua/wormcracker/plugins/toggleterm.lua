@@ -13,6 +13,7 @@ return {
 			insert_mappings = true,
 			persist_size = true,
 			direction = "float",
+			autochdir = true, -- when neovim changes it current directory the terminal will change it's own when next it's opened
 			close_on_exit = true,
 			shell = vim.o.shell,
 			float_opts = {

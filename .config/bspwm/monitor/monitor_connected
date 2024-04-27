@@ -1,8 +1,8 @@
 #!/bin/bash
-xrandr --output eDP-1 --off \
-       --output HDMI-1-0 --auto --primary --rotate normal
-killall polybar
-polybar bspwm-external &&
+xrandr --output eDP-1 --off --output HDMI-1-0 --auto --primary --rotate normal
+killall polybar 
+polybar bspwm-external &
+sleep 1
 bspc desktop 1 --to-monitor HDMI-1-0 --follow
 bspc desktop 2 --to-monitor HDMI-1-0 --follow
 bspc desktop 3 --to-monitor HDMI-1-0 --follow
@@ -12,7 +12,5 @@ bspc desktop 6 --to-monitor HDMI-1-0 --follow
 bspc desktop 7 --to-monitor HDMI-1-0 --follow
 bspc desktop 8 --to-monitor HDMI-1-0 --follow
 bspc monitor HDMI-1-0 -d 1 2 3 4 5 6 7 8
-bspc monitor eDP-1 -r
-killall polybar
-polybar bspwm-external &
 sh ~/.fehbg &
+bspc monitor eDP-1 -r

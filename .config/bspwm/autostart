@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 # Kill if already running
-killall -q xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar nitrogen xidlehook mpd musinify-mpd nm-applet xfce-polkit copyq redshift conky   
+killall -q xsettingsd picom sxhkd dunst xfce4-power-manager bspc polybar nitrogen xidlehook mpd musnify-mpd nm-applet xfce-polkit copyq redshift conky   
 # Start applications and services
 # nm-applet &  # Uncomment if you need NetworkManager Applet
 # nitrogen --restore &  # Uncomment if you need Nitrogen for wallpaper management
