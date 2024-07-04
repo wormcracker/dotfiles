@@ -4,13 +4,13 @@ LastActiveRenamer=ThunarSbrNumberRenamer
 
 [ThunarSbrReplaceRenamer]
 CaseSensitive=FALSE
-Replacement=
-Pattern=\ 
+Replacement=unit
+Pattern=Unit
 Regexp=FALSE
 
 [ThunarSbrNumberRenamer]
-TextMode=THUNAR_SBR_TEXT_MODE_TN
-Text=wholebody
+TextMode=THUNAR_SBR_TEXT_MODE_NT
+Text=
 Mode=THUNAR_SBR_NUMBER_MODE_123
 Start=1
 

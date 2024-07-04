@@ -41,8 +41,9 @@ shift + alt + w
   feh --bg-fill --randomize ~/Pictures/Wallpaper/*
 
 # Terminal Apps
-ctrl + alt + {r,h}
-	kitty -e {ranger,btop}
+ctrl + alt + h
+	killall btop ; kitty -e btop
+
 
 ctrl + alt + v
   sh ~/.local/bin/neovide-launcher
@@ -249,7 +250,7 @@ XF86Audio{Next,Prev,Play,Stop}
 {F12,F11,F10}
 	mpc {next,toggle,prev}
 F9
-  kitty -e ncmpcpp
+  killall ncmpcpp ; kitty -e ncmpcpp
 
 #App Own function F1 F2 F3 F4
 F4
@@ -263,4 +264,4 @@ F6
 F7
  sh ~/.config/rofi/bin/auto_movie_search
 F8
- sh ~/.config/rofi/bin/movies
+  brave "file:///mnt/Files/0Linux/Music/Metronome/index.html"

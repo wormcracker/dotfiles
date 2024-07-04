@@ -14,3 +14,6 @@ bspc desktop 8 --to-monitor HDMI-1-0 --follow
 bspc monitor HDMI-1-0 -d 1 2 3 4 5 6 7 8
 sh ~/.fehbg &
 bspc monitor eDP-1 -r
+
+
+

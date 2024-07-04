@@ -26,6 +26,8 @@ $HOME/.local/bin/auto_lock &  # Start auto-lock script
 conky &
 python ~/Documents/Calender/calender.py &  # Start Nepali calendar script
 sh ~/.local/bin/reset_redshift &  # Start Redshift
+pkill -f ~/.local/bin/eye-break # kill if already running
+sh ~/.local/bin/eye-break & # manages break time for eye for every 15 minutes
 sleep 5 
 redshift &  # Start Redshift
 copyq &  # Start CopyQ clipboard manager

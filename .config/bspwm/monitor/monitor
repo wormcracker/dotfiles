@@ -1,6 +1,9 @@
 #!/bin/env bash
 if [[ $(xrandr -q | grep 'HDMI-1-0 connected') ]];then
   ~/.config/bspwm/monitor/monitor_connected
+  pkill -f ~/.config/bspwm/monitor/monitor_auto_switch
+  ~/.config/bspwm/monitor/monitor_auto_switch &
 else
-  ~/.config/bspwm/monitor/monitor_disconnected
+  pkill -f ~/.config/bspwm/monitor/monitor_auto_switch
+  ~/.config/bspwm/monitor/monitor_auto_switch &
 fi

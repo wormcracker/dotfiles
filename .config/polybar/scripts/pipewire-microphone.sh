@@ -24,7 +24,7 @@ get_mic_status() {
     if [ "${is_muted}" = "yes" ]; then
         printf "%s\n" "#1"
     else
-        printf "%s\n" "#2"
+        printf "%s\n" ""
     fi
 }
 

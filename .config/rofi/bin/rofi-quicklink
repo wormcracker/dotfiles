@@ -1,102 +1,204 @@
 #!/bin/bash
-
+browser=brave
+player=mpv
+filemanager=thunar
+search_query() {
+  query=$(rofi -dmenu -p "$search_engine :")
+  if [[ -z "$query" ]]; then
+    sh ~/.config/rofi/bin/rofi-quicklink
+    exit 0
+  else
+    notify-send "Searching $query" "Using $search_engine" -t 2200
+    echo "$query" | printf %s "$(< /dev/stdin)" | xclip -sel c
+    echo "$query"  # Output the query as the return value of the function
+  fi
+}
 # Define the search engine
-search_engine=$(echo -e "󰵀  Subscription\n  Recent\n󰊫  Gmail\n󰛜  Keep\n  Drive\n  Telegram\n󱛾  Movie\n󱛾  Moviee\n  Recorder\n󱑤  Downloads\n󰎕  News\n  Sharing\n󰎟  Notice\n  Type\n  Chatgpt\n󰻞  Bard\n  Github\n  Server\n  Icon Fonts\n  Calender\n  History\n󰊻  Teams\n󰋀  Classroom\n󰼁  Jellyfin\n  Scrcpy(Android)\n  Lofi\n󰌠  Web\n  BIT\n  Routine\n󰖂  VPN\n󰷶  Workout\n󱪙  Docs\n  Todo\n  Todo_Monthly\n󱎑  Nepse\n󰝚  Music-Lyrics\n󱎑  Share\n󰒋  Urserver\n  File(Desktop)\n  File(Android)\n󱑤  ytdownloader\n󱑤  ytautomatic\n󱑤  gdrivedownloader\n󰌌  keyboard\n󰟚  Metronome\n󰥔  Clock\n  Config\n  Study\n󰷉  Documents\n  Pictures\n󰝱  Guitar\n󰲑  IpoResult\n  Syncthing\n  Mic-Mute\n  Mic-UnMute\n󰓃  HDMI\n󰓃  Speaker\n󰋌  Usb\n󰋌  Headphone\n  Blue-Earpod\n  Blue-Speaker\n Ref-Battery\n Ref-Power\n󰶐  Mon-Dis\n󰍹  Mon-Connect\n󰍹  Mon-External\n󰃉  Colorpicker\n󰩟  IPcheck\n󱎫  Timer\n   RGB enable\n   RGB Off\n󰌁  RGB Voilet\n󰌁  RGB Bluish\n󰌁  RGB Yellowish\n󰌁  RGB White\n  Google\n  YouTube\n  Dictionary\n  Shopping\n󰈌  Facebook\n  Instagram\n󱜂  MovieSearch\n󰦠  Show\n󱐡  Private\n󱐡  ShellGpt\n  Link\n  Add" | rofi -dmenu -i -fn 32 -p "  Choose :")
-
-# Determine which search engine was chosen and build the URL
+search_engine=$(echo -e "\
+󰵀  Subscription
+  Recent
+󰊫  Gmail
+󰛜  Keep
+  Drive
+  Telegram
+󱛾  Movie
+  Recorder
+󰎕  News
+󱑤  Downloads
+󱎏  Excel
+󰎟  Notice
+  Type
+  Chatgpt
+󰻞  Gemini
+  Github
+  Server
+  Icon Fonts
+  Calendar
+  History
+󰊻  Teams
+󰋀  Classroom
+󰼁  Jellyfin
+  Scrcpy(Android)
+  Lofi
+  Course-python
+  Course-share-market
+  BIT
+  Routine
+󰖂  VPN
+󰷶  Workout
+󰷶  Stretch
+󱪙  Docs
+  English-Practice
+  Todo
+  Todo_Monthly
+󰝚  Music-Lyrics
+󱎑  Share-stock-chart
+󱎑  Share-stock-mersoshare
+󱎑  Share-stock-tms
+󱎑  Share-stock-calculation
+󰒋  Urserver
+  File(Desktop)
+  File(Android)
+󱑤  ytdownloader
+󱑤  ytautomatic
+󱑤  gdrivedownloader
+󰌌  keyboard-Led
+󰟚  Metronome
+󰥔  Clock
+  Config
+  Study
+󰷉  Documents
+  Pictures
+󰝱  Guitar
+󰲑  IpoResult
+  Syncthing
+  Mic-Mute
+  Mic-UnMute
+󰓃  HDMI
+󰓃  Laptop-Speaker
+󰋌  USB
+󰋌  Headphone
+  Blue-Earpod
+  Blue-Speaker
+ Ref-Battery
+ Ref-Power
+󰍹  Mon-Connect
+󰶐  Mon-Disconnect
+󰍹  Mon-External
+󰃉  Colorpicker
+󰩟  IPcheck
+󱎫  Timer
+   RGB enable
+   RGB Off
+󰌁  RGB Voilet
+󰌁  RGB Bluish
+󰌁  RGB Yellowish
+󰌁  RGB White
+  Google
+  YouTube
+  Dictionary
+  Shopping
+󰈌  Facebook
+  Instagram
+󱜂  MovieSearch
+󰦠  Show
+󱐡  Private
+󱐡  ShellGpt
+  Link
+  Add" | rofi -dmenu -i -fn 32 -p "  Choose :")
+# .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
+#| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
+#| |   ______     | || |  _______     | || |     ____     | || | _____  _____ | || |    _______   | || |  _________   | || |  _______     | |
+#| |  |_   _ \    | || | |_   __ \    | || |   .'    `.   | || ||_   _||_   _|| || |   /  ___  |  | || | |_   ___  |  | || | |_   __ \    | |
+#| |    | |_) |   | || |   | |__) |   | || |  /  .--.  \  | || |  | | /\ | |  | || |  |  (__ \_|  | || |   | |_  \_|  | || |   | |__) |   | |
+#| |    |  __'.   | || |   |  __ /    | || |  | |    | |  | || |  | |/  \| |  | || |   '.___`-.   | || |   |  _|  _   | || |   |  __ /    | |
+#| |   _| |__) |  | || |  _| |  \ \_  | || |  \  `--'  /  | || |  |   /\   |  | || |  |`\____) |  | || |  _| |___/ |  | || |  _| |  \ \_  | |
+#| |  |_______/   | || | |____| |___| | || |   `.____.'   | || |  |__/  \__|  | || |  |_______.'  | || | |_________|  | || | |____| |___| | |
+#| |              | || |              | || |              | || |              | || |              | || |              | || |              | |
+#| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
+# '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
 if [ "$search_engine" = "󰵀  Subscription" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://www.youtube.com/feed/subscriptions"
+  $browser "https://www.youtube.com/feed/subscriptions" &
 elif [ "$search_engine" = "  Recent" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://drive.google.com/drive/recent"
+  $browser "https://drive.google.com/drive/recent" &
+elif [ "$search_engine" = "󱎏  Excel" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://docs.google.com/spreadsheets/d/1NtvNpAtLlsY2Woat5fK4emrbL9w3lY5xwZMMfBg4c3g/edit?gid=0#gid=0" &
 elif [ "$search_engine" = "󰊫  Gmail" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://mail.google.com/mail/u/1/#inbox"
+  $browser "https://mail.google.com/mail/u/1/#inbox" &
 elif [ "$search_engine" = "  Drive" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://drive.google.com/drive/u/1/recent"
+  $browser "https://drive.google.com/drive/u/1/recent" &
 elif [ "$search_engine" = "󱪙  Docs" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://docs.google.com/document/d/10rqIJtW14dNBbE8EnA9MX1gSdUlPzdz3zB25_HODLIw/edit"
+  $browser "https://docs.google.com/document/d/10rqIJtW14dNBbE8EnA9MX1gSdUlPzdz3zB25_HODLIw/edit" &
 elif [ "$search_engine" = "󰛜  Keep" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://keep.google.com/u/1/"
+  $browser "https://keep.google.com/u/1/" &
 elif [ "$search_engine" = "  Telegram" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://web.telegram.org/"
+  $browser "https://web.telegram.org/k/"
 elif [ "$search_engine" = "󰎕  News" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://www.facebook.com/officialroutineofnepalbanda/"
+  $browser "https://www.facebook.com/officialroutineofnepalbanda/" &
+elif [ "$search_engine" = "  English-Practice" ]; then
+  $player --fs --speed=1 ~/Study/English/ReadingListening/ & 
+  ~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Study/English/vocabulary.txt" &
+  $browser "https://chatgpt.com/c/cbb10b8c-f815-47e4-9821-4e26922f85dd" &
 elif [ "$search_engine" = "  Recorder" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://recorder.google.com/?authuser=1"
-elif [ "$search_engine" = "  Sharing" ]; then
-  notify-send "Opening" "$search_engine" -t 1500
-  brave "https://snapdrop.net/"
+  $browser "https://recorder.google.com/?authuser=1" &
 elif [ "$search_engine" = "󰎟  Notice" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://www.tuiost.edu.np/notice"
+  $browser "https://www.tuiost.edu.np/notice" &
 elif [ "$search_engine" = "󰻞  Bard" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://bard.google.com/"
+  $browser "https://bard.google.com/" &
 elif [ "$search_engine" = "  Chatgpt" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://chat.openai.com/"
+  $browser "https://chat.openai.com/" &
 elif [ "$search_engine" = "  Github" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://github.com/wormcracker"
+  $browser "https://github.com/wormcracker" &
 elif [ "$search_engine" = "󰲑  IpoResult" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://iporesult.cdsc.com.np/"
+  $browser "https://iporesult.cdsc.com.np/" &
 elif [ "$search_engine" = "󰤒  Typingtest" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://www.livechat.com/typing-speed-test/#/"
+  $browser "https://www.livechat.com/typing-speed-test/#/" &
 elif [ "$search_engine" = "  Icon Fonts" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://www.nerdfonts.com/cheat-sheet"
-elif [ "$search_engine" = "  Calender" ]; then
+  $browser "https://www.nerdfonts.com/cheat-sheet" &
+elif [ "$search_engine" = "  Calendar" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://www.ashesh.com.np/nepali-calendar/"
+  $browser "https://www.ashesh.com.np/nepali-calendar/" &
 elif [ "$search_engine" = "  History" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://www.youtube.com/feed/history"
+  $browser "https://www.youtube.com/feed/history" &
 elif [ "$search_engine" = "󱛾  Movie" ]; then
   notify-send "Opening $search_engine" "Ready to watch" -t 1500
-  brave "https://mkvcinemas.blog/" "https://moviesmod.zip/korean-series/" "https://hdhub4u.mov/" "https://katmoviehd.dad/" "https://allmovieshub.photos/" "https://thekhatrimaza.mov/" "https://ww5.filmyzillalol.com.im/" "https://bollyflix.fans/" "https://olamovies.yachts/" "https://www.1xbetmovieshd.online/"
-elif [ "$search_engine" = "󱛾  Moviee" ]; then
-  notify-send "Opening $search_engine" "Ready to watch" -t 1500
-  bspc rule -a Brave-browser desktop='^1' state=tiled follow=on
-  brave
-  brave "https://mkvcinemas.blog/" "https://moviesmod.zip/korean-series/" "https://hdhub4u.mov/" "https://katmoviehd.dad/" "https://allmovieshub.photos/" "https://thekhatrimaza.mov/" "https://ww5.filmyzillalol.com.im/" "https://bollyflix.fans/" "https://olamovies.yachts/" "https://www.1xbetmovieshd.online/"
-  bspc rule -a Brave-browser desktop='^2' state=tiled follow=on
+  $browser "https://mkvcinemas.blog/" "https://moviesmod.zip/korean-series/" "https://hdhub4u.mov/" "https://katmoviehd.dad/" "https://allmovieshub.photos/" "https://thekhatrimaza.mov/" "https://ww5.filmyzillalol.com.im/" "https://bollyflix.fans/" "https://olamovies.yachts/" "https://www.1xbetmovieshd.online/" &
 elif [ "$search_engine" = "󰊻  Teams" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://teams.microsoft.com/_#/school/teams-grid/General?ctx=teamsGrid"
+  $browser "https://teams.microsoft.com/_#/school/teams-grid/General?ctx=teamsGrid" &
 elif [ "$search_engine" = "  Syncthing" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "http://127.0.0.1:8384/"
+  $browser "http://127.0.0.1:8384/" &
 elif [ "$search_engine" = "󰋀  Classroom" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://classroom.google.com/u/3/h"
+  $browser "https://classroom.google.com/u/2/h" &
 elif [ "$search_engine" = "󰼁  Jellyfin" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "http://192.168.16.105:8096/web/index.html#!/home.html"
-elif [ "$search_engine" = "󰌌  keyboard" ]; then
-  notify-send "Opening" "$search_engine" -t 1500
-  xset led on 
-elif [ "$search_engine" = "  Lofi" ]; then
-  notify-send "Playing $search_engine" "Relax" -t 1500
-  mpv --fs Videos/lofi
-elif [ "$search_engine" = "󰌠  Web" ]; then
-  notify-send "Opening" "$search_engine" -t 1500
-  mpv ~/Study/computer/python/Python_FullCourse/
+  $browser "http://192.168.16.105:8096/web/index.html#!/home.html" &
 elif [ "$search_engine" = "  BIT" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://www.bitinfonepal.com/"
+  $browser "https://www.bitinfonepal.com/" &
 elif [ "$search_engine" = "󰟚  Metronome" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  brave "https://stonekick.com/metronomebeats/"
+  $browser "https://stonekick.com/metronomebeats/" &
 elif [ "$search_engine" = "󰝚  Music-Lyrics" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   current_title=$(mpc current -f %title%)
@@ -104,13 +206,36 @@ elif [ "$search_engine" = "󰝚  Music-Lyrics" ]; then
   search_query="$current_title song $current_artist artist romanized lyrics"
   search_query_direct="$current_title $current_artist"
   search_query=$(echo "$search_query" | sed 's/ /+/g')
-  brave "https://genius.com/search?q=$search_query_direct" "https://www.google.com/search?q=$search_query"
+  $browser "https://genius.com/search?q=$search_query_direct" "https://www.google.com/search?q=$search_query" &
+elif [ "$search_engine" = "󱎑  Share-stock-chart" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://www.nepsealpha.com/trading/chart" "https://www.tradingview.com/chart/" &
+elif [ "$search_engine" = "󱎑  Share-stock-mersoshare" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://meroshare.cdsc.com.np" &
+elif [ "$search_engine" = "󱎑  Share-stock-tms" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://tms58.nepsetms.com.np" &
+elif [ "$search_engine" = "󱎑  Share-stock-calculation" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://naasasecurities.com.np/stock-calculation" &
+#.----------------.  .----------------.  .----------------.  .----------------. 
+# .--------------. || .--------------. || .--------------. || .--------------. |
+# |  _________   | || |     _____    | || |   _____      | || |  _________   | |
+# | |_   ___  |  | || |    |_   _|   | || |  |_   _|     | || | |_   ___  |  | |
+# |   | |_  \_|  | || |      | |     | || |    | |       | || |   | |_  \_|  | |
+# |   |  _|      | || |      | |     | || |    | |   _   | || |   |  _|  _   | |
+# |  _| |_       | || |     _| |_    | || |   _| |__/ |  | || |  _| |___/ |  | |
+# | |_____|      | || |    |_____|   | || |  |________|  | || | |_________|  | |
+# |              | || |              | || |              | || |              | |
+# '--------------' || '--------------' || '--------------' || '--------------' |
+#'----------------'  '----------------'  '----------------'  '----------------' 
 elif [ "$search_engine" = "󱎫  Timer" ]; then
-  ~/.config/rofi/bin/countdown
+  ~/.config/rofi/bin/countdown &
 elif [ "$search_engine" = "  Scrcpy(Android)" ]; then
-  ~/.local/bin/run_scrcpy
+  ~/.local/bin/run_scrcpy &
 elif [ "$search_engine" = "  Mic-Mute" ]; then
-  ~/.local/bin/switch-output/microphone-mute
+  ~/.local/bin/switch-output/microphone-mute 
 elif [ "$search_engine" = "  Mic-UnMute" ]; then
   ~/.local/bin/switch-output/microphone-unmute
 elif [ "$search_engine" = "󱑤  gdrivedownloader" ]; then
@@ -118,32 +243,39 @@ elif [ "$search_engine" = "󱑤  gdrivedownloader" ]; then
 elif [ "$search_engine" = "  Server" ]; then
  ~/.local/bin/url-sender
 elif [ "$search_engine" = "󰒋  Urserver" ]; then
- ~/.local/bin/urserver
+ ~/.local/bin/urserver &
 elif [ "$search_engine" = "󰃉  Colorpicker" ]; then
-  ~/.local/bin/color_picker
+  ~/.local/bin/color_picker &
 elif [ "$search_engine" = "󰖂  VPN" ]; then
-  kitty -e ~/.local/bin/vpn/vpn
+  kitty -e ~/.local/bin/vpn/vpn &
 elif [ "$search_engine" = "󰩟  IPcheck" ]; then
-  ~/.local/bin/ip-check
+  ~/.local/bin/ip-check &
 elif [ "$search_engine" = "  File(Desktop)" ]; then
-  ~/.local/bin/file_adb_desktop
+  ~/.local/bin/file_adb_desktop &
 elif [ "$search_engine" = "  File(Android)" ]; then
-  ~/.local/bin/file_adb_android
+  ~/.local/bin/file_adb_android &
 elif [ "$search_engine" = " Ref-Battery" ]; then
-  ~/.config/bspwm/monitor/refresh_rate_battery
+  ~/.config/bspwm/monitor/refresh_rate_battery &
 elif [ "$search_engine" = " Ref-Power" ]; then
-  ~/.config/bspwm/monitor/refresh_rate_power
-elif [ "$search_engine" = "󰶐  Mon-Dis" ]; then
-  ~/.config/bspwm/monitor/monitor_disconnected
+  ~/.config/bspwm/monitor/refresh_rate_power &
+elif [ "$search_engine" = "󰶐  Mon-Disconnect" ]; then
+  ~/.config/bspwm/monitor/monitor_disconnected &
 elif [ "$search_engine" = "󰍹  Mon-Connect" ]; then
   bspc wm -r
 elif [ "$search_engine" = "󰍹  Mon-External" ]; then
-  ~/.config/bspwm/monitor/monitor-external
+  SELECTED_SCRIPT=$(echo -e "HDMI Primary\nLaptop Screen Primary" | rofi -dmenu -i -p "Select a monitor script")
+  if [ "$SELECTED_SCRIPT" = "HDMI Primary" ]; then
+    ~/.config/bspwm/monitor/monitor-external &
+  elif [ "$SELECTED_SCRIPT" = "Laptop Screen Primary" ]; then
+    ~/.config/bspwm/monitor/monitor-external-2 &
+  else
+    ~/.config/rofi/bin/rofi-quicklink
+  fi
 elif [ "$search_engine" = "  Blue-Earpod" ]; then
   ~/.local/bin/switch-output/switched-bluetooth-earpods
 elif [ "$search_engine" = "  Blue-Speaker" ]; then
   ~/.local/bin/switch-output/switched-bluetooth-speaker
-elif [ "$search_engine" = "󰓃  Speaker" ]; then
+elif [ "$search_engine" = "󰓃  Laptop-Speaker" ]; then
   ~/.local/bin/switch-output/switched-speaker
 elif [ "$search_engine" = "󰓃  HDMI" ]; then
   ~/.local/bin/switch-output/switched-hdmi
@@ -152,53 +284,77 @@ elif [ "$search_engine" = "󰋌  Usb" ]; then
 elif [ "$search_engine" = "󰋌  Headphone" ]; then
   ~/.local/bin/switch-output/switched-headphone
 elif [ "$search_engine" = "󱑤  ytautomatic" ]; then
-  ~/.config/rofi/bin/yt-automatic
+  ~/.config/rofi/bin/yt-automatic &
 elif [ "$search_engine" = "󱑤  ytdownloader" ]; then
-  ~/.config/rofi/bin/yt-downloader
+  ~/.config/rofi/bin/yt-downloader &
+elif [ "$search_engine" = "󱑤  Downloads" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+	$filemanager "/mnt/Downloads/1windows/Downloads/"	&
+elif [ "$search_engine" = "  Config" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+	$filemanager ".config" &
+elif [ "$search_engine" = "  Study" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+	$filemanager "/mnt/Files/0Linux/Study/" &
+elif [ "$search_engine" = "󰷉  Documents" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+	$filemanager "/mnt/Files/0Linux/Documents/" &
+elif [ "$search_engine" = "󰷶  Workout" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+	$filemanager "/mnt/Files/0Linux/workout/" &
+  ~/.local/bin/neovide-launcher "/mnt/Files/0Linux/workout/Routine/routine.md" &
+  $player --speed=1 ~/workout/Routine/Routine_video.mkv &
+elif [ "$search_engine" = "  Pictures" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+	$filemanager "/mnt/Files/0Linux/Pictures/" &
+elif [ "$search_engine" = "󰝱  Guitar" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://therandomscalemachine.com/" "https://stonekick.com/metronomebeats/" "https://www.musictheory.net/exercises" &
+	$filemanager "/mnt/Files/0Linux/Study/Guitar/" &
+#.----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
+# .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
+# |  _________   | || |  ____  ____  | || |  _________   | || |  _______     | || |      __      | || |    _______   | |
+# | |_   ___  |  | || | |_  _||_  _| | || | |  _   _  |  | || | |_   __ \    | || |     /  \     | || |   /  ___  |  | |
+# |   | |_  \_|  | || |   \ \  / /   | || | |_/ | | \_|  | || |   | |__) |   | || |    / /\ \    | || |  |  (__ \_|  | |
+# |   |  _|  _   | || |    > `' <    | || |     | |      | || |   |  __ /    | || |   / ____ \   | || |   '.___`-.   | |
+# |  _| |___/ |  | || |  _/ /'`\ \_  | || |    _| |_     | || |  _| |  \ \_  | || | _/ /    \ \_ | || |  |`\____) |  | |
+# | |_________|  | || | |____||____| | || |   |_____|    | || | |____| |___| | || ||____|  |____|| || |  |_______.'  | |
+# |              | || |              | || |              | || |              | || |              | || |              | |
+# '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
+#'----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
 elif [ "$search_engine" = "󰥔  Clock" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	alacritty --config-file=$HOME/.config/alacritty/clock-alacritty.toml -e tty-clock -s -c -b -t -D
-elif [ "$search_engine" = "󱑤  Downloads" ]; then
-	notify-send "Opening" "$search_engine" -t 1500
-	thunar "/mnt/Downloads/1windows/Downloads/"	
-elif [ "$search_engine" = "  Config" ]; then
-	notify-send "Opening" "$search_engine" -t 1500
-	thunar ".config"	
-elif [ "$search_engine" = "  Study" ]; then
-	notify-send "Opening" "$search_engine" -t 1500
-	thunar "/mnt/Files/0Linux/Study/"
-elif [ "$search_engine" = "󰷉  Documents" ]; then
-	notify-send "Opening" "$search_engine" -t 1500
-	thunar "/mnt/Files/0Linux/Documents/"
-elif [ "$search_engine" = "󰷶  Workout" ]; then
-	notify-send "Opening" "$search_engine" -t 1500
-	thunar "/mnt/Files/0Linux/workout/"
-elif [ "$search_engine" = "  Pictures" ]; then
-	notify-send "Opening" "$search_engine" -t 1500
-	thunar "/mnt/Files/0Linux/Pictures/"
-elif [ "$search_engine" = "󰝱  Guitar" ]; then
-	notify-send "Opening" "$search_engine" -t 1500
-	thunar "/mnt/Files/0Linux/Study/Guitar/"
+elif [ "$search_engine" = "󰌌  keyboard-Led" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  xset led on 
+elif [ "$search_engine" = "  Lofi" ]; then
+  notify-send "Playing $search_engine" "Relax" -t 1500
+  $player --fs --speed=1 Videos/lofi &
+elif [ "$search_engine" = "󰷶  Stretch" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $player --fs --speed=1 --start=00:00:00 --volume=75 ~/workout/Stretch/stretch.mp4 &
+elif [ "$search_engine" = "  Course-python" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $player ~/Study/computer/python/projects-2.mkv &
+elif [ "$search_engine" = "  Course-share-market" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $player ~/Study/ShareMarket/Course/Technical-Analysis-Course/ &
 elif [ "$search_engine" = "  Type" ]; then
 	notify-send "$search_engine Practice" "Hard" -t 1500
-  brave "https://www.keybr.com/" "https://monkeytype.com/" "https://10fastfingers.com/typing-test/english"
-elif [ "$search_engine" = "󱎑  Nepse" ]; then
-	notify-send "$search_engine Practice" "Hard" -t 1500
-  brave "https://www.nepsealpha.com/trading/chart"
+  $browser "https://www.keybr.com/" "https://monkeytype.com/" "https://10fastfingers.com/typing-test/english" &
 elif [ "$search_engine" = "  Routine" ]; then
 	notify-send "Opening" "$search_engine" -t 300
-	zathura /mnt/Files/0Linux/Study/BIT/Second-Semester/Routine/IISEM-2079Batch.pdf
+	zathura /mnt/Files/0Linux/Study/BIT/Second-Semester/Routine/IISEM-2079Batch.pdf &
 elif [ "$search_engine" = "  Todo" ]; then
 	notify-send "lets do it" -t 500
-	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/todo.txt"
+	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/todo.txt" &
 elif [ "$search_engine" = "  Todo_Monthly" ]; then
 	notify-send "lets do it" -t 500
-	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/monthly_todo.txt"
-elif [ "$search_engine" = "󱎑  Share" ]; then
-  brave "https://meroshare.cdsc.com.np" "https://tms58.nepsetms.com.np" "https://naasasecurities.com.np/stock-calculation" "https://www.nepsealpha.com/trading/chart"
+	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/monthly_todo.txt" & 
 elif [ "$search_engine" = "  Add" ]; then
 	notify-send "$search_engine new item" "..." -t 1500
-	alacritty -e nvim .config/rofi/bin/rofi-quicklink
+	~/.local/bin/neovide-launcher ".config/rofi/bin/rofi-quicklink" &
 # __________  __________________ 
 # \______   \/  _____/\______   \
 #  |       _/   \  ___ |    |  _/
@@ -232,140 +388,44 @@ elif [ "$search_engine" = "󰌁  RGB White" ]; then
 # $$$$/  $$$$ |$$ |_____ $$ |__$$ |        /  \__$$ |$$ |_____ $$ |  $$ |$$ |  $$ |$$ \__/  |$$ |  $$ |
 # $$$/    $$$ |$$       |$$    $$/         $$    $$/ $$       |$$ |  $$ |$$ |  $$ |$$    $$/ $$ |  $$ |
 # $$/      $$/ $$$$$$$$/ $$$$$$$/           $$$$$$/  $$$$$$$$/ $$/   $$/ $$/   $$/  $$$$$$/  $$/   $$/ 
- # this is for the one which need the dialog box on it 
 elif [ "$search_engine" = "  Google" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave "https://www.google.com/search?q=$query"
-
-fi
-)
+  search_query
+  $browser "https://www.google.com/search?q=$query" &
 elif [ "$search_engine" = "  YouTube" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine"  -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c 
-    brave "https://youtube.com/results?search_query=$query"
-fi
-)
+  search_query
+  $browser "https://youtube.com/results?search_query=$query" &
 elif [ "$search_engine" = "  Google" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave "https://www.google.com/search?q=$query"
-fi
-)
+  search_query
+    $browser "https://www.google.com/search?q=$query" &
 elif [ "$search_engine" = "  Dictionary" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave "https://www.merriam-webster.com/dictionary/$query"
-fi
-)
+  search_query
+    $browser "https://www.merriam-webster.com/dictionary/$query" &
 elif [ "$search_engine" = "  Shopping" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave "https://www.google.com/search?q=$query daraz" 
-fi
-)
+  search_query
+    $browser "https://www.google.com/search?q=$query daraz" & 
 elif [ "$search_engine" = "󰈌  Facebook" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave "https://www.facebook.com/search/top?q=$query"
-fi
-)
+  search_query
+    $browser "https://www.facebook.com/search/top?q=$query" &
 elif [ "$search_engine" = "  Instagram" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave "https://www.instagram.com/$query"
-fi
-)
+  search_query
+    $browser "https://www.instagram.com/$query" &
 elif [ "$search_engine" = "󱜂  MovieSearch" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave "https://www.mkvcinemas.blog/?s=$query" "https://olamovies.homes/?s=$query" "https://moviesmod.zip/?s=$query" "https://hdhub4u.mov/?s=$query" "https://bollyflix.fans/?s=$query" "https://katmoviehd.ma/?s=$query" "https://cineb.rs/search/$query" "https://allmovieshub.photos/?s=$query" "https://1xbetmovies.online/?s=$query"
-fi
-)
+  search_query
+    $browser "https://www.mkvcinemas.blog/?s=$query" "https://olamovies.homes/?s=$query" "https://moviesmod.zip/?s=$query" "https://hdhub4u.mov/?s=$query" "https://bollyflix.fans/?s=$query" "https://katmoviehd.ma/?s=$query" "https://cineb.rs/search/$query" "https://allmovieshub.photos/?s=$query" "https://1xbetmovies.online/?s=$query" &
 elif [ "$search_engine" = "  Link" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave  "$query"
-fi
-)
+  search_query
+    $browser  "$query" &
 elif [ "$search_engine" = "󰦠  Show" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave  "https://wwu.ashiqana.com/?s=$query"
-fi
-)
+  search_query
+    $browser  "https://wwu.ashiqana.com/?s=$query" &
 elif [ "$search_engine" = "󱐡  Private" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)"| xclip -sel c
-    brave --incognito "https://www.google.com/search?q=$query"
-fi
-)
+  search_query
+  $browser --incognito "https://www.google.com/search?q=$query" &
 elif [ "$search_engine" = "󱐡  ShellGpt" ]; then
-  query=$(rofi -dmenu -p " $search_engine")
-  check=$(if [[ -z "$query" ]]; then
-  sh ~/.config/rofi/bin/rofi-quicklink
-    exit 0
-  else
-    notify-send "Searching $query" "$search_engine" -t 2200
-    echo "$query" | printf %s "$(< /dev/stdin)" | xclip -sel c
-    kitty -1 --hold tgpt "$query"
-fi
-)
+  search_query
+    kitty -1 --hold tgpt "$query" &
 else
 	exit 0
 fi
+
+	exit 0
