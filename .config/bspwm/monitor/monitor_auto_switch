@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Paths to power supply status
+POWER_SUPPLY_PATH="/sys/class/power_supply/ACAD/online"
+
+# Script to run when there is no electricity
+OFF_POWER_SCRIPT="~/.config/bspwm/monitor/monitor_disconnected"
+
+# Previous power status
+PREV_POWER_STATUS=-1
+
+while true; do
+  # Read current power status
+  POWER_STATUS=$(cat $POWER_SUPPLY_PATH)
+  
+  if [ "$POWER_STATUS" -eq 0 ] && [ "$PREV_POWER_STATUS" -ne 0 ]; then
+    # Electricity is not present, switch to laptop screen and run off_power script
+    eval $OFF_POWER_SCRIPT
+    PREV_POWER_STATUS=0
+  elif [ "$POWER_STATUS" -eq 1 ]; then
+    # Electricity is present, no action required
+    PREV_POWER_STATUS=1
+  fi
+
+  # Sleep for a while before checking again
+  sleep 5
+done
