@@ -16,23 +16,18 @@ alt + l
 
 #mpd player
 super + b 
-	sh ~/.config/rofi/bin/mpd
+	sh ~/.config/rofi/mpd/mpd
 
-#opened windows
-super + Tab   	
-	sh ~/.config/rofi/bin/windows
-
+#windows
 alt + v
-	sh ~/.config/rofi/bin/windows
-#networkmanager menu
-# super +n 
-# networkmanager_dmenu
+	sh ~/.config/rofi/window/windows
+
 	
 ##---------- Applications ----------##
 
 # Launch Apps
-super + {z,a}
-	{networkmanager_dmenu,mpv --player-operation-mode=pseudo-gui}
+super + a
+	mpv --player-operation-mode=pseudo-gui
 
 super + shift + Return
 	thunar 
@@ -60,16 +55,12 @@ Print
 	
 # Take screenshot in 5 second
 alt + Print	
-	flameshot full -c -p /mnt/Files/0Linux/Pictures/Screenshots/
+	flameshot full -c -p ~/Pictures/Screenshots/
 
 # Take screenshot in 10 second
 shift + Print	
 	flameshot gui -d 2000
 
-# Take screenshot of active window
-ctrl + Print
-	flameshot full -c -p /mnt/Files/0Linux/Pictures/Screenshots/
-	
 # bspwm hotkeys                    ##---------- Bspwm ----------##
 #
 
@@ -194,21 +185,16 @@ ctrl + alt + x
 # Quicklink
 alt + c
 	~/.config/rofi/bin/rofi-quicklink
-alt + f
- ~/.config/rofi/bin/rofi-finder
 
 # switch between output devices
-super + o
-  sh ~/.config/rofi/bin/audio-output
-
 super + shift + m
-  sh ~/.local/bin/switch-output/volume-mute
+  sh ~/.local/bin/audio_switch volume-mute
 
 alt + {equal,minus}
-  {sh ~/.local/bin/switch-output/increase-volume,sh ~/.local/bin/switch-output/decrease-volume}
+  {sh ~/.local/bin/audio_switch volume-increase,sh ~/.local/bin/audio_switch volume-decrease}
 
 alt + shift + {equal,minus}
-  {sh ~/.local/bin/switch-output/brightness-up,sh ~/.local/bin/switch-output/brightness-down}
+  {sh ~/.local/bin/audio_switch brightness-up,sh ~/.local/bin/audio_switch brightness-down}
 
 #Function and XF86 Keys
 XF86Tools
@@ -274,4 +260,4 @@ super + F8
 
 #Pause for timer
 Pause
-  sh ~/.config/rofi/bin/countdown
+  sh ~/.local/bin/countdown

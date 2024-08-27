@@ -87,7 +87,6 @@ search_engine=$(echo -e "\
 󰋌  USB
 󰋌  Headphone
   Blue-Earpod
-  Blue-Speaker
  Ref-Battery
  Ref-Power
 󰍹  Mon-Connect
@@ -253,9 +252,9 @@ elif [ "$search_engine" = "󱎫  Timer" ]; then
 elif [ "$search_engine" = "  Scrcpy(Android)" ]; then
   ~/.local/bin/run_scrcpy &
 elif [ "$search_engine" = "  Mic-Mute" ]; then
-  ~/.local/bin/switch-output/microphone-mute 
+  ~/.local/bin/audio_switch microphone-mute
 elif [ "$search_engine" = "  Mic-UnMute" ]; then
-  ~/.local/bin/switch-output/microphone-unmute
+  ~/.local/bin/audio_switch microphone-unmute
 elif [ "$search_engine" = "󱑤  gdrivedownloader" ]; then
   ~/.config/rofi/bin/google-drive-downloder
 elif [ "$search_engine" = "  Server" ]; then
@@ -294,17 +293,15 @@ elif [ "$search_engine" = "󰍹  Mon-External" ]; then
     ~/.config/rofi/bin/rofi-quicklink
   fi
 elif [ "$search_engine" = "  Blue-Earpod" ]; then
-  ~/.local/bin/switch-output/switched-bluetooth-earpods
-elif [ "$search_engine" = "  Blue-Speaker" ]; then
-  ~/.local/bin/switch-output/switched-bluetooth-speaker
+  ~/.local/bin/audio_switch speaker-bluetooth-earpod
 elif [ "$search_engine" = "󰓃  Laptop-Speaker" ]; then
-  ~/.local/bin/switch-output/switched-speaker
+  ~/.local/bin/audio_switch speaker-laptop
 elif [ "$search_engine" = "󰓃  HDMI" ]; then
-  ~/.local/bin/switch-output/switched-hdmi
+  ~/.local/bin/audio_switch speaker-hdmi
 elif [ "$search_engine" = "󰋌  USB" ]; then
-  ~/.local/bin/switch-output/switched-usb
+  ~/.local/bin/audio_switch speaker-usb
 elif [ "$search_engine" = "󰋌  Headphone" ]; then
-  ~/.local/bin/switch-output/switched-headphone
+  ~/.local/bin/audio_switch speaker-headphone
 elif [ "$search_engine" = "󱑤  ytautomatic" ]; then
   ~/.config/rofi/bin/yt-automatic &
 elif [ "$search_engine" = "󱑤  ytdownloader" ]; then
