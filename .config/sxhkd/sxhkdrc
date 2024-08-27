@@ -244,6 +244,10 @@ XF86AudioMicMute
 XF86Audio{Next,Prev,Play,Stop}
 	mpc {next,prev,toggle,stop}
 
+#Tekapoint screen drawing tool
+ctrl + grave
+  sh ~/.local/bin/run_tekapoint
+
 #Function keys
 
 #Music F9 F10 F11 F12
@@ -252,7 +256,7 @@ XF86Audio{Next,Prev,Play,Stop}
 F9
   killall ncmpcpp ; kitty -e ncmpcpp
 
-#App Own function F1 F2 F3 F4
+#App Own function F1 F2 F3 
 F4
   sh ~/.config/rofi/bin/yt-downloader
 
@@ -265,3 +269,9 @@ F7
  sh ~/.config/rofi/bin/auto_movie_search
 F8
   brave "file:///mnt/Files/0Linux/Music/Metronome/index.html"
+super + F8
+  ~/.local/bin/run_ardour
+
+#Pause for timer
+Pause
+  sh ~/.config/rofi/bin/countdown

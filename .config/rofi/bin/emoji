@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-DIR="$HOME/.config"
-
-rofi -no-lazy-grab -show emoji -theme "$DIR"/rofi/themes/emoji.rasi

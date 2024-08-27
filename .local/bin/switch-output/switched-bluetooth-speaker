@@ -1,6 +1,0 @@
-#!/bin/sh
-  bluetoothctl power on
-  bluetoothctl connect "5C:AA:49:56:B8:54"
-  pactl set-default-sink bluez_output.5C_AA_49_56_B8_54.a2dp-sink 
-  notify-send "Audio switched" "Bluetooth Speaker" -t 1500
-  exit 0

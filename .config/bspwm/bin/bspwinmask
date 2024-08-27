@@ -4,4 +4,5 @@ if [ -z "$masked" ]; then
 	bspc node focused -g hidden=on
 else
 	bspc node "$masked" -g hidden=off
+	bspc node "$masked" -f
 fi

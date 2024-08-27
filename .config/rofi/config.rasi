@@ -1,14 +1,14 @@
 configuration {
     show-icons: true;
-    terminal: "kitty -e ";
-	drun-display-format:        "{name}";
+    terminal: "alacritty -e ";
+    drun-display-format: "{name}";
     disable-history: false;
     hide-scrollbar: true;
     window-format: " [{w}]\t\t{t:0}";
     sidebar-mode: true;
     display-run: "";
     display-drun: "";
-    display-window: "";
+    display-window: "";
     show-match: true;
     kb-mode-previous: "Alt+h,Control+Shift+Tab";
     kb-mode-next: "Alt+l,Control+Tab";
@@ -17,7 +17,7 @@ configuration {
     kb-row-down: "Control+Alt+j,Control+n,Down";
     kb-row-up: "Control+Alt+k,Control+p,Up";
     kb-remove-word-back: "Control+BackSpace";
-    modi: "run,drun,window";
+    modi: "run,drun,window,calc,emoji";
     me-select-entry: "MousePrimary";
     me-accept-entry: "!MousePrimary";
     history-enabled: true;

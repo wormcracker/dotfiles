@@ -14,6 +14,7 @@ search_query() {
   fi
 }
 # Define the search engine
+runQuicklink(){
 search_engine=$(echo -e "\
 󰵀  Subscription
   Recent
@@ -31,29 +32,35 @@ search_engine=$(echo -e "\
   Chatgpt
 󰻞  Gemini
   Github
+  LiveServer
   Server
   Icon Fonts
   Calendar
   History
 󰊻  Teams
 󰋀  Classroom
+  SketchPad
 󰼁  Jellyfin
   Scrcpy(Android)
   Lofi
-  Course-python
+  Course-frontend
   Course-share-market
+  Wagle
   BIT
   Routine
-󰖂  VPN
+󰖂  VPN-Start
+󰖂  VPN-Stop
 󰷶  Workout
 󰷶  Stretch
 󱪙  Docs
   English-Practice
   Todo
   Todo_Monthly
+󰝚  Music-Downloader-Yt
 󰝚  Music-Lyrics
 󱎑  Share-stock-chart
 󱎑  Share-stock-mersoshare
+󱎑  Share-stock-journal
 󱎑  Share-stock-tms
 󱎑  Share-stock-calculation
 󰒋  Urserver
@@ -72,6 +79,7 @@ search_engine=$(echo -e "\
 󰝱  Guitar
 󰲑  IpoResult
   Syncthing
+  Ardour
   Mic-Mute
   Mic-UnMute
 󰓃  HDMI
@@ -87,6 +95,7 @@ search_engine=$(echo -e "\
 󰍹  Mon-External
 󰃉  Colorpicker
 󰩟  IPcheck
+󰩟  IPAddress
 󱎫  Timer
    RGB enable
    RGB Off
@@ -138,6 +147,9 @@ elif [ "$search_engine" = "󱪙  Docs" ]; then
 elif [ "$search_engine" = "󰛜  Keep" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://keep.google.com/u/1/" &
+elif [ "$search_engine" = "  SketchPad" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://excalidraw.com/" &
 elif [ "$search_engine" = "  Telegram" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://web.telegram.org/k/"
@@ -146,8 +158,8 @@ elif [ "$search_engine" = "󰎕  News" ]; then
   $browser "https://www.facebook.com/officialroutineofnepalbanda/" &
 elif [ "$search_engine" = "  English-Practice" ]; then
   $player --fs --speed=1 ~/Study/English/ReadingListening/ & 
-  ~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Study/English/vocabulary.txt" &
   $browser "https://chatgpt.com/c/cbb10b8c-f815-47e4-9821-4e26922f85dd" &
+  ~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Study/Notes/english/vocabulary.md" &
 elif [ "$search_engine" = "  Recorder" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://recorder.google.com/?authuser=1" &
@@ -180,7 +192,7 @@ elif [ "$search_engine" = "  History" ]; then
   $browser "https://www.youtube.com/feed/history" &
 elif [ "$search_engine" = "󱛾  Movie" ]; then
   notify-send "Opening $search_engine" "Ready to watch" -t 1500
-  $browser "https://mkvcinemas.blog/" "https://moviesmod.zip/korean-series/" "https://hdhub4u.mov/" "https://katmoviehd.dad/" "https://allmovieshub.photos/" "https://thekhatrimaza.mov/" "https://ww5.filmyzillalol.com.im/" "https://bollyflix.fans/" "https://olamovies.yachts/" "https://www.1xbetmovieshd.online/" &
+  $browser "https://mkvcinemas.blog/" "https://moviesmod.zip/korean-series/" "https://hdhub4u.mov/" "https://katmoviehd.dad/" "https://allmovieshubs.me/" "https://thekhatrimaza.mov/" "https://ww5.filmyzillalol.com.im/" "https://bollyflix.fans/" "https://oesscu.in/" &
 elif [ "$search_engine" = "󰊻  Teams" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://teams.microsoft.com/_#/school/teams-grid/General?ctx=teamsGrid" &
@@ -209,7 +221,10 @@ elif [ "$search_engine" = "󰝚  Music-Lyrics" ]; then
   $browser "https://genius.com/search?q=$search_query_direct" "https://www.google.com/search?q=$search_query" &
 elif [ "$search_engine" = "󱎑  Share-stock-chart" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  $browser "https://www.nepsealpha.com/trading/chart" "https://www.tradingview.com/chart/" &
+  $browser "https://www.nepsealpha.com/trading/chart" &
+elif [ "$search_engine" = "󱎑  Share-stock-journal" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://docs.google.com/spreadsheets/d/1NtvNpAtLlsY2Woat5fK4emrbL9w3lY5xwZMMfBg4c3g/edit?gid=1081714275#gid=1081714275" &
 elif [ "$search_engine" = "󱎑  Share-stock-mersoshare" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://meroshare.cdsc.com.np" &
@@ -219,6 +234,9 @@ elif [ "$search_engine" = "󱎑  Share-stock-tms" ]; then
 elif [ "$search_engine" = "󱎑  Share-stock-calculation" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://naasasecurities.com.np/stock-calculation" &
+elif [ "$search_engine" = "  LiveServer" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "/mnt/Files/0Linux/Study/Notes/frontend/" &
 #.----------------.  .----------------.  .----------------.  .----------------. 
 # .--------------. || .--------------. || .--------------. || .--------------. |
 # |  _________   | || |     _____    | || |   _____      | || |  _________   | |
@@ -246,10 +264,14 @@ elif [ "$search_engine" = "󰒋  Urserver" ]; then
  ~/.local/bin/urserver &
 elif [ "$search_engine" = "󰃉  Colorpicker" ]; then
   ~/.local/bin/color_picker &
-elif [ "$search_engine" = "󰖂  VPN" ]; then
-  kitty -e ~/.local/bin/vpn/vpn &
+elif [ "$search_engine" = "󰖂  VPN-Start" ]; then
+  ~/.local/bin/vpn/vpn connect &
+elif [ "$search_engine" = "󰖂  VPN-Stop" ]; then
+  ~/.local/bin/vpn/vpn disconnect &
 elif [ "$search_engine" = "󰩟  IPcheck" ]; then
   ~/.local/bin/ip-check &
+elif [ "$search_engine" = "󰩟  IPAddress" ]; then
+  ~/.local/bin/copy_ip &
 elif [ "$search_engine" = "  File(Desktop)" ]; then
   ~/.local/bin/file_adb_desktop &
 elif [ "$search_engine" = "  File(Android)" ]; then
@@ -279,7 +301,7 @@ elif [ "$search_engine" = "󰓃  Laptop-Speaker" ]; then
   ~/.local/bin/switch-output/switched-speaker
 elif [ "$search_engine" = "󰓃  HDMI" ]; then
   ~/.local/bin/switch-output/switched-hdmi
-elif [ "$search_engine" = "󰋌  Usb" ]; then
+elif [ "$search_engine" = "󰋌  USB" ]; then
   ~/.local/bin/switch-output/switched-usb
 elif [ "$search_engine" = "󰋌  Headphone" ]; then
   ~/.local/bin/switch-output/switched-headphone
@@ -287,6 +309,8 @@ elif [ "$search_engine" = "󱑤  ytautomatic" ]; then
   ~/.config/rofi/bin/yt-automatic &
 elif [ "$search_engine" = "󱑤  ytdownloader" ]; then
   ~/.config/rofi/bin/yt-downloader &
+elif [ "$search_engine" = "󰝚  Music-Downloader-Yt" ]; then
+  ~/.config/rofi/bin/yt-music-downloader &
 elif [ "$search_engine" = "󱑤  Downloads" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	$filemanager "/mnt/Downloads/1windows/Downloads/"	&
@@ -302,14 +326,13 @@ elif [ "$search_engine" = "󰷉  Documents" ]; then
 elif [ "$search_engine" = "󰷶  Workout" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	$filemanager "/mnt/Files/0Linux/workout/" &
-  ~/.local/bin/neovide-launcher "/mnt/Files/0Linux/workout/Routine/routine.md" &
-  $player --speed=1 ~/workout/Routine/Routine_video.mkv &
+  $browser "https://docs.google.com/spreadsheets/d/1NtvNpAtLlsY2Woat5fK4emrbL9w3lY5xwZMMfBg4c3g/edit?gid=2048059718#gid=2048059718" &
 elif [ "$search_engine" = "  Pictures" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	$filemanager "/mnt/Files/0Linux/Pictures/" &
 elif [ "$search_engine" = "󰝱  Guitar" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
-  $browser "https://therandomscalemachine.com/" "https://stonekick.com/metronomebeats/" "https://www.musictheory.net/exercises" &
+  $browser "https://docs.google.com/spreadsheets/d/1NtvNpAtLlsY2Woat5fK4emrbL9w3lY5xwZMMfBg4c3g/edit?gid=0#gid=0" &
 	$filemanager "/mnt/Files/0Linux/Study/Guitar/" &
 #.----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
 # .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
@@ -334,15 +357,18 @@ elif [ "$search_engine" = "  Lofi" ]; then
 elif [ "$search_engine" = "󰷶  Stretch" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $player --fs --speed=1 --start=00:00:00 --volume=75 ~/workout/Stretch/stretch.mp4 &
-elif [ "$search_engine" = "  Course-python" ]; then
+elif [ "$search_engine" = "  Course-frontend" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  $player ~/Study/computer/python/projects-2.mkv &
+  $player ~/Series/frontEnd/ &
 elif [ "$search_engine" = "  Course-share-market" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  $player ~/Study/ShareMarket/Course/Technical-Analysis-Course/ &
+  $player ~/Series/SMC/ &
+elif [ "$search_engine" = "  Wagle" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $player ~/Series/wagle.ki.duniya/ &
 elif [ "$search_engine" = "  Type" ]; then
 	notify-send "$search_engine Practice" "Hard" -t 1500
-  $browser "https://www.keybr.com/" "https://monkeytype.com/" "https://10fastfingers.com/typing-test/english" &
+  $browser "https://www.keybr.com/" "https://monkeytype.com/" "https://10fastfingers.com/advanced-typing-test/english" &
 elif [ "$search_engine" = "  Routine" ]; then
 	notify-send "Opening" "$search_engine" -t 300
 	zathura /mnt/Files/0Linux/Study/BIT/Second-Semester/Routine/IISEM-2079Batch.pdf &
@@ -352,6 +378,9 @@ elif [ "$search_engine" = "  Todo" ]; then
 elif [ "$search_engine" = "  Todo_Monthly" ]; then
 	notify-send "lets do it" -t 500
 	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/monthly_todo.txt" & 
+elif [ "$search_engine" = "  Ardour" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  ~/.local/bin/run_ardour &
 elif [ "$search_engine" = "  Add" ]; then
 	notify-send "$search_engine new item" "..." -t 1500
 	~/.local/bin/neovide-launcher ".config/rofi/bin/rofi-quicklink" &
@@ -427,5 +456,6 @@ elif [ "$search_engine" = "󱐡  ShellGpt" ]; then
 else
 	exit 0
 fi
-
-	exit 0
+}
+runQuicklink
+exit 0

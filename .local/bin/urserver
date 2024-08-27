@@ -1,4 +1,0 @@
-#!/bin/sh
-  killall -q urserver
-  ~/Temp/urserver/urserver --daemon
-  exit 0

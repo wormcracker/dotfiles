@@ -1,18 +1,21 @@
 #!/bin/bash
 
-# Retrieve city, country name, country code, and public IP address
+# retrieve city, country name, country code, and public ip address
 city=$(curl -4 -sf ifconfig.co/city)
 country_name=$(curl -4 -sf ifconfig.co/country)
 country_code=$(curl -4 -sf ifconfig.co/country-iso)
 public_ip=$(curl -4 -sf ifconfig.co)
 
-# Check if all information is retrieved successfully
-if [ -n "$city" ] && [ -n "$country_name" ] && [ -n "$country_code" ] && [ -n "$public_ip" ]; then
-    # Construct the notification message
-    notification_message="Your public IP address: $public_ip\nCity: $city\nCountry: $country_name ($country_code)"
+## copyies in clipboard
+echo -n "p-$public_ip" | xsel --clipboard
 
-    # Send notification using notify-send (make sure libnotify is installed)
-    notify-send "Public IP Notification" "$notification_message" -t 10000
+# check if all information is retrieved successfully
+if [ -n "$city" ] && [ -n "$country_name" ] && [ -n "$country_code" ] && [ -n "$public_ip" ]; then
+    # construct the notification message
+    notification_message="your public ip address: $public_ip\ncity: $city\ncountry: $country_name ($country_code)"
+
+    # send notification using notify-send (make sure libnotify is installed)
+    notify-send "public ip notification" "$notification_message" -t 10000
 else
-    echo "Failed to retrieve public IP address, city, country name, or country code."
+    echo "failed to retrieve public ip address, city, country name, or country code."
 fi

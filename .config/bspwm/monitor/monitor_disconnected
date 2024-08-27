@@ -1,5 +1,6 @@
-#!/bin/env bash
+#!/bin/sh
 xrandr --output eDP-1 --primary --mode 1920x1080 --rotate normal --output HDMI-1-0 --off
+bspc monitor HDMI-1-0 -a 9
 killall polybar 
 polybar bspwm-top-main &
 sleep 1
@@ -11,7 +12,11 @@ bspc desktop 5 --to-monitor eDP-1 --follow
 bspc desktop 6 --to-monitor eDP-1 --follow
 bspc desktop 7 --to-monitor eDP-1 --follow
 bspc desktop 8 --to-monitor eDP-1 --follow
-bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8
-sh ~/.fehbg &
-sh ~/.local/bin/auto_sleep &
+bspc desktop Desktop --remove
+bspc desktop 9 --remove
 bspc monitor HDMI-1-0 -r
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8
+bspc monitor eDP-1 -o 1 2 3 4 5 6 7 8
+sh ~/.fehbg 
+sh ~/.local/bin/auto_sleep &
+sh ~/.local/bin/switch-output/switched-speaker

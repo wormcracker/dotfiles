@@ -14,7 +14,7 @@ configuration {
     selected:       #f6c177;
     urgent:         #eb6f92;
 
-    font: "Maple Mono 14";
+    font: "JetBrainsMono NF Bold 14";
 }
 
 /*****----- Main Window -----*****/
@@ -69,7 +69,7 @@ textbox-prompt-colon {
 }
 prompt {
     enabled:                     true;
-    border-radius:               12px;
+    border-radius:               8px;
     background-color:            @active;
     text-color:                  @background;
 }
@@ -126,7 +126,7 @@ element {
     cursor:                      pointer;
 }
 element-text {
-    font:                        "feather 28";
+    font:                        "feather 20";
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;

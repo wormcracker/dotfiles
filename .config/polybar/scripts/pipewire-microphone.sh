@@ -1,52 +1,27 @@
 #!/bin/sh
 
-get_mic_default() {
-    pw-cat --record --list-targets | sed -n -E "1 s/^.*: (.*)/\1/p"
-}
-
-is_mic_muted() {
-    mic_name="$(get_mic_default)"
-
-    pactl list sources | \
-        awk -v mic_name="${mic_name}" '{
-            if ($0 ~ "Name: " mic_name) {
-                matched_mic_name = 1;
-            } else if (matched_mic_name && /Mute/) {
-                print $2;
-                exit;
-            }
-        }'
-}
-
 get_mic_status() {
-    is_muted="$(is_mic_muted)"
-
-    if [ "${is_muted}" = "yes" ]; then
-        printf "%s\n" "#1"
+    is_muted=$(amixer get Capture | grep '\[off\]' | wc -l)
+    if [ "$is_muted" -eq 2 ]; then
+        echo ""  # Icon for muted
     else
-        printf "%s\n" ""
+        echo ""  # Icon for unmuted
     fi
 }
 
-listen() {
-    get_mic_status
-
-    LANG=EN; pactl subscribe | while read -r event; do
-        if printf "%s\n" "${event}" | grep --quiet "source" || printf "%s\n" "${event}" | grep --quiet "server"; then
-            get_mic_status
-        fi
-    done
+toggle_mic_unmute() {
+  amixer set Capture cap
+  notify-send "  Microphone: unmuted" 
+}
+toggle_mic_mute() {
+  amixer set Capture nocap
+  notify-send "  Microphone: muted" 
 }
 
-toggle() {
-    pactl set-source-mute @DEFAULT_SOURCE@ toggle
-}
-
-case "$1" in
-    --toggle)
-        toggle
-        ;;
-    *)
-        listen
-        ;;
-esac
+if [ "$1" = "--mute" ]; then
+  toggle_mic_mute
+elif [[ "$1" = "--unmute" ]]; then
+  toggle_mic_unmute
+else 
+  get_mic_status
+fi

@@ -72,12 +72,12 @@ keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Open Obsidian
 keymap.set("n", "<leader>b", "<cmd>TagbarToggle<cr>", { desc = "Get the tagbar of current file" }) -- list available help tags
 
 -- Noice
-keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<cr>", { desc = "Find all recent noice config" }) -- list available help tags
+keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<cr>", { desc = "Remove all notification from noice" })
 
 -- previous/next buffer
 keymap.set("n", "<TAB>", "<cmd>BufferLineCycleNext<CR>") -- previous buffer
 keymap.set("n", "<S-TAB>", "<cmd>BufferLineCyclePrev<CR>") -- next buffer
-keymap.set("n", "<leader>c", "<cmd>:bp|bd#<CR>") -- delete buffer
+keymap.set("n", "<leader>x", "<cmd>:bn|bd#<CR>") -- delete buffer
 keymap.set("i", "<C-TAB>", "<cmd>BufferLineCycleNext<CR>") -- next buffer
 keymap.set("i", "<S-TAB>", "<cmd>BufferLineCyclePrev<CR>") -- next buffer
 keymap.set("n", "<C-1>", "<cmd>BufferLineGoToBuffer 1<CR>")
@@ -89,3 +89,12 @@ keymap.set("n", "<C-5>", "<cmd>BufferLineGoToBuffer 5<CR>")
 --Markdown Preview/toggle
 keymap.set("n", "<leader>ms", "<cmd>MarkdownPreview<CR>") -- Preview Markdown
 keymap.set("n", "<leader>me", "<cmd>MarkdownPreviewStop<CR>") -- Preview Markdown
+
+--Liveserver
+keymap.set("n", "<leader>k", "<cmd>LiveServerToggle<cr>", { desc = "Toggle Live Server" })
+
+--Misc
+keymap.set("n", "<leader>oi", function()
+	-- Insert 3 empty lines above and move to the 2nd line
+	vim.api.nvim_input("O<Esc>o<Esc>k<Esc>O<Esc>ji")
+end, { desc = "Insert 3 lines above and move to 2nd line" })

@@ -15,7 +15,8 @@ xset b off  # Turn off terminal bell
 ~/.config/rgb/facer_rgb.py -b 0 #disable the keyboard rgb light
 sxhkd -c &  # Start Simple X Hotkey Daemon
 $HOME/.config/bspwm/monitor/monitor &  # Monitor configuration script
-numlockx on &  # Turn on NumLock
+numlockx on  # Turn on NumLock
+# setxkbmap -option "caps:escape_shifted_capslock" # map capslock as escape key
 picom -b &  # Start Picom compositor
 exec mpd &
 dunst &  # Start Dunst notification daemon
@@ -26,8 +27,8 @@ $HOME/.local/bin/auto_lock &  # Start auto-lock script
 conky &
 python ~/Documents/Calender/calender.py &  # Start Nepali calendar script
 sh ~/.local/bin/reset_redshift &  # Start Redshift
-pkill -f ~/.local/bin/eye-break # kill if already running
-sh ~/.local/bin/eye-break & # manages break time for eye for every 15 minutes
+# pkill -f ~/.local/bin/eye-break # kill if already running
+# sh ~/.local/bin/eye-break & # manages break time for eye for every 15 minutes
 sleep 5 
 redshift &  # Start Redshift
 copyq &  # Start CopyQ clipboard manager

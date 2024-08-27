@@ -13,6 +13,10 @@ return {
 				width = 28,
 				relativenumber = false,
 			},
+			system_open = {
+				cmd = "xdg-open", -- Use the default OS opener
+				args = {},
+			},
 			-- change folder arrow icons
 			renderer = {
 				indent_markers = {

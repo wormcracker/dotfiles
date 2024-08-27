@@ -8,7 +8,7 @@ configuration {
     display-run:                " ";
     display-combi:              "";
     /* display-filebrowser:        " "; */
-    display-emoji:				"🇳🇵 ";
+    display-emoji:				"👿";
     display-calc:				" ";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c}";

@@ -27,22 +27,40 @@ return {
 		mason_lspconfig.setup({
 			-- list of servers for mason to install
 			ensure_installed = {
-				"tailwindcss",
-				"svelte",
-				"lua_ls",
-				"graphql",
-				"emmet_ls",
-				"prismals",
-				"pyright",
+				-- "alex",
+				-- "bash-language-server",
+				-- "black", -- python formatter
+				-- "clangd",
+				-- "css-lsp",
+				-- "emmet_ls",
+				-- "html-lsp",
+				-- "isort", -- python formatter
+				-- "prettierd", -- prettier formatter
+				-- "lua_ls",
+				-- "pyright",
+				-- "stylua", -- lua formatter
+				-- "tailwindcss-language-server",
+				-- "typescript-language-server",
 			},
 		})
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				-- "prettier", -- prettier formatter
-				"stylua", -- lua formatter
-				"isort", -- python formatter
+				"alex",
+				"bash-language-server",
 				"black", -- python formatter
+				"clangd",
+				"css-lsp",
+				"emmet_ls",
+				"html-lsp",
+				"isort", -- python formatter
+				"prettier", -- prettier formatter
+				"js-debug-adapter",
+				"lua_ls",
+				"pyright",
+				"stylua", -- lua formatter
+				"tailwindcss-language-server",
+				"typescript-language-server",
 			},
 		})
 	end,

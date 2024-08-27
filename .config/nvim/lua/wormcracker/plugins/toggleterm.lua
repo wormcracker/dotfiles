@@ -2,7 +2,7 @@ return {
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
-		opts = {--[[ things you want to change go here]]
+		opts = {
 			size = 20,
 			open_mapping = [[<m-\>]],
 			hide_numbers = true,
@@ -13,7 +13,7 @@ return {
 			insert_mappings = true,
 			persist_size = true,
 			direction = "float",
-			autochdir = true, -- when neovim changes it current directory the terminal will change it's own when next it's opened
+			autochdir = true, -- Ensures the terminal's directory matches the Neovim current directory
 			close_on_exit = true,
 			shell = vim.o.shell,
 			float_opts = {

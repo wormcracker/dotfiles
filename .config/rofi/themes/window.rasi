@@ -1,5 +1,5 @@
 configuration {
-    show-icons:                     false;
+    show-icons:                     true;
     display-window: 				"Windows :";
     window-format: 					"{w} · {c} · {t}";
     disable-history:                false;
@@ -12,11 +12,11 @@ configuration {
 window {
     transparency:                   "real";
     background-color:               @background;
-    text-color:                     @foreground;
+    text-color:                     #2a273f;
     border:                  		0px;
     border-color:                  	@selected;
     border-radius:                  6px;
-    width:                          500px;
+    width:                          600px;
     location:                       center;
     anchor:                         center;
     x-offset:                       0;
@@ -41,7 +41,6 @@ textbox-prompt-colon {
     background-color:               @highlight;
     text-color:                     @background;
     padding:    					6px 10px 6px 10px;
-	font:							"Iosevka Nerd Font 10";
 }
 
 entry {
