@@ -1,0 +1,3 @@
+#!/bin/sh
+
+~/Temp/tekapoint/tekapoint --width 2 --color W -p ~/Pictures/tekapoint_screen/

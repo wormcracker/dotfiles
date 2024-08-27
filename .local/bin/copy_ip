@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Get the local IP addresses using the 'ip' command
+ip_address_ethernet=$(ip -o -4 addr show | awk '/enp3s0/ {print $4}' | cut -d/ -f1)
+ip_address_wlan=$(ip -o -4 addr show | awk '/wlp4s0/ {print $4}' | cut -d/ -f1)
+
+# Check if xsel is installed
+if command -v xsel >/dev/null 2>&1; then
+    # Copy Ethernet IP address to the clipboard
+    echo -n "E-$ip_address_ethernet" | xsel --clipboard
+    echo "Ethernet IP address copied to clipboard: $ip_address_ethernet"
+
+    # Optionally, add a short delay to avoid race conditions
+    sleep 1
+
+    # Copy Wi-Fi IP address to the clipboard
+    echo -n "W-$ip_address_wlan" | xsel --clipboard
+    echo "Wi-Fi IP address copied to clipboard: $ip_address_wlan"
+else
+    echo "Error: xsel is not installed. Please install xsel to use this script."
+fi
+

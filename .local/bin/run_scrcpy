@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Function to check if scrcpy is running
+check_scrcpy_running() {
+    if pgrep -x "scrcpy" > /dev/null; then
+        echo "scrcpy is running."
+        exit 0
+    else
+        echo "Error: scrcpy is not running."
+        notify-send "Scrcpy" "Disconnected"
+        exit 1
+    fi
+}
+
+# Prompt for IP address using rofi
+IP_ADDRESS=$(rofi -dmenu -p "Enter device IP address:")
+
+# If the user cancels or doesn't provide input, exit
+if [ -z "$IP_ADDRESS" ]; then
+    IP_ADDRESS="192.168.16.101"
+    echo "Using default"
+fi
+
+# Start scrcpy
+adb connect "$IP_ADDRESS:5555" # Mobile IP address, first enable tcpip using the command "adb tcpip 5555"
+killall scrcpy
+echo "Starting scrcpy..."
+notify-send "Scrcpy" "Starting......"
+scrcpy --shortcut-mod=lalt --max-size=1024 --turn-screen-off --disable-screensaver --stay-awake --video-codec=h265 --video-bit-rate=6M --audio-bit-rate=128K --max-fps=30 --power-off-on-close # Best performance
+
+# Wait for a few seconds
+sleep 1
+
+# Check if scrcpy is running
+check_scrcpy_running

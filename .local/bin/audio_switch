@@ -1,0 +1,135 @@
+#!/bin/sh
+
+brightnessDown(){
+  brightnessctl set 5%-
+  dunstctl close
+  brightnessctl | grep "brightness" | awk '{print $4}' | tr -d '()' | xargs -I{} notify-send "󰃞  Brightness: {}" -t 1500
+  exit 0
+}
+
+brightnessUp(){
+  brightnessctl set 5%+
+  dunstctl close &
+  brightnessctl | grep "brightness" | awk '{print $4}' | tr -d '()' | xargs -I{} notify-send "󰃠  Brightness: {}" -t 1500
+  exit 0
+}
+
+
+volumeDecrease(){
+  amixer -D pulse sset Master 5%-
+  dunstctl close &
+  amixer get Master | grep -oE '[0-9]{1,3}?%' | head -1 | xargs -I{} notify-send "󰝞  Volume: {}" -t 1500
+  exit 0
+}
+
+
+volumeIncrease(){
+  amixer -D pulse sset Master 5%+
+  dunstctl close &
+  amixer get Master | grep -oE '[0-9]{1,3}?%' | head -1 | xargs -I{} notify-send "󰝝  Volume: {}" -t 1500
+  exit 0
+}
+
+volumeMute(){
+  current_status=$(amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{print $4}')
+
+  # Toggle the mute state
+  if [ "$current_status" == "on" ]; then
+    amixer -D pulse sset Master mute
+    notify-send "󰖁  Volume muted" -t 1500
+  else
+    amixer -D pulse sset Master unmute
+    notify-send "󰕾  Volume unmuted" -t 1500
+  fi
+
+}
+
+microphoneMute(){
+  amixer set Capture nocap
+  notify-send "  Microphone: muted" -t 1500
+  exit 0
+}
+
+microphoneUnMute(){
+  amixer set Capture cap
+  notify-send "  Microphone: unmuted" -t 1500
+  exit 0
+}
+
+speakerSwitchAnalogue(){
+  pactl set-default-sink alsa_output.pci-0000_05_00.6.analog-stereo
+}
+
+
+speakerSwitchHdmi(){
+  pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo 
+  notify-send "Audio switched" "HDMI Device" -t 1500
+}
+
+speakerSwitchHeadphone(){
+speakerSwitchAnalogue
+  pactl set-sink-port 0 analog-output-headphones
+  notify-send "Audio switched" "Headphone" -t 1500
+}
+
+
+speakerSwitchLaptopSpeaker(){
+speakerSwitchAnalogue
+  pactl set-sink-port 0 analog-output-speaker
+  notify-send "Audio switched" "Speaker" -t 1500
+}
+
+
+speakerSwitchUsb(){
+  pactl set-default-sink alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo
+  notify-send "Audio switched" "USB Device" -t 1500
+}
+
+speakerSwitchBluetoothEarpod(){
+  bluetoothctl power on
+  bluetoothctl connect "8C:6D:B9:15:DC:CD"
+  pactl set-default-sink bluez_output.8C_6D_B9_15_DC_CD.a2dp-sink
+  notify-send "Audio switched" "Bluetooth Earpod" -t 1500
+}
+case "$1" in
+  "brightness-down")
+    brightnessDown
+    ;;
+  "brightness-up")
+    brightnessUp
+    ;;
+  "volume-decrease")
+    volumeDecrease
+    ;;
+  "volume-increase")
+    volumeIncrease
+    ;;
+  "volume-mute")
+    volumeMute
+    ;;
+  "microphone-mute")
+    microphoneMute
+    ;;
+  "microphone-unmute")
+    microphoneUnMute
+    ;;
+  "speaker-hdmi")
+    speakerSwitchHdmi
+    ;;
+  "speaker-headphone")
+    speakerSwitchHeadphone
+    ;;
+  "speaker-laptop")
+    speakerSwitchLaptopSpeaker
+    ;;
+  "speaker-usb")
+    speakerSwitchUsb
+    ;;
+  "speaker-bluetooth-earpod")
+    speakerSwitchBluetoothEarpod
+    ;;
+  *)
+    echo "Usage: $0 {brightness-down|brightness-up|volume-decrease|volume-increase|volume-mute|microphone-mute|microphone-unmute|speaker-analog|speaker-hdmi|speaker-headphone|speaker-laptop|speaker-usb|speaker-bluetooth-earpod}"
+    exit 1
+    ;;
+esac
