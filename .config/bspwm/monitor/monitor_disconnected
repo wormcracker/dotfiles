@@ -19,4 +19,4 @@ bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8
 bspc monitor eDP-1 -o 1 2 3 4 5 6 7 8
 sh ~/.fehbg 
 sh ~/.local/bin/auto_sleep &
-sh ~/.local/bin/switch-output/switched-speaker
+sh ~/.local/bin/audio_switch speaker-laptop

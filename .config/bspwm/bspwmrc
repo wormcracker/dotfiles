@@ -14,9 +14,8 @@ bspc config focused_border_color "#191A21"
 bspc config normal_border_color "#1E222A"
 
 ##Floating Windows
-bspc rule -a Sxiv 		     state=floating
-bspc rule -a Ulauncher     state=floating follow=on
-bspc rule -a alacritty-float state=floating follow=on
+bspc rule -a Sxiv 		       state=floating
+bspc rule -a Ulauncher       state=floating follow=on
 bspc rule -a Xdm-app        state=floating focus=on sticky=off follow=on 
 bspc rule -a Qalculate-gtk  state=floating focus=on sticky=off follow=on
 bspc rule -a Lxappearance   state=floating focus=on sticky=off follow=on
@@ -28,10 +27,9 @@ bspc rule -a scrcpy         state=floating focus=on sticky=off follow=on
 bspc rule -a TekaPoint      state=fullscreen focus=on sticky=off follow=on
 bspc rule -a Nvidia-settings  state=floating focus=on sticky=off follow=on
 bspc rule -a Blueman-manager  state=floating focus=on sticky=off follow=on
-bspc rule -a Xarchiver  state=floating focus=on sticky=off follow=on
+bspc rule -a Xarchiver      state=floating focus=on sticky=off follow=on
 bspc rule -a mpv --player-operation-mode=pseudo-gui focus=on follow=on state=floating sticky=on
 bspc rule -a Onboard focus=on follow=on state=floating sticky=on
-bspc rule -a Alacritty	   state=tiled follow=on focus=on 
 ##Desktop 1
 bspc rule -a Thunar		   desktop='^1' follow=on   focus=on
 bspc rule -a scrcpy desktop='^1' state=tiled follow=on focus=on
@@ -70,7 +68,10 @@ bspc rule -a Ardour   desktop='^7' state=tiled follow=on
 bspc rule -a kdenlive desktop='^7' state=tiled follow=on
 bspc rule -a Gimp   desktop='^7' state=tiled follow=on
 ##Desktop 8
-bspc rule -a kitty desktop='^8' state=floating focus=on sticky=off follow=on
+## Kitty
+bspc rule -a kitty-float    state=floating follow=on
+bspc rule -a kitty-float-fixed state=floating desktop='^8' follow=on
+bspc rule -a kitty state=tiled focus=on sticky=off follow=on
 ## Export bspwm/bin dir to PATH
 export PATH="${PATH}:$HOME/.config/bspwm/bin"
 $HOME/.config/bspwm/autostart

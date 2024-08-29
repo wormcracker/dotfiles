@@ -67,7 +67,6 @@ search_engine=$(echo -e "\
   File(Desktop)
   File(Android)
 󱑤  ytdownloader
-󱑤  ytautomatic
 󱑤  gdrivedownloader
 󰌌  keyboard-Led
 󰟚  Metronome
@@ -302,8 +301,6 @@ elif [ "$search_engine" = "󰋌  USB" ]; then
   ~/.local/bin/audio_switch speaker-usb
 elif [ "$search_engine" = "󰋌  Headphone" ]; then
   ~/.local/bin/audio_switch speaker-headphone
-elif [ "$search_engine" = "󱑤  ytautomatic" ]; then
-  ~/.config/rofi/bin/yt-automatic &
 elif [ "$search_engine" = "󱑤  ytdownloader" ]; then
   ~/.config/rofi/bin/yt-downloader &
 elif [ "$search_engine" = "󰝚  Music-Downloader-Yt" ]; then
@@ -362,7 +359,7 @@ elif [ "$search_engine" = "  Course-share-market" ]; then
   $player ~/Series/SMC/ &
 elif [ "$search_engine" = "  Wagle" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  $player ~/Series/wagle.ki.duniya/ &
+  ~/Series/wagle.ki.duniya/run_wagle.sh &
 elif [ "$search_engine" = "  Type" ]; then
 	notify-send "$search_engine Practice" "Hard" -t 1500
   $browser "https://www.keybr.com/" "https://monkeytype.com/" "https://10fastfingers.com/advanced-typing-test/english" &
@@ -371,10 +368,10 @@ elif [ "$search_engine" = "  Routine" ]; then
 	zathura /mnt/Files/0Linux/Study/BIT/Second-Semester/Routine/IISEM-2079Batch.pdf &
 elif [ "$search_engine" = "  Todo" ]; then
 	notify-send "lets do it" -t 500
-	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/todo.txt" &
+	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/todo.md" &
 elif [ "$search_engine" = "  Todo_Monthly" ]; then
 	notify-send "lets do it" -t 500
-	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/monthly_todo.txt" & 
+	~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Documents/todo/monthly_todo.md" & 
 elif [ "$search_engine" = "  Ardour" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   ~/.local/bin/run_ardour &
@@ -448,8 +445,7 @@ elif [ "$search_engine" = "󱐡  Private" ]; then
   search_query
   $browser --incognito "https://www.google.com/search?q=$query" &
 elif [ "$search_engine" = "󱐡  ShellGpt" ]; then
-  search_query
-    kitty -1 --hold tgpt "$query" &
+  bspterm --class-float "tgpt -i --log ~/Temp/gptAI/gptAI.log" &
 else
 	exit 0
 fi

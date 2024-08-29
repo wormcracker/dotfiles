@@ -37,8 +37,7 @@ shift + alt + w
 
 # Terminal Apps
 ctrl + alt + h
-	killall btop ; kitty -e btop
-
+	killall btop; bspterm --class-float-fixed btop
 
 ctrl + alt + v
   sh ~/.local/bin/neovide-launcher
@@ -172,11 +171,11 @@ super + i
 	bspwinmask		
 
 super + Return
-  bspterm --float
+  bspterm --class-float
 
 # Terminal 
 alt + Return
-	alacritty
+	kitty
 
 # kill window
 ctrl + alt + x
@@ -201,7 +200,7 @@ XF86Tools
   sh ~/.config/rofi/powermenu/powermenu
 
 XF86Mail
-  kitty
+  bspterm --class-float
 
 XF86WWW
   sh ~/.config/rofi/bin/rofi-quicklink
@@ -240,8 +239,7 @@ ctrl + grave
 {F12,F11,F10}
 	mpc {next,toggle,prev}
 F9
-  killall ncmpcpp ; kitty -e ncmpcpp
-
+	killall ncmpcpp; bspterm --class-float-fixed ncmpcpp
 #App Own function F1 F2 F3 
 F4
   sh ~/.config/rofi/bin/yt-downloader

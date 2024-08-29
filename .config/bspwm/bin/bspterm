@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
-/* DIR="~/.config/bspwm/" */
-CONFIG="$HOME/.config/alacritty/alacritty.toml"
+CONFIG="$HOME/.config/kitty/kitty.conf"
 
-if [ "$1" == "--float" ]; then
-  alacritty --class 'alacritty-float,alacritty-float' --config-file "$CONFIG"
-elif [ "$1" == "--full" ]; then
-  alacritty --class 'Fullscreen,Fullscreen' --config-file "$CONFIG" \
-            -o window.startup_mode=fullscreen \
-            window.padding.x=50 window.padding.y=50 \
-            /* window.opacity=0.95 font.size=14 */
+if [ "$1" == "--class-float" ]; then
+  kitty --class 'kitty-float' --config "$CONFIG" \
+        --override "initial_window_width=100c" --override "initial_window_height=25c" \
+        sh -c -e "${2:-zsh}"
+elif [ "$1" == "--class-float-fixed" ]; then
+  if [[ "$2" == "--hold" ]]; then
+    kitty --class 'kitty-float-fixed' --config "$CONFIG" \
+          --override "initial_window_width=135c" --override "initial_window_height=40c" \
+          --hold sh -c -e "${3:-zsh}"
+  else
+    kitty --class 'kitty-float-fixed' --config "$CONFIG" \
+          --override "initial_window_width=135c" --override "initial_window_height=40c" \
+          -e "${2:-zsh}"
+  fi
 else
-  alacritty --config-file "$CONFIG"
+  kitty --config "$CONFIG" "${1:-zsh}"
 fi
