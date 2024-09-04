@@ -1,5 +1,8 @@
 #!/bin/bash
 
+browser=brave
+
+autoYoutubeSearch(){
 # Get content from clipboard
 clipboard_content=$(xclip -o -selection clipboard)
 
@@ -7,4 +10,32 @@ clipboard_content=$(xclip -o -selection clipboard)
 encoded_content=$(echo "$clipboard_content" | sed 's/ /+/g')
 
 # Open Brave browser and search YouTube
-brave "https://www.youtube.com/results?search_query=$encoded_content"
+$browser "https://www.youtube.com/results?search_query=$encoded_content"
+}
+
+inputYoutbeSearch(){
+  query=$(rofi -dmenu -p "  YouTube")
+  if [[ -z "$query" ]]; then
+    sh ~/.config/rofi/bin/rofi-quicklink
+    exit 0
+  else
+    notify-send "Searching $query" "Using $search_engine" -t 2200
+    echo "$query" | printf %s "$(< /dev/stdin)" | xclip -sel c
+    echo "$query"  # Output the query as the return value of the function
+  fi
+  $browser "https://youtube.com/results?search_query=$query" &
+}
+
+# Check for the provided argument
+case "$1" in
+  autoYoutubeSearch)
+    autoYoutubeSearch
+    ;;
+  userYoutubeSearch)
+    inputYoutbeSearch
+    ;;
+  *)
+    echo "Usage: $0 {autoYoutubeSearch|userYoutubeSearch}"
+    exit 1
+    ;;
+esac

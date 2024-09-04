@@ -246,9 +246,9 @@ F4
 
 #Auto-run Scripts
 F5
-  sh ~/.config/rofi/bin/auto_google_search
+  sh ~/.config/rofi/bin/auto_google_search autoGoogleSearch
 F6
- sh  ~/.config/rofi/bin/auto_youtube_search
+ sh  ~/.config/rofi/bin/auto_youtube_search autoYoutubeSearch
 F7
  sh ~/.config/rofi/bin/auto_movie_search
 F8

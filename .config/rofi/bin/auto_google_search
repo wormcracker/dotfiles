@@ -1,10 +1,41 @@
 #!/bin/bash
 
+browser=brave
+
+autoGoogleSearch(){
 # Get content from clipboard
 clipboard_content=$(xclip -o -selection clipboard)
 
 # Encode clipboard content for URL
 encoded_content=$(echo "$clipboard_content" | sed 's/ /+/g')
 
-# Open Brave browser and search YouTube
-brave "https://www.google.com/search?q=$encoded_content"
+# Open Brave browser and search google
+$browser "https://www.google.com/search?q=$encoded_content"
+}
+
+inputGoogleSearch(){
+  query=$(rofi -dmenu -p "  Google")
+  if [[ -z "$query" ]]; then
+    sh ~/.config/rofi/bin/rofi-quicklink
+    exit 0
+  else
+    notify-send "Searching $query" "Using $search_engine" -t 2200
+    echo "$query" | printf %s "$(< /dev/stdin)" | xclip -sel c
+    echo "$query"  # Output the query as the return value of the function
+  fi
+  $browser "https://www.google.com/search?q=$query" &
+}
+
+# Check for the provided argument
+case "$1" in
+  autoGoogleSearch)
+    autoGoogleSearch
+    ;;
+  userGoogleSearch)
+    inputGoogleSearch
+    ;;
+  *)
+    echo "Usage: $0 {autoGoogleSearch|userGoogleSearch}"
+    exit 1
+    ;;
+esac

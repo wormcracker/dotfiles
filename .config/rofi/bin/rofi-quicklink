@@ -156,7 +156,7 @@ elif [ "$search_engine" = "󰎕  News" ]; then
   $browser "https://www.facebook.com/officialroutineofnepalbanda/" &
 elif [ "$search_engine" = "  English-Practice" ]; then
   $player --fs --speed=1 ~/Study/English/ReadingListening/ & 
-  $browser "https://chatgpt.com/c/cbb10b8c-f815-47e4-9821-4e26922f85dd" &
+  $browser "https://chatgpt.com/c/adc941f9-f6eb-474c-a90d-ad53dffdeb18" &
   ~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Study/Notes/english/vocabulary.md" &
 elif [ "$search_engine" = "  Recorder" ]; then
   notify-send "Opening" "$search_engine" -t 1500
@@ -209,14 +209,6 @@ elif [ "$search_engine" = "  BIT" ]; then
 elif [ "$search_engine" = "󰟚  Metronome" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://stonekick.com/metronomebeats/" &
-elif [ "$search_engine" = "󰝚  Music-Lyrics" ]; then
-  notify-send "Opening" "$search_engine" -t 1500
-  current_title=$(mpc current -f %title%)
-  current_artist=$(mpc current -f %artist%)
-  search_query="$current_title song $current_artist artist romanized lyrics"
-  search_query_direct="$current_title $current_artist"
-  search_query=$(echo "$search_query" | sed 's/ /+/g')
-  $browser "https://genius.com/search?q=$search_query_direct" "https://www.google.com/search?q=$search_query" &
 elif [ "$search_engine" = "󱎑  Share-stock-chart" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://www.nepsealpha.com/trading/chart" &
@@ -304,7 +296,9 @@ elif [ "$search_engine" = "󰋌  Headphone" ]; then
 elif [ "$search_engine" = "󱑤  ytdownloader" ]; then
   ~/.config/rofi/bin/yt-downloader &
 elif [ "$search_engine" = "󰝚  Music-Downloader-Yt" ]; then
-  ~/.config/rofi/bin/yt-music-downloader &
+  ~/.config/rofi/bin/yt-music-downloader musicDownloader &
+elif [ "$search_engine" = "󰝚  Music-Lyrics" ]; then
+  ~/.config/rofi/bin/yt-music-downloader musicLyricsFinder &
 elif [ "$search_engine" = "󱑤  Downloads" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	$filemanager "/mnt/Downloads/1windows/Downloads/"	&
@@ -412,11 +406,9 @@ elif [ "$search_engine" = "󰌁  RGB White" ]; then
 # $$$/    $$$ |$$       |$$    $$/         $$    $$/ $$       |$$ |  $$ |$$ |  $$ |$$    $$/ $$ |  $$ |
 # $$/      $$/ $$$$$$$$/ $$$$$$$/           $$$$$$/  $$$$$$$$/ $$/   $$/ $$/   $$/  $$$$$$/  $$/   $$/ 
 elif [ "$search_engine" = "  Google" ]; then
-  search_query
-  $browser "https://www.google.com/search?q=$query" &
+  ~/.config/rofi/bin/auto_google_search userGoogleSearch &
 elif [ "$search_engine" = "  YouTube" ]; then
-  search_query
-  $browser "https://youtube.com/results?search_query=$query" &
+  ~/.config/rofi/bin/auto_youtube_search userYoutubeSearch &
 elif [ "$search_engine" = "  Google" ]; then
   search_query
     $browser "https://www.google.com/search?q=$query" &
