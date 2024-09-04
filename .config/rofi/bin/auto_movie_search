@@ -1,10 +1,66 @@
 #!/bin/bash
 
-# Get content from clipboard
-clipboard_content=$(xclip -o -selection clipboard)
+browser=brave
 
-# Encode clipboard content for URL
-query=$(echo "$clipboard_content" | sed 's/ /+/g')
+# Function to handle query from clipboard
+search_from_clipboard() {
+    clipboard_content=$(xclip -o -selection clipboard)
+    query=$(echo "$clipboard_content" | sed 's/ /+/g')
+    open_urls_input "$query"
+}
 
-# Open Brave browser and search YouTube
-brave "https://www.mkvcinemas.blog/?s=$query" "https://moviesmod.zip/?s=$query" "https://hdhub4u.mov/?s=$query" "https://bollyflix.fans/?s=$query" "https://katmoviehd.ma/?s=$query" "https://cineb.rs/search/$query" "https://allmovieshub.photos/?s=$query" "https://1xbetmovies.online/?s=$query" "https://www.youtube.com/results?search_query=$query official trailer" "https://www.youtube.com/results?search_query=$query Review hindi"
+# Function to handle query from user input via rofi
+search_from_user_input() {
+    search_engine="󱜂  MovieSearch"
+    query=$(rofi -dmenu -p "$search_engine :")
+    if [[ -z "$query" ]]; then
+        sh ~/.config/rofi/bin/rofi-quicklink
+        exit 0
+    else
+        notify-send "Searching $query" "Using $search_engine" -t 2200
+        echo "$query" | xclip -sel c
+        open_urls_input "$query"
+    fi
+}
+
+# Function to open URLs in the browser with the search query
+open_urls_input() {
+    query=$1
+    $browser "https://www.mkvcinemas.blog/?s=$query" \
+             "https://moviesmod.zip/?s=$query" \
+             "https://hdhub4u.mov/?s=$query" \
+             "https://katmoviehd.dad/?s=$query" \
+             "https://allmovieshub.me/?s=$query" \
+             "https://bollyflix.fans/?s=$query" \
+             "https://oesscu.in/?s=$query" \
+             "https://cineb.rs/search/$query" \
+             "https://www.youtube.com/results?search_query=$query+official+trailer" \
+             "https://www.youtube.com/results?search_query=$query+Review+hindi" &
+}
+
+# Function to open default movie-related URLs
+open_urls() {
+    $browser "https://mkvcinemas.blog/" \
+             "https://moviesmod.zip/korean-series/" \
+             "https://hdhub4u.mov/" \
+             "https://katmoviehd.dad/" \
+             "https://allmovieshubs.me/" \
+             "https://thekhatrimaza.mov/" \
+             "https://bollyflix.fans/" \
+             "https://oesscu.in/" &
+}
+
+# Main script execution
+if [ "$1" == "clip" ]; then
+    # If the argument is 'clip', use clipboard content
+    search_from_clipboard
+elif [ "$1" == "input" ]; then
+    # If the argument is 'input', use rofi for user input
+    search_from_user_input
+elif [ "$1" == "urls" ]; then
+    # If the argument is 'urls', open the predefined websites
+    open_urls
+else
+    echo "Usage: $0 {clip|input|urls}"
+    exit 1
+fi

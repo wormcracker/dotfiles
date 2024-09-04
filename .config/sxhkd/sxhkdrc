@@ -1,4 +1,4 @@
-#
+#sxhdk
 # wm independent hotkeys
 
 ##---------- Rofi Launcher & Menus ----------##
@@ -213,14 +213,14 @@ XF86HomePage
 
 # Brighness control
 XF86MonBrightness{Up,Down}
-  {sh ~/.local/bin/switch-output/brightness-up,sh ~/.local/bin/switch-output/brightness-down}
+  {sh ~/.local/bin/audio_switch brightness-up,sh ~/.local/bin/audio_switch brightness-down}
 	
 # Volume control
 XF86Audio{RaiseVolume,LowerVolume}
-  {sh ~/.local/bin/switch-output/increase-volume,sh ~/.local/bin/switch-output/decrease-volume}
+  {sh ~/.local/bin/audio_switch volume-increase,sh ~/.local/bin/audio_switch volume-decrease}
 
 XF86AudioMute
-  sh ~/.local/bin/switch-output/volume-mute
+  sh ~/.local/bin/audio_switch volume-mute
 
 XF86AudioMicMute
   amixer sset Capture nocap
@@ -250,7 +250,7 @@ F5
 F6
  sh  ~/.config/rofi/bin/auto_youtube_search autoYoutubeSearch
 F7
- sh ~/.config/rofi/bin/auto_movie_search
+ sh ~/.config/rofi/bin/auto_movie_search clip
 F8
   brave "file:///mnt/Files/0Linux/Music/Metronome/index.html"
 super + F8
