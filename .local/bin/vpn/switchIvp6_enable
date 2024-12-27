@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Check if IPv6 is already enabled
+isEnabled=$(sysctl -a 2>/dev/null | grep all.disable_ipv6)
+if [[ $isEnabled == "net.ipv6.conf.all.disable_ipv6 = 0" ]]; then
+    echo "IPv6 is already enabled."
+    exit 0
+fi
+
+# Enable IPv6
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=0
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=0
+
+echo "IPv6 enabled successfully, kindly reconnect to the network."

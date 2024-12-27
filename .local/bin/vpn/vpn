@@ -1,0 +1,184 @@
+#!/bin/bash
+
+# Required pass.txt file with username and password ((easily get it from official website of proton vpn))
+# Required a sperate folder of servers ( servers can be many as you want ) 
+
+# Get the directory where the script is located
+SCRIPT_DIR="$(dirname "$0")"
+BROWSER=brave
+
+# Function to ask for sudo password using Rofi
+ask_sudo_password() {
+    local PASSWORD=$(rofi -dmenu -password -p "Enter password:")
+    echo "$PASSWORD"
+}
+
+# Function to run sudo command with the captured password
+run_sudo() {
+    local PASSWORD="$1"
+    shift
+    echo "$PASSWORD" | sudo -S "$@" 2>/dev/null
+    if [ $? -ne 0 ]; then
+        notify-send "Sudo Command Failed" "Please check your Password and Try Again."
+        exit 1
+    fi
+}
+
+# Function to check if there is network connectivity
+is_network_available() {
+    curl -s --connect-timeout 5 https://api.ipify.org >/dev/null
+    if [ $? -eq 0 ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Function to get the current IP address
+get_current_ip() {
+    if is_network_available; then
+        curl -s https://api.ipify.org
+    else
+        echo "No network connection."
+        exit 1
+    fi
+}
+
+# Function to check VPN connection
+check_vpn_connection() {
+    if is_network_available; then
+        curl -s --connect-timeout 10 https://api.ipify.org >/dev/null
+    else
+        echo "No network connection."
+        exit 1
+    fi
+}
+
+# Function to check if OpenVPN is running
+is_vpn_running() {
+    [ -f "$SCRIPT_DIR/openvpn.pid" ] && ps -p $(cat "$SCRIPT_DIR/openvpn.pid") > /dev/null
+}
+
+# Function to disconnect from OpenVPN server
+disconnect_vpn() {
+    local PID_FILE="$SCRIPT_DIR/openvpn.pid"
+    
+    # Ask for sudo password using Rofi
+    local PASSWORD=$(ask_sudo_password)
+
+    # Check if the PID file exists and contains a PID
+    if [ -f "$PID_FILE" ] && [ -s "$PID_FILE" ]; then
+        local OPENVPN_PID=$(cat "$PID_FILE")
+        
+        # Check if OpenVPN process is running
+        if ps -p $OPENVPN_PID > /dev/null; then
+            # Stop OpenVPN
+            kill $OPENVPN_PID
+            
+            # Wait for OpenVPN to stop
+            wait $OPENVPN_PID 2>/dev/null
+            
+            # Switch IPv6 back on
+            run_sudo "$PASSWORD" sh "$SCRIPT_DIR/switchIvp6_enable"
+            
+            # Notify user about disconnection
+            notify-send "VPN Connection" "Disconnected from VPN" -t 2000
+            sh "$HOME/.local/bin/ip-check"
+        else
+            echo "OpenVPN process not running."
+            notify-send  "VPN Connection" "OpenVPN process not running."
+            exit 1
+        fi
+        
+        # Remove the PID file
+        rm -f "$PID_FILE"
+    else
+        echo "PID file not found or empty."
+        notify-send  "VPN Connection" "Already Disconnected"
+        exit 1
+    fi
+
+    exit 0
+}
+
+# Function to connect to a random OpenVPN server
+connect_to_random_server() {
+    if ! is_network_available; then
+        notify-send "No Network" "Cannot connect to VPN without an internet connection."
+        exit 1
+    fi
+
+    local SERVERS_DIR="$SCRIPT_DIR/servers"
+    local SCRIPTS=("$SERVERS_DIR"/*.ovpn)
+    local RANDOM_INDEX=$((RANDOM % ${#SCRIPTS[@]}))
+    local SELECTED_SCRIPT="${SCRIPTS[$RANDOM_INDEX]}"
+    
+    # Ask for sudo password using Rofi
+    local PASSWORD=$(ask_sudo_password)
+    
+    # If VPN is already running, disconnect it
+    if is_vpn_running; then
+        echo "A VPN connection is already active. Disconnecting old VPN..."
+        notify-send "VPN already active" "Disconnecting old VPN"
+        disconnect_vpn
+    fi
+    
+    # Store the current IP address
+    local INITIAL_IP=$(get_current_ip)
+    sleep 1;
+    
+    # Switch IPv6 off
+    run_sudo "$PASSWORD" sh "$SCRIPT_DIR/switchIvp6_disable"
+    
+    # Run OpenVPN with the selected configuration file
+    echo "$PASSWORD" | sudo -S openvpn --config "$SELECTED_SCRIPT" --auth-user-pass "$SCRIPT_DIR/pass.txt" --auth-nocache &
+    local VPN_PID=$!
+    notify-send "VPN Connection" "Connecting to $(basename "$SELECTED_SCRIPT")"
+    
+    # Save the PID to a file
+    echo $VPN_PID > "$SCRIPT_DIR/openvpn.pid"
+    
+    # Wait for OpenVPN to start and check IP address
+    local timeout=30
+    local CONNECTED=0
+    while [ $timeout -gt 0 ]; do
+        sleep 1
+        local CURRENT_IP=$(get_current_ip)
+        if [ "$CURRENT_IP" != "$INITIAL_IP" ]; then
+            CONNECTED=1
+            break
+        fi
+        timeout=$((timeout - 1))
+    done
+
+    if [ $CONNECTED -eq 1 ]; then
+        # VPN connected successfully
+        dunstctl close
+        sh "$HOME/.local/bin/ip-check"
+        $BROWSER --incognito
+        
+    else
+        # VPN connection failed
+        notify-send -u critical "VPN Connection" "VPN connection failed."
+        run_sudo "$PASSWORD" sh "$SCRIPT_DIR/switchIvp6_enable"
+        exit 1
+    fi
+    
+    exit 0
+}
+
+# Main script
+case "$1" in
+    "connect")
+        connect_to_random_server
+        ;;
+    "disconnect")
+        disconnect_vpn
+        ;;
+    *)
+        echo "Invalid option. Use 'connect' or 'disconnect'."
+        exit 1
+        ;;
+esac
+
+exit 0

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Check if IPv6 is already disabled
+isEnabled=$(sysctl -a 2>/dev/null | grep all.disable_ipv6)
+if [[ $isEnabled == "net.ipv6.conf.all.disable_ipv6 = 1" ]]; then
+    echo "IPv6 is already disabled."
+    exit 0
+fi
+
+# Disable IPv6
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+
+echo "IPv6 disabled successfully."
+
