@@ -1,11 +1,7 @@
 #!/bin/bash
 
-# Required pass.txt file with username and password ((easily get it from official website of proton vpn))
-# Required a sperate folder of servers ( servers can be many as you want ) 
-
 # Get the directory where the script is located
 SCRIPT_DIR="$(dirname "$0")"
-BROWSER=brave
 
 # Function to ask for sudo password using Rofi
 ask_sudo_password() {
@@ -155,7 +151,7 @@ connect_to_random_server() {
         # VPN connected successfully
         dunstctl close
         sh "$HOME/.local/bin/ip-check"
-        $BROWSER --incognito
+        brave --incognito
         
     else
         # VPN connection failed
