@@ -51,6 +51,8 @@ super + ctrl + x
 # Take a screenshot
 Print
 	 flameshot gui
+F3
+	 flameshot gui
 	
 # Take screenshot in 5 second
 alt + Print	
@@ -72,7 +74,7 @@ super + Escape
 	pkill -USR1 -x sxhkd
 	
 # make sxhkd reload its configuration files:
-shift + Escape	
+ctrl + shift + Escape	
 	xkill
 
 # close and kill
@@ -185,6 +187,10 @@ ctrl + alt + x
 alt + c
 	~/.config/rofi/bin/rofi-quicklink
 
+# Quicklink
+alt + f
+	~/.config/rofi/bin/pen_tab_notes
+
 # switch between output devices
 super + shift + m
   sh ~/.local/bin/audio_switch volume-mute
@@ -195,6 +201,9 @@ alt + {equal,minus}
 alt + shift + {equal,minus}
   {sh ~/.local/bin/audio_switch brightness-up,sh ~/.local/bin/audio_switch brightness-down}
 
+# Browser apps
+super + o
+  brave "https://chatgpt.com/"
 #Function and XF86 Keys
 XF86Tools
   sh ~/.config/rofi/powermenu/powermenu
@@ -223,7 +232,7 @@ XF86AudioMute
   sh ~/.local/bin/audio_switch volume-mute
 
 XF86AudioMicMute
-  amixer sset Capture nocap
+  sh ~/.local/bin/audio_switch microphone-mute
 	
 # Music control
 XF86Audio{Next,Prev,Play,Stop}

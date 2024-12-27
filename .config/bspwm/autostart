@@ -24,6 +24,7 @@ musnify-mpd &  # Start Music player daemon client
 /usr/lib/xfce-polkit/xfce-polkit &  # Start XFCE Polkit
 "/opt/xdman/xdm-app" --background &  # Start XDM download manager
 $HOME/.local/bin/auto_lock &  # Start auto-lock script
+xbindkeys -f ~/.xbindkeysrc & # start binding key script to bind mouse button
 conky &
 python ~/Documents/Calender/calender.py &  # Start Nepali calendar script
 sh ~/.local/bin/reset_redshift &  # Start Redshift

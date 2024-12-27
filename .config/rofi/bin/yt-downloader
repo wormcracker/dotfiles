@@ -6,25 +6,40 @@ download_dir="/mnt/Downloads/1windows/Downloads"
 # Check if there's content in the clipboard
 url=$(xclip -selection clipboard -o)
 
-# If clipboard is empty, prompt for YouTube URL
+# If clipboard is empty or doesn't contain a YouTube URL, prompt an error
 if [[ -z "$url" || $url != https://www.youtube.com/* ]]; then
-    notify-send "󰗃  Youtube Download" "Error: No YouTube URL found in clipboard." -t 1500
+    notify-send "󰗃 Youtube Download" "Error: No YouTube URL found in clipboard." -t 1500
     exit 1
 fi
 
-# Download the video or playlist
+# Use Rofi to ask whether to download the playlist or a single video
 if [[ $url == *list=* ]]; then
-    # Playlist URL
-    echo "Downloading playlist..."
-    notify-send "󰗃  Youtube Download" "Downloading playlist..." -t 1500
-    output=$(yt-dlp -o "$download_dir/%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" \
-             --add-metadata --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
-             --merge-output-format mkv  \
-             "$url")
+    # Prompt user for choice using Rofi
+    choice=$(echo -e "Download playlist\nDownload single video" | rofi -dmenu -p "Choose download option:")
+
+    if [ "$choice" == "Download playlist" ]; then
+        # Playlist URL
+        echo "Downloading playlist..."
+        notify-send "󰗃 Youtube Download" "Downloading playlist..." -t 1500
+        output=$(yt-dlp -o "$download_dir/%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" \
+                 --add-metadata --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
+                 --merge-output-format mkv  \
+                 "$url")
+    elif [ "$choice" == "Download single video" ]; then
+        # Download only the first video in the playlist
+        echo "Downloading first video from the playlist..."
+        notify-send "󰗃 Youtube Download" "Downloading current video from the playlist..." -t 1500
+        output=$(yt-dlp -o "$download_dir/%(title)s.%(ext)s" \
+                 --add-metadata --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
+                 --merge-output-format mkv --no-playlist "$url")
+    else
+        notify-send "󰗃 Youtube Download" "Error: Invalid choice." -t 1500
+        exit 1
+    fi
 else
     # Single video URL
     echo "Downloading video..."
-    notify-send "󰗃  Youtube Download" "Downloading video..." -t 1500
+    notify-send "󰗃 Youtube Download" "Downloading video..." -t 1500
     output=$(yt-dlp -o "$download_dir/%(title)s.%(ext)s" \
              --add-metadata --ignore-errors --format "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best[ext=mp4]/best" \
              --merge-output-format mkv  \
@@ -32,6 +47,7 @@ else
 fi
 
 # Get the video name 
+url=$(echo "$url" | sed 's/&list=.*//')
 video_info=$(yt-dlp --get-title "$url")
 video_name=$(echo "$video_info" | sed -n 1p)
 
@@ -41,7 +57,7 @@ if [[ $output == *ERROR* ]]; then
     notify-send -u critical "Youtube Download" "Download failed"
 else
     # Show success notification
-    notify-send "󰗃  Youtube Download" "Download completed....\n$video_name " 
+    notify-send "Youtube Download" "Download completed:\n$video_name" 
 fi
 
 exit 0

@@ -17,7 +17,7 @@ IP_ADDRESS=$(rofi -dmenu -p "Enter device IP address:")
 
 # If the user cancels or doesn't provide input, exit
 if [ -z "$IP_ADDRESS" ]; then
-    IP_ADDRESS="192.168.16.101"
+    IP_ADDRESS="192.168.16.100"
     echo "Using default"
 fi
 

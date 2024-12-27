@@ -43,8 +43,7 @@ search_engine=$(echo -e "\
 󰼁  Jellyfin
   Scrcpy(Android)
   Lofi
-  Course-frontend
-  Course-share-market
+  Course-web
   Wagle
   BIT
   Routine
@@ -58,11 +57,17 @@ search_engine=$(echo -e "\
   Todo_Monthly
 󰝚  Music-Downloader-Yt
 󰝚  Music-Lyrics
-󱎑  Share-stock-chart
-󱎑  Share-stock-mersoshare
-󱎑  Share-stock-journal
-󱎑  Share-stock-tms
-󱎑  Share-stock-calculation
+󱎑  Share-excel
+󱎑  Share-chart
+󱎑  Share-meroshare
+󱎑  Share-tms
+󱎑  Share-calculator
+󱎑  Share-portfolio
+󱎑  Share-momentum
+󱎑  Share-rotation
+󱎑  Share-trending
+󱎑  Share-MBOSS
+󱎑  Share-news
 󰒋  Urserver
   File(Desktop)
   File(Android)
@@ -92,6 +97,8 @@ search_engine=$(echo -e "\
 󰶐  Mon-Disconnect
 󰍹  Mon-External
 󰃉  Colorpicker
+󰓩  Tablet-left
+󰓩  Tablet-right
 󰩟  IPcheck
 󰩟  IPAddress
 󱎫  Timer
@@ -156,7 +163,7 @@ elif [ "$search_engine" = "󰎕  News" ]; then
   $browser "https://www.facebook.com/officialroutineofnepalbanda/" &
 elif [ "$search_engine" = "  English-Practice" ]; then
   $player --fs --speed=1 ~/Study/English/ReadingListening/ & 
-  $browser "https://chatgpt.com/c/adc941f9-f6eb-474c-a90d-ad53dffdeb18" &
+  $browser "https://chatgpt.com/c/f4a68937-1ddd-47d5-bd4a-cc8493dfd42d" &
   ~/.local/bin/neovide-launcher "/mnt/Files/0Linux/Study/Notes/english/vocabulary.md" &
 elif [ "$search_engine" = "  Recorder" ]; then
   notify-send "Opening" "$search_engine" -t 1500
@@ -170,6 +177,9 @@ elif [ "$search_engine" = "󰻞  Bard" ]; then
 elif [ "$search_engine" = "  Chatgpt" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://chat.openai.com/" &
+elif [ "$search_engine" = "󰻞  Gemini" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://gemini.google.com/app" &
 elif [ "$search_engine" = "  Github" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://github.com/wormcracker" &
@@ -208,21 +218,39 @@ elif [ "$search_engine" = "  BIT" ]; then
 elif [ "$search_engine" = "󰟚  Metronome" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://stonekick.com/metronomebeats/" &
-elif [ "$search_engine" = "󱎑  Share-stock-chart" ]; then
+elif [ "$search_engine" = "󱎑  Share-chart" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://www.nepsealpha.com/trading/chart" &
-elif [ "$search_engine" = "󱎑  Share-stock-journal" ]; then
+elif [ "$search_engine" = "󱎑  Share-excel" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  $browser "https://docs.google.com/spreadsheets/d/1NtvNpAtLlsY2Woat5fK4emrbL9w3lY5xwZMMfBg4c3g/edit?gid=1081714275#gid=1081714275" &
-elif [ "$search_engine" = "󱎑  Share-stock-mersoshare" ]; then
+  $browser "https://docs.google.com/spreadsheets/d/1-4n092SY5E3Kwq3LIQWE6OhwqEpZ77c6OHOD_Ek-SO4/edit?gid=0#gid=0" &
+elif [ "$search_engine" = "󱎑  Share-meroshare" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://meroshare.cdsc.com.np" &
-elif [ "$search_engine" = "󱎑  Share-stock-tms" ]; then
+elif [ "$search_engine" = "󱎑  Share-tms" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://tms58.nepsetms.com.np" &
-elif [ "$search_engine" = "󱎑  Share-stock-calculation" ]; then
+elif [ "$search_engine" = "󱎑  Share-portfolio" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://www.nepsealpha.com/sastoshare/portfolio/me" &
+elif [ "$search_engine" = "󱎑  Share-MBOSS" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://client.naasasecurities.com.np/SalesPurchaseReport" &
+elif [ "$search_engine" = "󱎑  Share-news" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://www.sharesansar.com/" &
+elif [ "$search_engine" = "󱎑  Share-calculator" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "https://naasasecurities.com.np/stock-calculation" &
+elif [ "$search_engine" = "󱎑  Share-trending" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://nepsealpha.com/trending-stocks" &
+elif [ "$search_engine" = "󱎑  Share-rotation" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://nepsealpha.com/sector-rotation" &
+elif [ "$search_engine" = "󱎑  Share-momentum" ]; then
+  notify-send "Opening" "$search_engine" -t 1500
+  $browser "https://nepsealpha.com/stock-momentum" &
 elif [ "$search_engine" = "  LiveServer" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $browser "/mnt/Files/0Linux/Study/Notes/frontend/" &
@@ -291,7 +319,7 @@ elif [ "$search_engine" = "󰓃  HDMI" ]; then
 elif [ "$search_engine" = "󰋌  USB" ]; then
   ~/.local/bin/audio_switch speaker-usb
 elif [ "$search_engine" = "󰋌  Headphone" ]; then
-  ~/.local/bin/audio_switch speaker-headphone
+  ~/.local/bin/audio_switch speaker-usb-headphone
 elif [ "$search_engine" = "󱑤  ytdownloader" ]; then
   ~/.config/rofi/bin/yt-downloader &
 elif [ "$search_engine" = "󰝚  Music-Downloader-Yt" ]; then
@@ -332,6 +360,12 @@ elif [ "$search_engine" = "󰝱  Guitar" ]; then
 # |              | || |              | || |              | || |              | || |              | || |              | |
 # '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
 #'----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
+elif [ "$search_engine" = "󰓩  Tablet-left" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+  xsetwacom set "UGTABLET M708 Pen stylus" MapToOutput "1920x1080+0+0"
+elif [ "$search_engine" = "󰓩  Tablet-right" ]; then
+	notify-send "Opening" "$search_engine" -t 1500
+  xsetwacom set "UGTABLET M708 Pen stylus" MapToOutput "1920x1080+1920+0"
 elif [ "$search_engine" = "󰥔  Clock" ]; then
 	notify-send "Opening" "$search_engine" -t 1500
 	alacritty --config-file=$HOME/.config/alacritty/clock-alacritty.toml -e tty-clock -s -c -b -t -D
@@ -344,12 +378,9 @@ elif [ "$search_engine" = "  Lofi" ]; then
 elif [ "$search_engine" = "󰷶  Stretch" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   $player --fs --speed=1 --start=00:00:00 --volume=75 ~/workout/Stretch/stretch.mp4 &
-elif [ "$search_engine" = "  Course-frontend" ]; then
+elif [ "$search_engine" = "  Course-web" ]; then
   notify-send "Opening" "$search_engine" -t 1500
-  $player ~/Series/frontEnd/ &
-elif [ "$search_engine" = "  Course-share-market" ]; then
-  notify-send "Opening" "$search_engine" -t 1500
-  $player ~/Series/SMC/ &
+  $player ~/Downloads/PracticeProject/youtube_clone.mkv &
 elif [ "$search_engine" = "  Wagle" ]; then
   notify-send "Opening" "$search_engine" -t 1500
   ~/Series/wagle.ki.duniya/run_wagle.sh &

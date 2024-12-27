@@ -28,14 +28,17 @@ bspc rule -a TekaPoint      state=fullscreen focus=on sticky=off follow=on
 bspc rule -a Nvidia-settings  state=floating focus=on sticky=off follow=on
 bspc rule -a Blueman-manager  state=floating focus=on sticky=off follow=on
 bspc rule -a Xarchiver      state=floating focus=on sticky=off follow=on
-bspc rule -a mpv --player-operation-mode=pseudo-gui focus=on follow=on state=floating sticky=on
+bspc rule -a "*:gl" focus=on follow=on state=floating sticky=on
 bspc rule -a Onboard focus=on follow=on state=floating sticky=on
+
 ##Desktop 1
 bspc rule -a Thunar		   desktop='^1' follow=on   focus=on
 bspc rule -a scrcpy desktop='^1' state=tiled follow=on focus=on
 bspc rule -a Xdm-app     desktop='=1' state=floating focus=on sticky=off follow=on 
 ##Desktop 2
 bspc rule -a Brave-browser desktop='^2' state=tiled follow=on
+## Brave browser instances
+bspc rule -a "*:chatgpt.com" state=tiled sticky=off desktop='^8'
 bspc rule -a firefox desktop='^2' state=tiled follow=on
 ##Desktop 3
 bspc rule -a VSCodium      desktop='^3' state=tiled follow=on
@@ -43,6 +46,7 @@ bspc rule -a Geany  	   desktop='^3' state=tiled follow=on
 bspc rule -a neovide	   desktop='^3'  state=tiled follow=on focus=on 
 ##Desktop 4
 bspc rule -a obsidian	   desktop='^4'  state=tiled follow=on focus=on 
+bspc rule -a Com.github.xournalpp.xournalpp	desktop='^4'  state=tiled follow=on focus=on 
 bspc rule -a Zathura       desktop='^4' state=tiled follow=on
 bspc rule -a copyq  	   desktop='^4' state=tiled follow=on
 declare -a office=(Gucharmap Atril Evince \
@@ -66,6 +70,8 @@ bspc rule -a qBittorrent   desktop='^6' state=tiled follow=on
 bspc rule -a Audacity   desktop='^7' state=tiled follow=on
 bspc rule -a Ardour   desktop='^7' state=tiled follow=on
 bspc rule -a kdenlive desktop='^7' state=tiled follow=on
+bspc rule -a openshot desktop='^7' state=tiled follow=on
+bspc rule -a resolve desktop='^7' state=tiled follow=on
 bspc rule -a Gimp   desktop='^7' state=tiled follow=on
 ##Desktop 8
 ## Kitty

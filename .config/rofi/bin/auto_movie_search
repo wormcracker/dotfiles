@@ -26,27 +26,28 @@ search_from_user_input() {
 # Function to open URLs in the browser with the search query
 open_urls_input() {
     query=$1
-    $browser "https://www.mkvcinemas.blog/?s=$query" \
-             "https://moviesmod.zip/?s=$query" \
+    $browser "https://www.mkvcinemas.com/?s=$query" \
+             "https://moviesmod.bot/?s=$query" \
              "https://hdhub4u.mov/?s=$query" \
              "https://katmoviehd.dad/?s=$query" \
              "https://allmovieshub.me/?s=$query" \
-             "https://bollyflix.fans/?s=$query" \
+             "https://bollyflix.to/?s=$query" \
              "https://oesscu.in/?s=$query" \
              "https://cineb.rs/search/$query" \
+             "https://gooddrama.icu/?search=$query" \
              "https://www.youtube.com/results?search_query=$query+official+trailer" \
              "https://www.youtube.com/results?search_query=$query+Review+hindi" &
 }
 
 # Function to open default movie-related URLs
 open_urls() {
-    $browser "https://mkvcinemas.blog/" \
-             "https://moviesmod.zip/korean-series/" \
+    $browser "https://mkvcinemas.com/" \
+             "https://moviesmod.bot/korean-series/" \
              "https://hdhub4u.mov/" \
              "https://katmoviehd.dad/" \
              "https://allmovieshubs.me/" \
              "https://thekhatrimaza.mov/" \
-             "https://bollyflix.fans/" \
+             "https://bollyflix.to/" \
              "https://oesscu.in/" &
 }
 
