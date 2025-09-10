@@ -71,4 +71,5 @@
   "editor.fontFamily"
 ],
 "terminal.integrated.fontSize": 14,
+  "editor.cursorSmoothCaretAnimation": "on",
 }
