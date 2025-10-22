@@ -1,0 +1,7 @@
+--NOTE: Handles live server
+return {
+	"barrett-ruth/live-server.nvim",
+	build = "pnpm add -g live-server",
+	cmd = { "LiveServerStart", "LiveServerStop", "LiveServerToggle" },
+	config = true,
+}
